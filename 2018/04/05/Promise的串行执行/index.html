@@ -99,18 +99,18 @@
 
 
 
-  <meta name="description" content="学习记录  误区通常如果说要实现 Promise 的串行执行，对于初学者（比如说我这种小菜鸟）来说，会不假思索的写出如下代码： 1234567function executePromises(promises) &amp;#123;  var result = Promise.resolve();  promises.forEach(function (promise) &amp;#123;    result">
+  <meta name="description" content="Promises/A+规范了解一下？  误区通常如果说要实现 Promise 的串行执行，对于初学者（比如说我这种小菜鸟）来说，会不假思索的写出如下代码： 1234567function executePromises(promises) &amp;#123;  var result = Promise.resolve();  promises.forEach(function (promise) &amp;#">
 <meta name="keywords" content="Promise串行执行">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Promise之串行执行的实现">
 <meta property="og:url" content="http://yoursite.com/2018/04/05/Promise的串行执行/index.html">
 <meta property="og:site_name" content="Pororo&#39;s blog">
-<meta property="og:description" content="学习记录  误区通常如果说要实现 Promise 的串行执行，对于初学者（比如说我这种小菜鸟）来说，会不假思索的写出如下代码： 1234567function executePromises(promises) &amp;#123;  var result = Promise.resolve();  promises.forEach(function (promise) &amp;#123;    result">
+<meta property="og:description" content="Promises/A+规范了解一下？  误区通常如果说要实现 Promise 的串行执行，对于初学者（比如说我这种小菜鸟）来说，会不假思索的写出如下代码： 1234567function executePromises(promises) &amp;#123;  var result = Promise.resolve();  promises.forEach(function (promise) &amp;#">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-04-05T16:35:23.861Z">
+<meta property="og:updated_time" content="2018-04-05T16:40:51.909Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Promise之串行执行的实现">
-<meta name="twitter:description" content="学习记录  误区通常如果说要实现 Promise 的串行执行，对于初学者（比如说我这种小菜鸟）来说，会不假思索的写出如下代码： 1234567function executePromises(promises) &amp;#123;  var result = Promise.resolve();  promises.forEach(function (promise) &amp;#123;    result">
+<meta name="twitter:description" content="Promises/A+规范了解一下？  误区通常如果说要实现 Promise 的串行执行，对于初学者（比如说我这种小菜鸟）来说，会不假思索的写出如下代码： 1234567function executePromises(promises) &amp;#123;  var result = Promise.resolve();  promises.forEach(function (promise) &amp;#">
 
 
 
@@ -391,7 +391,7 @@
 
       
         <blockquote>
-<p>学习记录</p>
+<p><a href="http://www.ituring.com.cn/article/66566" target="_blank" rel="noopener">Promises/A+规范</a>了解一下？</p>
 </blockquote>
 <h1 id="误区"><a href="#误区" class="headerlink" title="误区"></a>误区</h1><p>通常如果说要实现 Promise 的串行执行，对于初学者（比如说我这种小菜鸟）来说，会不假思索的写出如下代码：</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">executePromises</span>(<span class="params">promises</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> result = <span class="built_in">Promise</span>.resolve();</span><br><span class="line">  promises.forEach(<span class="function"><span class="keyword">function</span> (<span class="params">promise</span>) </span>&#123;</span><br><span class="line">    result = result.then(promise);</span><br><span class="line">  &#125;);</span><br><span class="line">  <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
