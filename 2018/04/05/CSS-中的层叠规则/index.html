@@ -99,23 +99,27 @@
 
 
 
-  <meta name="description" content="现在的我可能不那么优秀，但我会从现在开始努力变得优秀。">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Pororo&#39;s blog">
-<meta property="og:url" content="http://yoursite.com/index.html">
+  <meta name="description" content="CSS 中的层叠规则默认情况下，网页的内容是没有偏移角的垂直视觉呈现，当内容发生层叠时，就会产生一个有先后顺序的层叠。 z-index一般说到层叠首先就很容易想到 z-index 属性。 z-index 属性只和 position 不为 static 的元素在一起时才生效，可为负值也可为正值。 但是，在新出现的 CSS3 中，flex 盒子的子元素也可以设置 z-index 属性。 层叠上下文和层">
+<meta name="keywords" content="层叠规则">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CSS 中的层叠规则">
+<meta property="og:url" content="http://yoursite.com/2018/04/05/CSS-中的层叠规则/index.html">
 <meta property="og:site_name" content="Pororo&#39;s blog">
-<meta property="og:description" content="现在的我可能不那么优秀，但我会从现在开始努力变得优秀。">
+<meta property="og:description" content="CSS 中的层叠规则默认情况下，网页的内容是没有偏移角的垂直视觉呈现，当内容发生层叠时，就会产生一个有先后顺序的层叠。 z-index一般说到层叠首先就很容易想到 z-index 属性。 z-index 属性只和 position 不为 static 的元素在一起时才生效，可为负值也可为正值。 但是，在新出现的 CSS3 中，flex 盒子的子元素也可以设置 z-index 属性。 层叠上下文和层">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/Users/zhihu/Documents/z-index-order.png">
+<meta property="og:updated_time" content="2018-04-05T10:00:00.581Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Pororo&#39;s blog">
-<meta name="twitter:description" content="现在的我可能不那么优秀，但我会从现在开始努力变得优秀。">
+<meta name="twitter:title" content="CSS 中的层叠规则">
+<meta name="twitter:description" content="CSS 中的层叠规则默认情况下，网页的内容是没有偏移角的垂直视觉呈现，当内容发生层叠时，就会产生一个有先后顺序的层叠。 z-index一般说到层叠首先就很容易想到 z-index 属性。 z-index 属性只和 position 不为 static 的元素在一起时才生效，可为负值也可为正值。 但是，在新出现的 CSS3 中，flex 盒子的子元素也可以设置 z-index 属性。 层叠上下文和层">
+<meta name="twitter:image" content="http://yoursite.com/Users/zhihu/Documents/z-index-order.png">
 
 
 
 
 
 
-  <link rel="canonical" href="http://yoursite.com/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/04/05/CSS-中的层叠规则/"/>
 
 
 
@@ -125,7 +129,7 @@
   };
 </script>
 
-  <title>Pororo's blog</title>
+  <title>CSS 中的层叠规则 | Pororo's blog</title>
   
 
 
@@ -172,8 +176,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-  page-home">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -280,9 +283,9 @@
           
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -314,9 +317,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/04/05/CSS-中的层叠规则/" itemprop="url">CSS 中的层叠规则</a></h1>
+          <h1 class="post-title" itemprop="name headline">CSS 中的层叠规则</h1>
         
 
         <div class="post-meta">
@@ -383,9 +384,7 @@
       
 
       
-        
-          
-            <h1 id="CSS-中的层叠规则"><a href="#CSS-中的层叠规则" class="headerlink" title="CSS 中的层叠规则"></a>CSS 中的层叠规则</h1><p>默认情况下，网页的内容是没有偏移角的垂直视觉呈现，当内容发生层叠时，就会产生一个有先后顺序的层叠。</p>
+        <h1 id="CSS-中的层叠规则"><a href="#CSS-中的层叠规则" class="headerlink" title="CSS 中的层叠规则"></a>CSS 中的层叠规则</h1><p>默认情况下，网页的内容是没有偏移角的垂直视觉呈现，当内容发生层叠时，就会产生一个有先后顺序的层叠。</p>
 <h2 id="z-index"><a href="#z-index" class="headerlink" title="z-index"></a>z-index</h2><p>一般说到层叠首先就很容易想到 z-index 属性。</p>
 <p>z-index 属性只和 position 不为 static 的元素在一起时才生效，可为负值也可为正值。</p>
 <p>但是，在新出现的 CSS3 中，flex 盒子的子元素也可以设置 z-index 属性。</p>
@@ -454,8 +453,6 @@
 <p>（2）组件的覆盖规则具有动态性。</p>
 <p>所谓“层级计数器”，实际上就是一段JavaScript脚本，会遍历所有<body>处于显示状态的子元素，并得到最大z-index值，和默认的z-index做比较。如果超出，则显示的组件的z-index自动加1，这样就不会出现有组件被其他组件覆盖的问题；如果不超出，就使用默认的z-index值。</body></p>
 
-          
-        
       
     </div>
 
@@ -473,14 +470,20 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/层叠规则/" rel="tag"># 层叠规则</a>
+          
+        </div>
+      
+
+      
+      
+      
 
       
 
       
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -490,14 +493,19 @@
   </article>
 
 
-    
-  </section>
 
-  
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
           
+
+  
+
+
 
         </div>
         
@@ -518,8 +526,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -590,6 +607,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#CSS-中的层叠规则"><span class="nav-number">1.</span> <span class="nav-text">CSS 中的层叠规则</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#z-index"><span class="nav-number">1.1.</span> <span class="nav-text">z-index</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#层叠上下文和层叠水平"><span class="nav-number">1.2.</span> <span class="nav-text">层叠上下文和层叠水平</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#层叠上下文"><span class="nav-number">1.2.1.</span> <span class="nav-text">层叠上下文</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#层叠水平"><span class="nav-number">1.2.2.</span> <span class="nav-text">层叠水平</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#元素的层叠顺序"><span class="nav-number">1.3.</span> <span class="nav-text">元素的层叠顺序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#层叠准则"><span class="nav-number">1.4.</span> <span class="nav-text">层叠准则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#深入理解层叠上下文"><span class="nav-number">1.5.</span> <span class="nav-text">深入理解层叠上下文</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#层叠上下文的特性"><span class="nav-number">1.5.1.</span> <span class="nav-text">层叠上下文的特性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#层叠上下文的创建"><span class="nav-number">1.5.2.</span> <span class="nav-text">层叠上下文的创建</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#根层叠上下文"><span class="nav-number">1.5.2.1.</span> <span class="nav-text">根层叠上下文</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#定位元素和传统层叠上下文"><span class="nav-number">1.5.2.2.</span> <span class="nav-text">定位元素和传统层叠上下文</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CSS3-中的层叠上下文"><span class="nav-number">1.5.2.3.</span> <span class="nav-text">CSS3 中的层叠上下文</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#层叠上下文和层叠顺序"><span class="nav-number">1.5.3.</span> <span class="nav-text">层叠上下文和层叠顺序</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#z-index负值深入理解"><span class="nav-number">1.6.</span> <span class="nav-text">z-index负值深入理解</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#关于-z-index-注意事项"><span class="nav-number">1.7.</span> <span class="nav-text">关于 z-index 注意事项</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -724,6 +757,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.1.0"></script>
+
+
 
   
 
