@@ -107,7 +107,7 @@
 <meta property="og:site_name" content="Pororo&#39;s blog">
 <meta property="og:description" content="Promises/A+规范了解一下？  误区通常如果说要实现 Promise 的串行执行，对于初学者（比如说我这种小菜鸟）来说，会不假思索的写出如下代码： 1234567function executePromises(promises) &amp;#123;  var result = Promise.resolve();  promises.forEach(function (promise) &amp;#">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-04-05T16:40:51.909Z">
+<meta property="og:updated_time" content="2018-04-05T16:49:39.753Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Promise之串行执行的实现">
 <meta name="twitter:description" content="Promises/A+规范了解一下？  误区通常如果说要实现 Promise 的串行执行，对于初学者（比如说我这种小菜鸟）来说，会不假思索的写出如下代码： 1234567function executePromises(promises) &amp;#123;  var result = Promise.resolve();  promises.forEach(function (promise) &amp;#">
@@ -397,7 +397,7 @@
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">executePromises</span>(<span class="params">promises</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> result = <span class="built_in">Promise</span>.resolve();</span><br><span class="line">  promises.forEach(<span class="function"><span class="keyword">function</span> (<span class="params">promise</span>) </span>&#123;</span><br><span class="line">    result = result.then(promise);</span><br><span class="line">  &#125;);</span><br><span class="line">  <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>但其实发现，和用 <code>Promise.all()</code> 实现的的效果是一样，都是并行执行。</p>
 <p>那这是什么原因呢？</p>
-<p><strong>依照 promises 规范，一旦一个 promise 被创建，它就被执行了。</strong></p>
+<p><strong>依照 promises 规范，一旦一个 promise 被创建，它就被执行了。</strong>promises.forEach本意是顺序执行promise，也就是依次的，然而上面的代码，实际上promises并不会等待上一个promise结束就会开始执行。</p>
 <h1 id="正解"><a href="#正解" class="headerlink" title="正解"></a>正解</h1><p>所以实现的关键点就在于，在执行 <code>executePromise</code> 之前不会创建 promise。</p>
 <p>所以可以创建一个类似于下面的函数：</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createPromise</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve</span>)=&gt;</span>&#123;</span><br><span class="line">  	doSomthing()</span><br><span class="line">  	resolve()</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
