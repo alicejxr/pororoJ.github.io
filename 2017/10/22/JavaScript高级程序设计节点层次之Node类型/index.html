@@ -1,0 +1,774 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="DOM," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="节点层次12345678&amp;lt;html&amp;gt;	&amp;lt;head&amp;gt;		&amp;lt;title&amp;gt;Simple Page&amp;lt;/title&amp;gt;	&amp;lt;/head&amp;gt;	&amp;lt;body&amp;gt;		&amp;l">
+<meta name="keywords" content="DOM">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript高级程序设计节点层次之Node类型">
+<meta property="og:url" content="http://yoursite.com/2017/10/22/JavaScript高级程序设计节点层次之Node类型/index.html">
+<meta property="og:site_name" content="Pororo">
+<meta property="og:description" content="节点层次12345678&amp;lt;html&amp;gt;	&amp;lt;head&amp;gt;		&amp;lt;title&amp;gt;Simple Page&amp;lt;/title&amp;gt;	&amp;lt;/head&amp;gt;	&amp;lt;body&amp;gt;		&amp;lt;p&amp;gt;HEllo World!&amp;lt;/p&amp;gt;	&amp;lt;/body&amp;gt;&amp;lt;/html&amp;gt; 可以将这个HTML文档表示为一个层次结构。如下图：  文档节点是每个文">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/images/HTMLnode.png">
+<meta property="og:updated_time" content="2017-10-23T13:47:03.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JavaScript高级程序设计节点层次之Node类型">
+<meta name="twitter:description" content="节点层次12345678&amp;lt;html&amp;gt;	&amp;lt;head&amp;gt;		&amp;lt;title&amp;gt;Simple Page&amp;lt;/title&amp;gt;	&amp;lt;/head&amp;gt;	&amp;lt;body&amp;gt;		&amp;lt;p&amp;gt;HEllo World!&amp;lt;/p&amp;gt;	&amp;lt;/body&amp;gt;&amp;lt;/html&amp;gt; 可以将这个HTML文档表示为一个层次结构。如下图：  文档节点是每个文">
+<meta name="twitter:image" content="http://yoursite.com/images/HTMLnode.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/10/22/JavaScript高级程序设计节点层次之Node类型/"/>
+
+
+
+
+
+  <title>JavaScript高级程序设计节点层次之Node类型 | Pororo</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Pororo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">现在的我可能不那么优秀，但我会从现在开始努力变得优秀。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/22/JavaScript高级程序设计节点层次之Node类型/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Pororo">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/gakki_icon.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Pororo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">JavaScript高级程序设计节点层次之Node类型</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-22T15:21:26+08:00">
+                2017-10-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JavaScript高级程序设计/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript高级程序设计</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="节点层次"><a href="#节点层次" class="headerlink" title="节点层次"></a>节点层次</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;html&gt;</span><br><span class="line">	&lt;head&gt;</span><br><span class="line">		&lt;title&gt;Simple Page&lt;/title&gt;</span><br><span class="line">	&lt;/head&gt;</span><br><span class="line">	&lt;body&gt;</span><br><span class="line">		&lt;p&gt;HEllo World!&lt;/p&gt;</span><br><span class="line">	&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+<p>可以将这个HTML文档表示为一个层次结构。如下图：</p>
+<p><img src="/images/HTMLnode.png" alt=""></p>
+<p>文档节点是每个文档的根节点。节点对应的元素就称之为文档元素。一般的HTML文档的文档元素是<html>元素。</html></p>
+<p>每一段标记都可以通过树中的一个节点来表示：HTML元素通过元素节点表示，特性通过特性节点表示，文档类型通过文档类型节点表示，注释则通过注释节点来表示。一共有12中节点类型，这些基类都继承自一个基类型。</p>
+<a id="more"></a>
+<h2 id="Node类型"><a href="#Node类型" class="headerlink" title="Node类型"></a>Node类型</h2><p>DOM1级定义了一个Node接口，该接口将由DOM中的所有节点类型实现。这个Node接口在JavaScript中是作为Node类型实现的（除了IE其他浏览器都可以访问到）。JavaScript中的所有节点类型都继承自Node类型，因此所有节点类型都共享着相同的基本属性和方法。</p>
+<ul>
+<li>Node.ELEMENT_NODE(1)</li>
+<li>Node.ATTRIBUTE_NODE(2)</li>
+<li>Node.TEXT_NODE(3)</li>
+<li>Node.CDATA_SECTION_NODE(4)</li>
+<li>Node.ENTITY_REFERENCE_NODE(5)</li>
+<li>Node.ENTITY_NODE(6)</li>
+<li>Node.PROCESSING_INSTRUCTION_NODE(7)</li>
+<li>Node.COMMENT_NODE(8)</li>
+<li>Node.DOCUMENT_NODE(9)</li>
+<li>Node.DOCUMENT_TYPE_NODE(10)</li>
+<li>Node.DOCUMENT_FRAGMENT_NODE(11)</li>
+<li>Node.NOTETION_NODE(12)</li>
+</ul>
+<h3 id="nodeName和nodeValue属性"><a href="#nodeName和nodeValue属性" class="headerlink" title="nodeName和nodeValue属性"></a>nodeName和nodeValue属性</h3><p>这两个值完全取决于节点类型。nodeName中保存的是标签名，nodeValue的值在元素节点中为null。</p>
+<h3 id="节点关系"><a href="#节点关系" class="headerlink" title="节点关系"></a>节点关系</h3><p>每个节点都有一个childNodes属性，其中保存着一个NodeList对象（类数组对象），它实际上是基于DOM结构动态执行查询的结果；每个节点也都拥有previousSibling和nextSibling属性，第一个节点previousSibling属性值为null，最后一个节点nextSibling属性值为null。每个节点也都有一个parentNode属性。</p>
+<h3 id="操作关系"><a href="#操作关系" class="headerlink" title="操作关系"></a>操作关系</h3><ul>
+<li>appendChild()用于向childNodes列表的末尾添加一个节点。添加节点后，更新关系指针，更新完成后，返回新增节点。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var returnedNode = someNode.appendChild(newChild);</span><br></pre></td></tr></table></figure>
+<ul>
+<li>insertBefore()用于把节点放入特定的位置，这个方法接受两个参数：要插入的节点和作为参照的节点；插入节点后，被插入的节点会变成参照节点的前一个同胞节点（previousSibling），同时方法被返回；如果参照节点是null，则与appendChild()执行相同的操作。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var returnedNode = someNode.insertBefore(newChild, someNode.firstNode);</span><br></pre></td></tr></table></figure>
+<ul>
+<li>replaceChild()方法接受的两个参数是：要插入的节点和要替换的节点；要替换的节点将由这个节点返回并从文档树中被移除，同时要插入的节点占据其位置。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var returnedNode = someNode.replaceChild(newChild);</span><br></pre></td></tr></table></figure>
+<ul>
+<li>removeChild()方法接受一个参数：要移除的节点。；被移除的节点将成为方法的返回值。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var returnedNode = someNode.removeChild(someNode.firstChild);</span><br></pre></td></tr></table></figure>
+<ul>
+<li>cloneNode(）和 normalize() 是所有类型的节点都有的属性。<ul>
+<li>cloneNode()方法接受一个布尔值参数。为true时执行深复制，即复制节点及其整个子节点数；为false时执行浅复制，即只复制节点本身。 </li>
+<li>normalize()方法唯一作用就是处理文档树中的文本节点。 </li>
+</ul>
+</li>
+</ul>
+<h2 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h2><p>最近看到一个关于DOM操作的京东前端面试题，点击删除，删除本条信息，输入框里输入添加一条新的信息。附上源码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br></pre></td><td class="code"><pre><span class="line">&lt;!doctype html&gt;</span><br><span class="line">&lt;html lang=&quot;en&quot;&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset=&quot;UTF-8&quot;&gt;</span><br><span class="line">    &lt;meta name=&quot;viewport&quot;</span><br><span class="line">          content=&quot;width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0&quot;&gt;</span><br><span class="line">    &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;ie=edge&quot;&gt;</span><br><span class="line">    &lt;title&gt;增删&lt;/title&gt;</span><br><span class="line">    &lt;style type=&quot;text/css&quot;&gt;</span><br><span class="line">        body, html &#123;</span><br><span class="line">            padding: 0;</span><br><span class="line">            margin: 0;</span><br><span class="line">            font-size: 14px;</span><br><span class="line">            color: #000000;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        table &#123;</span><br><span class="line">            border-collapse: collapse;</span><br><span class="line">            width: 100%;</span><br><span class="line">            table-layout: fixed;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        thead &#123;</span><br><span class="line">            background: #3d444c;</span><br><span class="line">            color: #ffffff;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        td, th &#123;</span><br><span class="line">            border: 1px solid #e1e1e1;</span><br><span class="line">            padding: 0;</span><br><span class="line">            height: 30px;</span><br><span class="line">            line-height: 30px;</span><br><span class="line">            text-align: center;</span><br><span class="line">        &#125;</span><br><span class="line">        .add&#123;</span><br><span class="line">            width: 100%;</span><br><span class="line">            margin: 20px;</span><br><span class="line">        &#125;</span><br><span class="line">    &lt;/style&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;div class=&quot;add&quot;&gt;</span><br><span class="line">    &lt;form id=&quot;form&quot;&gt;</span><br><span class="line">        &lt;input type=&quot;text&quot; name=&quot;name&quot; placeholder=&quot;商品名称&quot;&gt;</span><br><span class="line">        &lt;input type=&quot;text&quot; name=&quot;price&quot; placeholder=&quot;价格&quot;&gt;</span><br><span class="line">        &lt;input type=&quot;button&quot; name=&quot;submit&quot; value=&quot;添加&quot; onclick=&quot;add()&quot;&gt;</span><br><span class="line">    &lt;/form&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line">&lt;table id=&quot;jsTrolley&quot;&gt;</span><br><span class="line">    &lt;thead&gt;</span><br><span class="line">    &lt;tr&gt;</span><br><span class="line">        &lt;th&gt;名称&lt;/th&gt;</span><br><span class="line">        &lt;th&gt;价格&lt;/th&gt;</span><br><span class="line">        &lt;th&gt;操作&lt;/th&gt;</span><br><span class="line">    &lt;/tr&gt;</span><br><span class="line">    &lt;/thead&gt;</span><br><span class="line">    &lt;tbody&gt;</span><br><span class="line">    &lt;tr&gt;</span><br><span class="line">        &lt;td&gt;产品1&lt;/td&gt;</span><br><span class="line">        &lt;td&gt;10.00&lt;/td&gt;</span><br><span class="line">        &lt;td&gt;&lt;a href=&quot;javascript:void(0);&quot;&gt;删除&lt;/a&gt;&lt;/td&gt;</span><br><span class="line">    &lt;/tr&gt;</span><br><span class="line">    &lt;tr&gt;</span><br><span class="line">        &lt;td&gt;产品2&lt;/td&gt;</span><br><span class="line">        &lt;td&gt;30.20&lt;/td&gt;</span><br><span class="line">        &lt;td&gt;&lt;a href=&quot;javascript:void(0);&quot;&gt;删除&lt;/a&gt;&lt;/td&gt;</span><br><span class="line">    &lt;/tr&gt;</span><br><span class="line">    &lt;tr&gt;</span><br><span class="line">        &lt;td&gt;产品3&lt;/td&gt;</span><br><span class="line">        &lt;td&gt;20.50&lt;/td&gt;</span><br><span class="line">        &lt;td&gt;&lt;a href=&quot;javascript:void(0);&quot;&gt;删除&lt;/a&gt;&lt;/td&gt;</span><br><span class="line">    &lt;/tr&gt;</span><br><span class="line">    &lt;/tbody&gt;</span><br><span class="line">    &lt;tfoot&gt;</span><br><span class="line">    &lt;tr&gt;</span><br><span class="line">        &lt;th&gt;总计&lt;/th&gt;</span><br><span class="line">        &lt;td colspan=&quot;2&quot;&gt;60.70(3件商品)&lt;/td&gt;</span><br><span class="line">    &lt;/tr&gt;</span><br><span class="line">    &lt;/tfoot&gt;</span><br><span class="line">&lt;/table&gt;</span><br><span class="line">&lt;script type=&quot;text/javascript&quot;&gt;</span><br><span class="line">  var tableObj = document.getElementById(&apos;jsTrolley&apos;)</span><br><span class="line">  var sum = 60.70</span><br><span class="line"></span><br><span class="line">  /**</span><br><span class="line">   * 添加一个商品</span><br><span class="line">   */</span><br><span class="line">  function add () &#123;</span><br><span class="line">    var form = document.getElementById(&apos;form&apos;)</span><br><span class="line">    var name = form.name.value</span><br><span class="line">    var price = form.price.value</span><br><span class="line">    var add = document.createElement(&apos;tr&apos;)</span><br><span class="line">    var src = document.getElementsByTagName(&apos;tbody&apos;)</span><br><span class="line">    var s = src[0]</span><br><span class="line">    /**添加商品并绑定函数**/</span><br><span class="line">    add.innerHTML = &apos;&lt;td&gt;&apos; + name + &apos;&lt;/td&gt;&lt;td&gt;&apos; + price + &apos;&lt;/td&gt;&lt;td&gt;&lt;a href=\&apos;javascript:void(0);\&apos; onclick=\&apos;foo(s,this)\&apos;&gt;删除&lt;/a&gt;&lt;/td&gt;&apos;</span><br><span class="line">    src[0].appendChild(add)</span><br><span class="line">    sum += parseFloat(price)</span><br><span class="line">    var num = tableObj.rows.length - 2</span><br><span class="line">    tableObj.rows[tableObj.rows.length - 1].cells[1].innerText = sum + &apos;(&apos; + num + &apos;件商品)&apos;</span><br><span class="line">    name = null</span><br><span class="line">    price = null</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  /**</span><br><span class="line">   * 绑定初始化数据</span><br><span class="line">   */</span><br><span class="line">  function bind () &#123;</span><br><span class="line">    var arr = document.getElementsByTagName(&apos;a&apos;)</span><br><span class="line">    var src = document.getElementsByTagName(&apos;tbody&apos;)</span><br><span class="line">    s = src[0]</span><br><span class="line">    var len = arr.length</span><br><span class="line">    for (var i = 0; i &lt; len; i++) &#123;</span><br><span class="line">      arr[i].setAttribute(&apos;onclick&apos;, &apos;foo(s,this)&apos;)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  /**</span><br><span class="line">   * 删除商品函数</span><br><span class="line">   * @param x</span><br><span class="line">   * @param y</span><br><span class="line">   */</span><br><span class="line">  function foo (x, y) &#123;</span><br><span class="line">    var tar = y.parentNode.parentNode</span><br><span class="line">    var v = y.parentNode.previousElementSibling.innerHTML</span><br><span class="line">    sum -= parseFloat(v)</span><br><span class="line">    x.removeChild(tar)</span><br><span class="line">    var num = tableObj.rows.length - 2</span><br><span class="line">    tableObj.rows[tableObj.rows.length - 1].cells[1].innerText = sum.toFixed(2) + &apos;(&apos; + num + &apos;件商品)&apos;</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  function show () &#123;</span><br><span class="line">    var tableRowInfo = &apos;&apos;</span><br><span class="line">    for (var i = 0; i &lt; tableObj.rows.length; i++) &#123;</span><br><span class="line">      for (var j = 0; j &lt; tableObj.rows[i].cells.length; j++) &#123;</span><br><span class="line">        tableRowInfo += tableObj.rows[i].cells[j].innerText + &apos; &apos;</span><br><span class="line">      &#125;</span><br><span class="line">      console.log(tableRowInfo) // 打印每行信息</span><br><span class="line">      tableRowInfo = &apos;&apos;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  show()</span><br><span class="line">  bind()</span><br><span class="line">&lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/DOM/" rel="tag"># DOM</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/10/19/React：setState详解/" rel="next" title="React：setState详解">
+                <i class="fa fa-chevron-left"></i> React：setState详解
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/10/23/JavaScript高级程序设计DOM拓展之HTML5/" rel="prev" title="JavaScript高级程序设计DOM拓展之HTML5">
+                JavaScript高级程序设计DOM拓展之HTML5 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/gakki_icon.jpeg"
+               alt="Pororo" />
+          <p class="site-author-name" itemprop="name">Pororo</p>
+           
+              <p class="site-description motion-element" itemprop="description">前端小菜鸡（修炼中）</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">24</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#节点层次"><span class="nav-number">1.</span> <span class="nav-text">节点层次</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Node类型"><span class="nav-number">1.1.</span> <span class="nav-text">Node类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#nodeName和nodeValue属性"><span class="nav-number">1.1.1.</span> <span class="nav-text">nodeName和nodeValue属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#节点关系"><span class="nav-number">1.1.2.</span> <span class="nav-text">节点关系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#操作关系"><span class="nav-number">1.1.3.</span> <span class="nav-text">操作关系</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#练习"><span class="nav-number">1.2.</span> <span class="nav-text">练习</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Pororo</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,915 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="计时器," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="最近的很多项目都用到了时间计时器，有顺时计数的，还有逆时计数的。由于本人水平有限，从antd-admin项目里拆分出了一个计时器。 参数介绍 className: , decimal: , decimals: , duration: , easingFn: , end: , formattingFn: , onComplete: , onStart: , prefix: , separator:">
+<meta name="keywords" content="计时器">
+<meta property="og:type" content="article">
+<meta property="og:title" content="时间计时器">
+<meta property="og:url" content="http://yoursite.com/2017/09/03/时间计时器/index.html">
+<meta property="og:site_name" content="Pororo">
+<meta property="og:description" content="最近的很多项目都用到了时间计时器，有顺时计数的，还有逆时计数的。由于本人水平有限，从antd-admin项目里拆分出了一个计时器。 参数介绍 className: , decimal: , decimals: , duration: , easingFn: , end: , formattingFn: , onComplete: , onStart: , prefix: , separator:">
+<meta property="og:updated_time" content="2017-09-03T09:33:10.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="时间计时器">
+<meta name="twitter:description" content="最近的很多项目都用到了时间计时器，有顺时计数的，还有逆时计数的。由于本人水平有限，从antd-admin项目里拆分出了一个计时器。 参数介绍 className: , decimal: , decimals: , duration: , easingFn: , end: , formattingFn: , onComplete: , onStart: , prefix: , separator:">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/09/03/时间计时器/"/>
+
+
+
+
+
+  <title>时间计时器 | Pororo</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Pororo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">只谈技术，不谈感情</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/03/时间计时器/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Pororo">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/gakki_icon.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Pororo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">时间计时器</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-03T14:43:13+08:00">
+                2017-09-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>最近的很多项目都用到了时间计时器，有顺时计数的，还有逆时计数的。由于本人水平有限，从antd-admin项目里拆分出了一个计时器。</p>
+<h1 id="参数介绍"><a href="#参数介绍" class="headerlink" title="参数介绍"></a>参数介绍</h1><ul>
+<li>className: ,</li>
+<li>decimal: ,</li>
+<li>decimals: ,</li>
+<li>duration: ,</li>
+<li>easingFn: ,</li>
+<li>end: ,</li>
+<li>formattingFn: ,</li>
+<li>onComplete: ,</li>
+<li>onStart: ,</li>
+<li>prefix: ,</li>
+<li>separator: ,</li>
+<li>start: ,</li>
+<li>suffix: ,</li>
+<li>redraw: ,</li>
+<li>style: ,</li>
+<li>useEasing: ,</li>
+<li>useGrouping: </li>
+</ul>
+<h1 id="源码"><a href="#源码" class="headerlink" title="源码"></a>源码</h1><pre><code>&apos;use strict&apos;;
+
+Object.defineProperty(exports, &quot;__esModule&quot;, {
+  value: true
+});
+exports.startAnimation = exports.formatNumber = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i &lt; props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if (&quot;value&quot; in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require(&apos;react&apos;);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _countup = require(&apos;countup.js&apos;);
+
+var _countup2 = _interopRequireDefault(_countup);
+
+function _interopRequireDefault(obj) { return obj &amp;&amp; obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError(&quot;Cannot call a class as a function&quot;); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError(&quot;this hasn&apos;t been initialised - super() hasn&apos;t been called&quot;); } return call &amp;&amp; (typeof call === &quot;object&quot; || typeof call === &quot;function&quot;) ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== &quot;function&quot; &amp;&amp; superClass !== null) { throw new TypeError(&quot;Super expression must either be null or a function, not &quot; + typeof superClass); } subClass.prototype = Object.create(superClass &amp;&amp; superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+// Adapted from the countup.js format number function
+// https://github.com/inorganik/countUp.js/blob/master/countUp.js#L46-L60
+var formatNumber = exports.formatNumber = function formatNumber(start, options) {
+  var num = &apos;&apos; + start.toFixed(options.decimals);
+  var x = num.split(&apos;.&apos;);
+  var x1 = x[0];
+  var x2 = x.length &gt; 1 ? &apos;&apos; + options.decimal + x[1] : &apos;&apos;;
+  var rgx = /(\d+)(\d{3})/;
+
+  if (options.useGrouping &amp;&amp; options.separator) {
+    while (rgx.test(x1)) {
+      x1 = x1.replace(rgx, &apos;$1&apos; + options.separator + &apos;$2&apos;);
+    }
+  }
+  return &apos;&apos; + options.prefix + x1 + x2 + options.suffix;
+};
+
+var startAnimation = exports.startAnimation = function startAnimation(component) {
+  if (!(component &amp;&amp; component.spanElement)) {
+    throw new Error(&apos;You need to pass the CountUp component as an argument!\neg. this.myCountUp.startAnimation(this.myCountUp);&apos;);
+  }
+
+  var _component$props = component.props,
+      decimal = _component$props.decimal,
+      decimals = _component$props.decimals,
+      duration = _component$props.duration,
+      easingFn = _component$props.easingFn,
+      end = _component$props.end,
+      formattingFn = _component$props.formattingFn,
+      onComplete = _component$props.onComplete,
+      onStart = _component$props.onStart,
+      prefix = _component$props.prefix,
+      separator = _component$props.separator,
+      start = _component$props.start,
+      suffix = _component$props.suffix,
+      useEasing = _component$props.useEasing,
+      useGrouping = _component$props.useGrouping;
+
+
+  var countupInstance = new _countup2.default(component.spanElement, start, end, decimals, duration, {
+    decimal: decimal,
+    easingFn: easingFn,
+    formattingFn: formattingFn,
+    separator: separator,
+    prefix: prefix,
+    suffix: suffix,
+    useEasing: useEasing,
+    useGrouping: useGrouping
+  });
+
+  if (typeof onStart === &apos;function&apos;) {
+    onStart();
+  }
+
+  countupInstance.start(onComplete);
+};
+
+var CountUp = function (_Component) {
+  _inherits(CountUp, _Component);
+
+  function CountUp() {
+    var _ref;
+
+    var _temp, _this, _ret;
+
+    _classCallCheck(this, CountUp);
+
+    for (var _len = arguments.length, args = Array(_len), _key = 0; _key &lt; _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = CountUp.__proto__ || Object.getPrototypeOf(CountUp)).call.apply(_ref, [this].concat(args))), _this), _this.spanElement = null, _this.refSpan = function (span) {
+      _this.spanElement = span;
+    }, _temp), _possibleConstructorReturn(_this, _ret);
+  }
+
+  _createClass(CountUp, [{
+    key: &apos;componentDidMount&apos;,
+    value: function componentDidMount() {
+      startAnimation(this);
+    }
+  }, {
+    key: &apos;shouldComponentUpdate&apos;,
+    value: function shouldComponentUpdate(nextProps) {
+      var hasCertainPropsChanged = this.props.duration !== nextProps.duration || this.props.end !== nextProps.end || this.props.start !== nextProps.start;
+
+      return nextProps.redraw || hasCertainPropsChanged;
+    }
+  }, {
+    key: &apos;componentDidUpdate&apos;,
+    value: function componentDidUpdate() {
+      startAnimation(this);
+    }
+  }, {
+    key: &apos;render&apos;,
+    value: function render() {
+      var _props = this.props,
+          className = _props.className,
+          start = _props.start,
+          style = _props.style,
+          decimal = _props.decimal,
+          decimals = _props.decimals,
+          useGrouping = _props.useGrouping,
+          separator = _props.separator,
+          prefix = _props.prefix,
+          suffix = _props.suffix;
+
+
+      return _react2.default.createElement(
+        &apos;span&apos;,
+        { className: className, style: style, ref: this.refSpan },
+        formatNumber(start, {
+          decimal: decimal,
+          decimals: decimals,
+          useGrouping: useGrouping,
+          separator: separator,
+          prefix: prefix,
+          suffix: suffix
+        })
+      );
+    }
+  }]);
+
+  return CountUp;
+}(_react.Component);
+
+CountUp.defaultProps = {
+  className: undefined,
+  decimal: &apos;.&apos;,
+  decimals: 0,
+  duration: 3,
+  easingFn: null,
+  end: 100,
+  formattingFn: null,
+  onComplete: undefined,
+  onStart: undefined,
+  prefix: &apos;&apos;,
+  separator: &apos;,&apos;,
+  start: 0,
+  suffix: &apos;&apos;,
+  redraw: false,
+  style: undefined,
+  useEasing: true,
+  useGrouping: false
+};
+exports.default = CountUp;
+</code></pre><p>拆出来的是一个组件</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/计时器/" rel="tag"># 计时器</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/09/02/滚动无限加载的页面渲染优化/" rel="next" title="滚动无限加载的页面渲染优化">
+                <i class="fa fa-chevron-left"></i> 滚动无限加载的页面渲染优化
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/09/17/js执行上下文/" rel="prev" title="js执行上下文">
+                js执行上下文 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/gakki_icon.jpeg"
+               alt="Pororo" />
+          <p class="site-author-name" itemprop="name">Pororo</p>
+           
+              <p class="site-description motion-element" itemprop="description">知行合一</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#参数介绍"><span class="nav-number">1.</span> <span class="nav-text">参数介绍</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#源码"><span class="nav-number">2.</span> <span class="nav-text">源码</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Pororo</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
