@@ -316,7 +316,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/04/05/Promise的串行执行/" itemprop="url">Promise的串行执行</a></h1>
+                <a class="post-title-link" href="/2018/04/05/Promise的串行执行/" itemprop="url">Promise之串行执行的实现</a></h1>
         
 
         <div class="post-meta">
@@ -384,7 +384,13 @@
 
       
         
-          <h1 id="Promise串行执行的实现"><a href="#Promise串行执行的实现" class="headerlink" title="Promise串行执行的实现"></a>Promise串行执行的实现</h1>
+          
+          Promise之串行执行的实现
+学习记录
+
+误区通常如果说要实现 Promise 的串行执行，对于初学者（比如说我这种小菜鸟）来说，会不假思索的写出如下代码：
+1234567function executePromises(promises) &#123;  var result = Promise
+          ...
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2018/04/05/Promise的串行执行/#more" rel="contents">
