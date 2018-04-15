@@ -431,10 +431,289 @@
   
 
   
+    
+  <article class="
+  post
+  
+  ">
+    <header class="post-header">
+      <div class="post-time syuanpi riseIn-light back-1">
+        <div class="post-time-wrapper">
+          <span>2017-11-18</span>
+          
+            
+              <span class="post-category"><a href="/categories/算法/">算法</a></span>
+            
+          
+          
+        </div>
+      </div>
+      <h1 class="post-title syuanpi riseIn-light back-2">
+        
+          <a href="/2017/11/18/整数中一的个数-剑指offer-笔记/">整数中一的个数笔记</a>
+        
+      </h1>
+    </header>
+    <div class="post-content syuanpi riseIn-light back-3">
+      
+        
+          <h1 id="C-代码"><a href="#C-代码" class="headerlink" title="C++代码"></a>C++代码</h1><pre><code class="JavaScript">int countDigitOne(int n) {
+  int ones = 0;
+  for (long long m = 1; m &lt;= n; m *=10)
+    ones += (n/m +8) /10 * m + (n/m % 10 == 1) * (n%m + 1);
+  return ones;
+} 
+</code></pre>
+        
+      
+    
+      <p class="content-link">
+        <a href="/2017/11/18/整数中一的个数-剑指offer-笔记/#more">
+          <span>继续阅读</span>
+        </a>
+      </p>
+    
+    </div>
+    
+  </article>
+  
+   
+    
+  
+
+  
+    
+  <article class="
+  post
+  
+  ">
+    <header class="post-header">
+      <div class="post-time syuanpi riseIn-light back-1">
+        <div class="post-time-wrapper">
+          <span>2017-11-15</span>
+          
+            
+              <span class="post-category"><a href="/categories/Ajax/">Ajax</a></span>
+            
+          
+          
+        </div>
+      </div>
+      <h1 class="post-title syuanpi riseIn-light back-2">
+        
+          <a href="/2017/11/15/Ajax与Comet/">Ajax与Comet</a>
+        
+      </h1>
+    </header>
+    <div class="post-content syuanpi riseIn-light back-3">
+      
+        
+          <h1 id="Ajax"><a href="#Ajax" class="headerlink" title="Ajax"></a>Ajax</h1><p>Ajax技术的核心是XMLHttpRequest对象(XHR)。</p>
+<h2 id="XMLHttpRequest对象-XHR"><a href="#XMLHttpRequest对象-XHR" class="headerlink" title="XMLHttpRequest对象(XHR)"></a>XMLHttpRequest对象(XHR)</h2><p>IE5是第一款引入XHR对象的浏览器，在IE中可能会遇到三种不同版本的XHR。因此，要在IE中使用XHR对象，可以向如下代码一样：</p>
+<pre><code>function createXHR(){
+    if(typeof XMLHttpRequest != &quot;undefined&quot;){
+        return new XMLHttpRequest();
+    }else if (typeof ActiveXObeject != &quot;undefined&quot;){
+        if(typeof arguments.callee.activeXString != &quot;string&quot;){
+            var versions = { &quot;MSXML2.XMLHttp.6.0&quot;, &quot;MSXML2.XMLHttp.3.0&quot;, &quot;MSXML2.XMLHttp&quot; }, len, i;
+            for(i=0, len=arguments.length; i &lt; len; i++){
+                try{
+                    new ActiveXObkect(versions[i]);
+                    arguments.callee.activeXString = versions[i];
+                    break;
+                } catch (ex){
+                    // 跳过
+                }
+            }
+        }
+        return new ActiveXObject(arguments.callee.activeXstring);
+    } else{
+        return new Error(&quot;No XHR object available.&quot;)
+    }
+}
+</code></pre><p>这个函数先检测原生XHR对象是否存在，如果存在就返回它的一个实例。如果原生对象不存在，则检测ActiveX对象。如果都不存在，就抛出一个错误。最后所有浏览器中就可以创建XHR对象了。</p>
+<pre><code>var xhr = createXHR();
+</code></pre>
+        
+      
+    
+      <p class="content-link">
+        <a href="/2017/11/15/Ajax与Comet/#more">
+          <span>继续阅读</span>
+        </a>
+      </p>
+    
+    </div>
+    
+  </article>
+  
+   
+    
+  
+
+  
+    
+  <article class="
+  post
+  
+  ">
+    <header class="post-header">
+      <div class="post-time syuanpi riseIn-light back-1">
+        <div class="post-time-wrapper">
+          <span>2017-11-13</span>
+          
+            
+              <span class="post-category"><a href="/categories/form/">form</a></span>
+            
+          
+          
+        </div>
+      </div>
+      <h1 class="post-title syuanpi riseIn-light back-2">
+        
+          <a href="/2017/11/13/form脚本特性及其中的HTML5新特性/">form脚本特性及其中的HTML5新特性</a>
+        
+      </h1>
+    </header>
+    <div class="post-content syuanpi riseIn-light back-3">
+      
+        
+          <h1 id="表单"><a href="#表单" class="headerlink" title="表单"></a>表单</h1><h2 id="表单基础知识"><a href="#表单基础知识" class="headerlink" title="表单基础知识"></a>表单基础知识</h2><p>在HTML中表单是由<code>&lt;form&gt;</code>元素来表示，而在JavaScript中，表单则对应的是HTMLFormElement类型，因而与其他HTML元素具有相同的默认属性。但HTMLFormElement也有自己的独有的属性和方法。详见：<a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLFormElement" target="_blank" rel="noopener">HTMLFormElement</a></p>
+<p>取得<code>&lt;form&gt;</code>元素引用常见的方式有：</p>
+<ol>
+<li>为其添加id特性，然后通过<code>var form = document.getElementById(&quot;form1&quot;)</code>来找到它。</li>
+<li><p>通过<code>document.forms</code>来取得页面中的所有表单。</p>
+<ul>
+<li><code>var firstForm = document.form[0]</code>取的页面中第一个表单</li>
+<li><code>var myForm = document.form[&quot;form2&quot;]</code>取得页面中名为“form2”的表单。</li>
+</ul>
+</li>
+</ol>
+        
+      
+    
+      <p class="content-link">
+        <a href="/2017/11/13/form脚本特性及其中的HTML5新特性/#more">
+          <span>继续阅读</span>
+        </a>
+      </p>
+    
+    </div>
+    
+  </article>
+  
+   
+    
+  
+
+  
+    
+  <article class="
+  post
+  
+  ">
+    <header class="post-header">
+      <div class="post-time syuanpi riseIn-light back-1">
+        <div class="post-time-wrapper">
+          <span>2017-10-23</span>
+          
+            
+              <span class="post-category"><a href="/categories/HTML5DOM/">HTML5DOM</a></span>
+            
+          
+          
+        </div>
+      </div>
+      <h1 class="post-title syuanpi riseIn-light back-2">
+        
+          <a href="/2017/10/23/JavaScript高级程序设计DOM拓展之HTML5/">JavaScript高级程序设计DOM拓展之HTML5</a>
+        
+      </h1>
+    </header>
+    <div class="post-content syuanpi riseIn-light back-3">
+      
+        
+          <p>本文章讨论HTML5中DOM节点相关的内容</p>
+<p>对于传统THML而言HTML5是一个叛逆。所有之前的版本对JavaScript接口的描述都不过三言两语，主要篇幅都用于定义标记，与JavaScript相关的内容一概交由DOM规范去定义。</p>
+<p>而HTML5规范则围绕如何使用新增标记定义了大量JavaScript API。其中一些API与DOM重叠，定义了浏览器应该支持的DOM拓展。</p>
+        
+      
+    
+      <p class="content-link">
+        <a href="/2017/10/23/JavaScript高级程序设计DOM拓展之HTML5/#more">
+          <span>继续阅读</span>
+        </a>
+      </p>
+    
+    </div>
+    
+  </article>
+  
+   
+    
+  
+
+  
+    
+  <article class="
+  post
+  
+  ">
+    <header class="post-header">
+      <div class="post-time syuanpi riseIn-light back-1">
+        <div class="post-time-wrapper">
+          <span>2017-10-22</span>
+          
+            
+              <span class="post-category"><a href="/categories/JavaScript高级程序设计/">JavaScript高级程序设计</a></span>
+            
+          
+          
+        </div>
+      </div>
+      <h1 class="post-title syuanpi riseIn-light back-2">
+        
+          <a href="/2017/10/22/JavaScript高级程序设计节点层次之Node类型/">JavaScript高级程序设计节点层次之Node类型</a>
+        
+      </h1>
+    </header>
+    <div class="post-content syuanpi riseIn-light back-3">
+      
+        
+          <h1 id="节点层次"><a href="#节点层次" class="headerlink" title="节点层次"></a>节点层次</h1><pre><code>&lt;html&gt;
+    &lt;head&gt;
+        &lt;title&gt;Simple Page&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;p&gt;HEllo World!&lt;/p&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+</code></pre><p>可以将这个HTML文档表示为一个层次结构。如下图：</p>
+<p><img src="/images/HTMLnode.png" alt=""></p>
+<p>文档节点是每个文档的根节点。节点对应的元素就称之为文档元素。一般的HTML文档的文档元素是<html>元素。</html></p>
+<p>每一段标记都可以通过树中的一个节点来表示：HTML元素通过元素节点表示，特性通过特性节点表示，文档类型通过文档类型节点表示，注释则通过注释节点来表示。一共有12中节点类型，这些基类都继承自一个基类型。</p>
+        
+      
+    
+      <p class="content-link">
+        <a href="/2017/10/22/JavaScript高级程序设计节点层次之Node类型/#more">
+          <span>继续阅读</span>
+        </a>
+      </p>
+    
+    </div>
+    
+  </article>
+  
+   
+    
+  
+
+  
 </section>
   
   <nav class="pagination">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/">下一页 ></a>
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">下一页 ></a>
   </nav>
 
 

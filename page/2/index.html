@@ -216,61 +216,10 @@
     <header class="post-header">
       <div class="post-time syuanpi riseIn-light back-1">
         <div class="post-time-wrapper">
-          <span>2017-11-18</span>
+          <span>2017-10-19</span>
           
             
-              <span class="post-category"><a href="/categories/算法/">算法</a></span>
-            
-          
-          
-        </div>
-      </div>
-      <h1 class="post-title syuanpi riseIn-light back-2">
-        
-          <a href="/2017/11/18/整数中一的个数-剑指offer-笔记/">整数中一的个数笔记</a>
-        
-      </h1>
-    </header>
-    <div class="post-content syuanpi riseIn-light back-3">
-      
-        
-          <h1 id="C-代码"><a href="#C-代码" class="headerlink" title="C++代码"></a>C++代码</h1><pre><code class="JavaScript">int countDigitOne(int n) {
-  int ones = 0;
-  for (long long m = 1; m &lt;= n; m *=10)
-    ones += (n/m +8) /10 * m + (n/m % 10 == 1) * (n%m + 1);
-  return ones;
-} 
-</code></pre>
-        
-      
-    
-      <p class="content-link">
-        <a href="/2017/11/18/整数中一的个数-剑指offer-笔记/#more">
-          <span>继续阅读</span>
-        </a>
-      </p>
-    
-    </div>
-    
-  </article>
-  
-   
-    
-  
-
-  
-    
-  <article class="
-  post
-  
-  ">
-    <header class="post-header">
-      <div class="post-time syuanpi riseIn-light back-1">
-        <div class="post-time-wrapper">
-          <span>2017-11-15</span>
-          
-            
-              <span class="post-category"><a href="/categories/Ajax/">Ajax</a></span>
+              <span class="post-category"><a href="/categories/React/">React</a></span>
             
           
           
@@ -278,44 +227,57 @@
       </div>
       <h1 class="post-title syuanpi riseIn-light back-2">
         
-          <a href="/2017/11/15/Ajax与Comet/">Ajax与Comet</a>
+          <a href="/2017/10/19/React：setState详解/">React：setState详解</a>
         
       </h1>
     </header>
     <div class="post-content syuanpi riseIn-light back-3">
       
         
-          <h1 id="Ajax"><a href="#Ajax" class="headerlink" title="Ajax"></a>Ajax</h1><p>Ajax技术的核心是XMLHttpRequest对象(XHR)。</p>
-<h2 id="XMLHttpRequest对象-XHR"><a href="#XMLHttpRequest对象-XHR" class="headerlink" title="XMLHttpRequest对象(XHR)"></a>XMLHttpRequest对象(XHR)</h2><p>IE5是第一款引入XHR对象的浏览器，在IE中可能会遇到三种不同版本的XHR。因此，要在IE中使用XHR对象，可以向如下代码一样：</p>
-<pre><code>function createXHR(){
-    if(typeof XMLHttpRequest != &quot;undefined&quot;){
-        return new XMLHttpRequest();
-    }else if (typeof ActiveXObeject != &quot;undefined&quot;){
-        if(typeof arguments.callee.activeXString != &quot;string&quot;){
-            var versions = { &quot;MSXML2.XMLHttp.6.0&quot;, &quot;MSXML2.XMLHttp.3.0&quot;, &quot;MSXML2.XMLHttp&quot; }, len, i;
-            for(i=0, len=arguments.length; i &lt; len; i++){
-                try{
-                    new ActiveXObkect(versions[i]);
-                    arguments.callee.activeXString = versions[i];
-                    break;
-                } catch (ex){
-                    // 跳过
-                }
-            }
-        }
-        return new ActiveXObject(arguments.callee.activeXstring);
-    } else{
-        return new Error(&quot;No XHR object available.&quot;)
+          <p>首先我们来看一个栗子：</p>
+<pre><code class="JavaScript">class Eg extends Component {
+  contructor () {
+    super()
+    this.state = {
+      value: 0,
+      index: 0
     }
+  }
+
+  componentDidMount () {
+    this.setState({value: this.state.value + 1})
+    console.log(this.state.value) // 第一次输出
+    this.setState({value: this.state.value + 1})
+    console.log(this.state.value) // 第二次输出
+    setTimeout(() =&gt; {
+      this.setState({value: this.state.value + 1})
+      console.log(this.state.value) // 第三次输出
+      this.setState({value: this.state.value + 1})
+      console.log(this.state.value) // 第四次输出
+    }, 0)；
+        this.refs.button.addEventListener(&#39;click&#39;, this.click)
+  }
+
+  click = () =&gt; {
+    this.setState({value: this.state.index + 1})
+    this.setState({value: this.state.index + 1})
+  }
+
+  render () {
+    return (
+      &lt;div&gt;&lt;span&gt;value: {this.state.value}index: {this.props.index}&lt;/span&gt;
+        &lt;button ref=&quot;button&quot; onClick={this.click}&gt;点击&lt;/button&gt;
+      &lt;/div&gt;
+    )
+  }
 }
-</code></pre><p>这个函数先检测原生XHR对象是否存在，如果存在就返回它的一个实例。如果原生对象不存在，则检测ActiveX对象。如果都不存在，就抛出一个错误。最后所有浏览器中就可以创建XHR对象了。</p>
-<pre><code>var xhr = createXHR();
 </code></pre>
+<p>这四次输出，按常理来说分别是: 1，2，3，4。但是，实际输出为: 0, 0, 2, 3。</p>
         
       
     
       <p class="content-link">
-        <a href="/2017/11/15/Ajax与Comet/#more">
+        <a href="/2017/10/19/React：setState详解/#more">
           <span>继续阅读</span>
         </a>
       </p>
@@ -337,10 +299,10 @@
     <header class="post-header">
       <div class="post-time syuanpi riseIn-light back-1">
         <div class="post-time-wrapper">
-          <span>2017-11-13</span>
+          <span>2017-10-17</span>
           
             
-              <span class="post-category"><a href="/categories/form/">form</a></span>
+              <span class="post-category"><a href="/categories/React/">React</a></span>
             
           
           
@@ -348,21 +310,141 @@
       </div>
       <h1 class="post-title syuanpi riseIn-light back-2">
         
-          <a href="/2017/11/13/form脚本特性及其中的HTML5新特性/">form脚本特性及其中的HTML5新特性</a>
+          <a href="/2017/10/17/React之Diff/">React之Diff</a>
         
       </h1>
     </header>
     <div class="post-content syuanpi riseIn-light back-3">
       
         
-          <h1 id="表单"><a href="#表单" class="headerlink" title="表单"></a>表单</h1><h2 id="表单基础知识"><a href="#表单基础知识" class="headerlink" title="表单基础知识"></a>表单基础知识</h2><p>在HTML中表单是由<code>&lt;form&gt;</code>元素来表示，而在JavaScript中，表单则对应的是HTMLFormElement类型，因而与其他HTML元素具有相同的默认属性。但HTMLFormElement也有自己的独有的属性和方法。详见：<a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLFormElement" target="_blank" rel="noopener">HTMLFormElement</a></p>
-<p>取得<code>&lt;form&gt;</code>元素引用常见的方式有：</p>
+          <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>React之所以高效有一部分原因是因为Virtual DOM和diff算法的完美结合。React Diff会帮助我们计算出Virtual DOM真正变化的部分，只针对变化部分进行实际的DOM操作，并不对整个页面进行重新渲染，从而大大提高了渲染的效率。</p>
+<p>但是React的Diff算法与传统的Diff算法又有不同，React技术团队对Diff算法进行优化。</p>
+<p>传统Diff算法的复杂度达到了O(n^3)（n为树中的总结点数）,而React将算法的复杂度降低到O(n),使Diff算法更加稳定高效。</p>
+        
+      
+    
+      <p class="content-link">
+        <a href="/2017/10/17/React之Diff/#more">
+          <span>继续阅读</span>
+        </a>
+      </p>
+    
+    </div>
+    
+  </article>
+  
+   
+    
+  
+
+  
+    
+  <article class="
+  post
+  
+  ">
+    <header class="post-header">
+      <div class="post-time syuanpi riseIn-light back-1">
+        <div class="post-time-wrapper">
+          <span>2017-09-20</span>
+          
+            
+              <span class="post-category"><a href="/categories/JavaScript/">JavaScript</a></span>
+            
+          
+          
+        </div>
+      </div>
+      <h1 class="post-title syuanpi riseIn-light back-2">
+        
+          <a href="/2017/09/20/js之call、apply、bind的模拟实现/">js之call、apply、bind的模拟实现</a>
+        
+      </h1>
+    </header>
+    <div class="post-content syuanpi riseIn-light back-3">
+      
+        
+          <p>本系列均是参考 <a href="https://github.com/mqyqingfeng/Blog" target="_blank" rel="noopener">冴羽的博客</a> 后为加深记忆做的总结并非原创。</p>
+<p>只写出了最终的实现代码。具体详解见<a href="https://github.com/mqyqingfeng/Blog" target="_blank" rel="noopener">冴羽的博客</a></p>
+<h1 id="call的模拟实现"><a href="#call的模拟实现" class="headerlink" title="call的模拟实现"></a>call的模拟实现</h1><pre><code class="javascript">Function.prototype.call2 = function (context) {
+    var context = context || window;
+    context.fn = this;
+
+    var args = [];
+    for(var i = 1, len = arguments.length; i &lt; len; i++) {
+        args.push(&#39;arguments[&#39; + i + &#39;]&#39;);
+    }
+
+    var result = eval(&#39;context.fn(&#39; + args +&#39;)&#39;);
+
+    delete context.fn
+    return result;
+}
+</code></pre>
+        
+      
+    
+      <p class="content-link">
+        <a href="/2017/09/20/js之call、apply、bind的模拟实现/#more">
+          <span>继续阅读</span>
+        </a>
+      </p>
+    
+    </div>
+    
+  </article>
+  
+   
+    
+  
+
+  
+    
+  <article class="
+  post
+  
+  ">
+    <header class="post-header">
+      <div class="post-time syuanpi riseIn-light back-1">
+        <div class="post-time-wrapper">
+          <span>2017-09-19</span>
+          
+            
+              <span class="post-category"><a href="/categories/JavaScript/">JavaScript</a></span>
+            
+          
+          
+        </div>
+      </div>
+      <h1 class="post-title syuanpi riseIn-light back-2">
+        
+          <a href="/2017/09/19/js之闭包/">js之闭包</a>
+        
+      </h1>
+    </header>
+    <div class="post-content syuanpi riseIn-light back-3">
+      
+        
+          <h1 id="闭包定义"><a href="#闭包定义" class="headerlink" title="闭包定义"></a>闭包定义</h1><p>本系列均是参考 <a href="https://github.com/mqyqingfeng/Blog" target="_blank" rel="noopener">冴羽的博客</a> 后为加深记忆做的总结并非原创。</p>
+<p>MDN对闭包的定义是：</p>
+<blockquote>
+<p>闭包是指那些能够访问自由变量的函数。</p>
+</blockquote>
+<p>而自由变量呢？</p>
+<blockquote>
+<p>自由变量是指在函数中使用的，但既不是函数的参数也不是函数的局部变量的变量。</p>
+</blockquote>
+<p>所以可以这么说：</p>
+<blockquote>
+<p>闭包 = 函数 + 函数能够访问的自由变量</p>
+</blockquote>
+<p>以上是理论上的闭包。</p>
+<p>ECMAScript中，闭包指的是：</p>
 <ol>
-<li>为其添加id特性，然后通过<code>var form = document.getElementById(&quot;form1&quot;)</code>来找到它。</li>
-<li><p>通过<code>document.forms</code>来取得页面中的所有表单。</p>
-<ul>
-<li><code>var firstForm = document.form[0]</code>取的页面中第一个表单</li>
-<li><code>var myForm = document.form[&quot;form2&quot;]</code>取得页面中名为“form2”的表单。</li>
+<li>从理论上角度：所有的函数。因为它们都在出创建的时候就将上层上下文的数据保存起来了。哪怕是简单的全局变量也是如此，因为函数中访问全局变量就相当于是在访问自由变量，这个时候使用最外层的作用域。</li>
+<li>从实践角度：闭包要满足以下两点：<ul>
+<li>即使创建它的上下文已经销毁，它仍然存在。</li>
+<li>在代码中引用了自由变量。</li>
 </ul>
 </li>
 </ol>
@@ -370,7 +452,7 @@
       
     
       <p class="content-link">
-        <a href="/2017/11/13/form脚本特性及其中的HTML5新特性/#more">
+        <a href="/2017/09/19/js之闭包/#more">
           <span>继续阅读</span>
         </a>
       </p>
@@ -392,10 +474,10 @@
     <header class="post-header">
       <div class="post-time syuanpi riseIn-light back-1">
         <div class="post-time-wrapper">
-          <span>2017-10-23</span>
+          <span>2017-09-18</span>
           
             
-              <span class="post-category"><a href="/categories/HTML5DOM/">HTML5DOM</a></span>
+              <span class="post-category"><a href="/categories/JavaScript/">JavaScript</a></span>
             
           
           
@@ -403,21 +485,30 @@
       </div>
       <h1 class="post-title syuanpi riseIn-light back-2">
         
-          <a href="/2017/10/23/JavaScript高级程序设计DOM拓展之HTML5/">JavaScript高级程序设计DOM拓展之HTML5</a>
+          <a href="/2017/09/18/js执行上下文之具体执行分析/">js执行上下文之具体执行分析</a>
         
       </h1>
     </header>
     <div class="post-content syuanpi riseIn-light back-3">
       
         
-          <p>本文章讨论HTML5中DOM节点相关的内容</p>
-<p>对于传统THML而言HTML5是一个叛逆。所有之前的版本对JavaScript接口的描述都不过三言两语，主要篇幅都用于定义标记，与JavaScript相关的内容一概交由DOM规范去定义。</p>
-<p>而HTML5规范则围绕如何使用新增标记定义了大量JavaScript API。其中一些API与DOM重叠，定义了浏览器应该支持的DOM拓展。</p>
+          <p>我们分析第一段代码：</p>
+<pre><code class="javascript">  var scope = &quot;global scope&quot;;
+  function checkscope(){
+    var scope = &quot;local scope&quot;;
+    function f(){
+      return scope;
+    }
+    return f();
+  }
+  checkscope();
+</code></pre>
+<p>执行过程如下：</p>
         
       
     
       <p class="content-link">
-        <a href="/2017/10/23/JavaScript高级程序设计DOM拓展之HTML5/#more">
+        <a href="/2017/09/18/js执行上下文之具体执行分析/#more">
           <span>继续阅读</span>
         </a>
       </p>
@@ -439,10 +530,10 @@
     <header class="post-header">
       <div class="post-time syuanpi riseIn-light back-1">
         <div class="post-time-wrapper">
-          <span>2017-10-22</span>
+          <span>2017-09-18</span>
           
             
-              <span class="post-category"><a href="/categories/JavaScript高级程序设计/">JavaScript高级程序设计</a></span>
+              <span class="post-category"><a href="/categories/JavaScript/">JavaScript</a></span>
             
           
           
@@ -450,30 +541,239 @@
       </div>
       <h1 class="post-title syuanpi riseIn-light back-2">
         
-          <a href="/2017/10/22/JavaScript高级程序设计节点层次之Node类型/">JavaScript高级程序设计节点层次之Node类型</a>
+          <a href="/2017/09/18/js执行上下文之this/">js执行上下文之this</a>
         
       </h1>
     </header>
     <div class="post-content syuanpi riseIn-light back-3">
       
         
-          <h1 id="节点层次"><a href="#节点层次" class="headerlink" title="节点层次"></a>节点层次</h1><pre><code>&lt;html&gt;
-    &lt;head&gt;
-        &lt;title&gt;Simple Page&lt;/title&gt;
-    &lt;/head&gt;
-    &lt;body&gt;
-        &lt;p&gt;HEllo World!&lt;/p&gt;
-    &lt;/body&gt;
-&lt;/html&gt;
-</code></pre><p>可以将这个HTML文档表示为一个层次结构。如下图：</p>
-<p><img src="/images/HTMLnode.png" alt=""></p>
-<p>文档节点是每个文档的根节点。节点对应的元素就称之为文档元素。一般的HTML文档的文档元素是<html>元素。</html></p>
-<p>每一段标记都可以通过树中的一个节点来表示：HTML元素通过元素节点表示，特性通过特性节点表示，文档类型通过文档类型节点表示，注释则通过注释节点来表示。一共有12中节点类型，这些基类都继承自一个基类型。</p>
+          <h1 id="理解Rnference"><a href="#理解Rnference" class="headerlink" title="理解Rnference"></a>理解Rnference</h1><p>本系列均是参考 <a href="https://github.com/mqyqingfeng/Blog/issues/7" target="_blank" rel="noopener">冴羽的博客</a> 后为加深记忆做的总结并非原创。</p>
+<p>reference是一种只存在于规范中的类型，它的作用是用来描述语言底层行为逻辑。（简单地说，在控制台你是无法输出的，他是抽象存在的）</p>
+<p>reference由三个部分组成：</p>
+<ol>
+<li>base value: 它的值只有可能是undefined, an Object, a Boolean, a String, a Number, or an environment record 其中的一种。</li>
+<li>referenced name</li>
+<li>strict reference</li>
+</ol>
         
       
     
       <p class="content-link">
-        <a href="/2017/10/22/JavaScript高级程序设计节点层次之Node类型/#more">
+        <a href="/2017/09/18/js执行上下文之this/#more">
+          <span>继续阅读</span>
+        </a>
+      </p>
+    
+    </div>
+    
+  </article>
+  
+   
+    
+  
+
+  
+    
+  <article class="
+  post
+  
+  ">
+    <header class="post-header">
+      <div class="post-time syuanpi riseIn-light back-1">
+        <div class="post-time-wrapper">
+          <span>2017-09-17</span>
+          
+            
+              <span class="post-category"><a href="/categories/JavaScript/">JavaScript</a></span>
+            
+          
+          
+        </div>
+      </div>
+      <h1 class="post-title syuanpi riseIn-light back-2">
+        
+          <a href="/2017/09/17/js执行上下文之作用域链/">js执行上下文之作用域链</a>
+        
+      </h1>
+    </header>
+    <div class="post-content syuanpi riseIn-light back-3">
+      
+        
+          <h1 id="作用域链"><a href="#作用域链" class="headerlink" title="作用域链"></a>作用域链</h1><p>本系列均是参考 <a href="https://github.com/mqyqingfeng/Blog" target="_blank" rel="noopener">冴羽的博客</a> 后为加深记忆做的总结并非原创。</p>
+<p>《JavaScript高级程序设计》中是这样解释作用域链的：</p>
+<blockquote>
+<p>当代码在一个执行上下文中执行时，会创建变量对象的一个<strong>作用域链</strong>（scope chain）。作用域链的用途是：保证对执行上下文有权访问的所有变量和函数的有序访问。作用域链的前端，始终都是当前执行的代码所在上下文的变量对象。作用域链中的下一个变量对象；来自包含的（外部）上下文，而再一个变量对象则来自下一个包含对象。这样，一直延续到全局执行上下文；全局执行上下文的变量对象始终都是作用域链中的最后一个对象。</p>
+</blockquote>
+        
+      
+    
+      <p class="content-link">
+        <a href="/2017/09/17/js执行上下文之作用域链/#more">
+          <span>继续阅读</span>
+        </a>
+      </p>
+    
+    </div>
+    
+  </article>
+  
+   
+    
+  
+
+  
+    
+  <article class="
+  post
+  
+  ">
+    <header class="post-header">
+      <div class="post-time syuanpi riseIn-light back-1">
+        <div class="post-time-wrapper">
+          <span>2017-09-17</span>
+          
+            
+              <span class="post-category"><a href="/categories/JavaScript/">JavaScript</a></span>
+            
+          
+          
+        </div>
+      </div>
+      <h1 class="post-title syuanpi riseIn-light back-2">
+        
+          <a href="/2017/09/17/js执行上下文之变量对象/">js执行上下文之变量对象</a>
+        
+      </h1>
+    </header>
+    <div class="post-content syuanpi riseIn-light back-3">
+      
+        
+          <h1 id="执行上下文-执行环境-execution-context-的三个属性"><a href="#执行上下文-执行环境-execution-context-的三个属性" class="headerlink" title="执行上下文(执行环境 execution context)的三个属性"></a>执行上下文(执行环境 execution context)的三个属性</h1><p>本系列均是参考 <a href="https://github.com/mqyqingfeng/Blog" target="_blank" rel="noopener">冴羽的博客</a> 后为加深记忆做的总结并非原创。</p>
+<ol>
+<li>变量对象（Variable object， VO）</li>
+<li>作用域链（Scope chain）</li>
+<li>this</li>
+</ol>
+<blockquote>
+<p>执行上下文是在执行函数时被创建的，编写代码时我们无法访问这个对象，但解析器在处理数据时会在后台使用它。</p>
+</blockquote>
+<h1 id="变量对象"><a href="#变量对象" class="headerlink" title="变量对象"></a>变量对象</h1><p>《JavaScript高级程序设计》里面是这样介绍变量对象的。</p>
+<blockquote>
+<p>每个执行环境都有一个与之关联的<strong>变量对象</strong>， 环境中定义的所有变量和函数都保存在这个对象中。</p>
+</blockquote>
+<p>变量对象又分为两类：</p>
+<ol>
+<li>全局上下文的变量对象</li>
+<li>函数上下文的变量对象</li>
+</ol>
+        
+      
+    
+      <p class="content-link">
+        <a href="/2017/09/17/js执行上下文之变量对象/#more">
+          <span>继续阅读</span>
+        </a>
+      </p>
+    
+    </div>
+    
+  </article>
+  
+   
+    
+  
+
+  
+    
+  <article class="
+  post
+  
+  ">
+    <header class="post-header">
+      <div class="post-time syuanpi riseIn-light back-1">
+        <div class="post-time-wrapper">
+          <span>2017-09-16</span>
+          
+            
+              <span class="post-category"><a href="/categories/JavaScript/">JavaScript</a></span>
+            
+          
+          
+        </div>
+      </div>
+      <h1 class="post-title syuanpi riseIn-light back-2">
+        
+          <a href="/2017/09/16/js执行上下文之执行上下文栈/">js执行上下文之执行上下文栈</a>
+        
+      </h1>
+    </header>
+    <div class="post-content syuanpi riseIn-light back-3">
+      
+        
+          <h1 id="可执行代码"><a href="#可执行代码" class="headerlink" title="可执行代码"></a>可执行代码</h1><p>本系列均是参考 <a href="https://github.com/mqyqingfeng/Blog" target="_blank" rel="noopener">冴羽的博客</a> 后为加深记忆做的总结并非原创。</p>
+<p>可分为三类：</p>
+<ol>
+<li>全局代码</li>
+<li>函数代码</li>
+<li>eval代码</li>
+</ol>
+<p>当代码执行到一个函数的时候，就会进行准备工作，即“执行上下文(execution context)”。</p>
+        
+      
+    
+      <p class="content-link">
+        <a href="/2017/09/16/js执行上下文之执行上下文栈/#more">
+          <span>继续阅读</span>
+        </a>
+      </p>
+    
+    </div>
+    
+  </article>
+  
+   
+    
+  
+
+  
+    
+  <article class="
+  post
+  
+  ">
+    <header class="post-header">
+      <div class="post-time syuanpi riseIn-light back-1">
+        <div class="post-time-wrapper">
+          <span>2017-09-02</span>
+          
+            
+              <span class="post-category"><a href="/categories/JavaScript/">JavaScript</a></span>
+            
+          
+          
+        </div>
+      </div>
+      <h1 class="post-title syuanpi riseIn-light back-2">
+        
+          <a href="/2017/09/02/滚动无限加载的页面渲染优化/">滚动无限加载的页面渲染优化</a>
+        
+      </h1>
+    </header>
+    <div class="post-content syuanpi riseIn-light back-3">
+      
+        
+          <h1 id="滚动无限加载优化原因"><a href="#滚动无限加载优化原因" class="headerlink" title="滚动无限加载优化原因"></a>滚动无限加载优化原因</h1><p>之前的项目是用react来写的，所以直接在componentDidMount里面直接加了监听事件。代码如下：</p>
+<pre><code class="javascript">    window.addEventListener(&#39;scroll&#39;,function(){
+        //在此写滚动后进行的操作
+    },false);
+</code></pre>
+<p>当它发生时，由于间隔很近，触发频次非常高，DOM开销十分高，所以页面就很容易掉帧。用户体验和性能都非常不好，十分有必要在此基础上进行优化。</p>
+        
+      
+    
+      <p class="content-link">
+        <a href="/2017/09/02/滚动无限加载的页面渲染优化/#more">
           <span>继续阅读</span>
         </a>
       </p>
@@ -490,7 +790,7 @@
 </section>
   
   <nav class="pagination">
-      <a class="extend prev" rel="prev" href="/">< 上一页</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/3/">下一页 ></a>
+      <a class="extend prev" rel="prev" href="/">< 上一页</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/">下一页 ></a>
   </nav>
 
 

@@ -216,7 +216,7 @@
     <header class="post-header">
       <div class="post-time syuanpi riseIn-light back-1">
         <div class="post-time-wrapper">
-          <span>2017-10-19</span>
+          <span>2017-09-01</span>
           
             
               <span class="post-category"><a href="/categories/React/">React</a></span>
@@ -227,57 +227,20 @@
       </div>
       <h1 class="post-title syuanpi riseIn-light back-2">
         
-          <a href="/2017/10/19/React：setState详解/">React：setState详解</a>
+          <a href="/2017/09/01/react生命周期/">react生命周期</a>
         
       </h1>
     </header>
     <div class="post-content syuanpi riseIn-light back-3">
       
         
-          <p>首先我们来看一个栗子：</p>
-<pre><code class="JavaScript">class Eg extends Component {
-  contructor () {
-    super()
-    this.state = {
-      value: 0,
-      index: 0
-    }
-  }
-
-  componentDidMount () {
-    this.setState({value: this.state.value + 1})
-    console.log(this.state.value) // 第一次输出
-    this.setState({value: this.state.value + 1})
-    console.log(this.state.value) // 第二次输出
-    setTimeout(() =&gt; {
-      this.setState({value: this.state.value + 1})
-      console.log(this.state.value) // 第三次输出
-      this.setState({value: this.state.value + 1})
-      console.log(this.state.value) // 第四次输出
-    }, 0)；
-        this.refs.button.addEventListener(&#39;click&#39;, this.click)
-  }
-
-  click = () =&gt; {
-    this.setState({value: this.state.index + 1})
-    this.setState({value: this.state.index + 1})
-  }
-
-  render () {
-    return (
-      &lt;div&gt;&lt;span&gt;value: {this.state.value}index: {this.props.index}&lt;/span&gt;
-        &lt;button ref=&quot;button&quot; onClick={this.click}&gt;点击&lt;/button&gt;
-      &lt;/div&gt;
-    )
-  }
-}
-</code></pre>
-<p>这四次输出，按常理来说分别是: 1，2，3，4。但是，实际输出为: 0, 0, 2, 3。</p>
+          <p>每个react组件的生命周期分为三部分：实例化、存在期、销毁期。不同时期都有一些方法被调用，在接触react初期对于这些方法的使用可能并不频繁，但随着项目体积的增大，使用一些必要的生命周期方法就显得尤为重要了。</p>
+<h1 id="实例化阶段"><a href="#实例化阶段" class="headerlink" title="实例化阶段"></a>实例化阶段</h1><p>实例化阶段又分为客户端和服务端</p>
         
       
     
       <p class="content-link">
-        <a href="/2017/10/19/React：setState详解/#more">
+        <a href="/2017/09/01/react生命周期/#more">
           <span>继续阅读</span>
         </a>
       </p>
@@ -299,57 +262,10 @@
     <header class="post-header">
       <div class="post-time syuanpi riseIn-light back-1">
         <div class="post-time-wrapper">
-          <span>2017-10-17</span>
+          <span>2017-05-06</span>
           
             
-              <span class="post-category"><a href="/categories/React/">React</a></span>
-            
-          
-          
-        </div>
-      </div>
-      <h1 class="post-title syuanpi riseIn-light back-2">
-        
-          <a href="/2017/10/17/React之Diff/">React之Diff</a>
-        
-      </h1>
-    </header>
-    <div class="post-content syuanpi riseIn-light back-3">
-      
-        
-          <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>React之所以高效有一部分原因是因为Virtual DOM和diff算法的完美结合。React Diff会帮助我们计算出Virtual DOM真正变化的部分，只针对变化部分进行实际的DOM操作，并不对整个页面进行重新渲染，从而大大提高了渲染的效率。</p>
-<p>但是React的Diff算法与传统的Diff算法又有不同，React技术团队对Diff算法进行优化。</p>
-<p>传统Diff算法的复杂度达到了O(n^3)（n为树中的总结点数）,而React将算法的复杂度降低到O(n),使Diff算法更加稳定高效。</p>
-        
-      
-    
-      <p class="content-link">
-        <a href="/2017/10/17/React之Diff/#more">
-          <span>继续阅读</span>
-        </a>
-      </p>
-    
-    </div>
-    
-  </article>
-  
-   
-    
-  
-
-  
-    
-  <article class="
-  post
-  
-  ">
-    <header class="post-header">
-      <div class="post-time syuanpi riseIn-light back-1">
-        <div class="post-time-wrapper">
-          <span>2017-09-20</span>
-          
-            
-              <span class="post-category"><a href="/categories/JavaScript/">JavaScript</a></span>
+              <span class="post-category"><a href="/categories/运算符/">运算符</a></span>
             
           
           
@@ -357,158 +273,19 @@
       </div>
       <h1 class="post-title syuanpi riseIn-light back-2">
         
-          <a href="/2017/09/20/js之call、apply、bind的模拟实现/">js之call、apply、bind的模拟实现</a>
+          <a href="/2017/05/06/JavaScript中的隐式类型转换/">JavaScript中的隐式类型转换</a>
         
       </h1>
     </header>
     <div class="post-content syuanpi riseIn-light back-3">
       
         
-          <p>本系列均是参考 <a href="https://github.com/mqyqingfeng/Blog" target="_blank" rel="noopener">冴羽的博客</a> 后为加深记忆做的总结并非原创。</p>
-<p>只写出了最终的实现代码。具体详解见<a href="https://github.com/mqyqingfeng/Blog" target="_blank" rel="noopener">冴羽的博客</a></p>
-<h1 id="call的模拟实现"><a href="#call的模拟实现" class="headerlink" title="call的模拟实现"></a>call的模拟实现</h1><pre><code class="javascript">Function.prototype.call2 = function (context) {
-    var context = context || window;
-    context.fn = this;
-
-    var args = [];
-    for(var i = 1, len = arguments.length; i &lt; len; i++) {
-        args.push(&#39;arguments[&#39; + i + &#39;]&#39;);
-    }
-
-    var result = eval(&#39;context.fn(&#39; + args +&#39;)&#39;);
-
-    delete context.fn
-    return result;
-}
-</code></pre>
+          <h1 id="前言："><a href="#前言：" class="headerlink" title="前言："></a>前言：</h1><p>最近写的一个项目因为js里的隐式类型转换踩了不少的坑，耽误了不少工时，下面就来总结一下js里的隐式类型转换</p>
         
       
     
       <p class="content-link">
-        <a href="/2017/09/20/js之call、apply、bind的模拟实现/#more">
-          <span>继续阅读</span>
-        </a>
-      </p>
-    
-    </div>
-    
-  </article>
-  
-   
-    
-  
-
-  
-    
-  <article class="
-  post
-  
-  ">
-    <header class="post-header">
-      <div class="post-time syuanpi riseIn-light back-1">
-        <div class="post-time-wrapper">
-          <span>2017-09-19</span>
-          
-            
-              <span class="post-category"><a href="/categories/JavaScript/">JavaScript</a></span>
-            
-          
-          
-        </div>
-      </div>
-      <h1 class="post-title syuanpi riseIn-light back-2">
-        
-          <a href="/2017/09/19/js之闭包/">js之闭包</a>
-        
-      </h1>
-    </header>
-    <div class="post-content syuanpi riseIn-light back-3">
-      
-        
-          <h1 id="闭包定义"><a href="#闭包定义" class="headerlink" title="闭包定义"></a>闭包定义</h1><p>本系列均是参考 <a href="https://github.com/mqyqingfeng/Blog" target="_blank" rel="noopener">冴羽的博客</a> 后为加深记忆做的总结并非原创。</p>
-<p>MDN对闭包的定义是：</p>
-<blockquote>
-<p>闭包是指那些能够访问自由变量的函数。</p>
-</blockquote>
-<p>而自由变量呢？</p>
-<blockquote>
-<p>自由变量是指在函数中使用的，但既不是函数的参数也不是函数的局部变量的变量。</p>
-</blockquote>
-<p>所以可以这么说：</p>
-<blockquote>
-<p>闭包 = 函数 + 函数能够访问的自由变量</p>
-</blockquote>
-<p>以上是理论上的闭包。</p>
-<p>ECMAScript中，闭包指的是：</p>
-<ol>
-<li>从理论上角度：所有的函数。因为它们都在出创建的时候就将上层上下文的数据保存起来了。哪怕是简单的全局变量也是如此，因为函数中访问全局变量就相当于是在访问自由变量，这个时候使用最外层的作用域。</li>
-<li>从实践角度：闭包要满足以下两点：<ul>
-<li>即使创建它的上下文已经销毁，它仍然存在。</li>
-<li>在代码中引用了自由变量。</li>
-</ul>
-</li>
-</ol>
-        
-      
-    
-      <p class="content-link">
-        <a href="/2017/09/19/js之闭包/#more">
-          <span>继续阅读</span>
-        </a>
-      </p>
-    
-    </div>
-    
-  </article>
-  
-   
-    
-  
-
-  
-    
-  <article class="
-  post
-  
-  ">
-    <header class="post-header">
-      <div class="post-time syuanpi riseIn-light back-1">
-        <div class="post-time-wrapper">
-          <span>2017-09-18</span>
-          
-            
-              <span class="post-category"><a href="/categories/JavaScript/">JavaScript</a></span>
-            
-          
-          
-        </div>
-      </div>
-      <h1 class="post-title syuanpi riseIn-light back-2">
-        
-          <a href="/2017/09/18/js执行上下文之具体执行分析/">js执行上下文之具体执行分析</a>
-        
-      </h1>
-    </header>
-    <div class="post-content syuanpi riseIn-light back-3">
-      
-        
-          <p>我们分析第一段代码：</p>
-<pre><code class="javascript">  var scope = &quot;global scope&quot;;
-  function checkscope(){
-    var scope = &quot;local scope&quot;;
-    function f(){
-      return scope;
-    }
-    return f();
-  }
-  checkscope();
-</code></pre>
-<p>执行过程如下：</p>
-        
-      
-    
-      <p class="content-link">
-        <a href="/2017/09/18/js执行上下文之具体执行分析/#more">
+        <a href="/2017/05/06/JavaScript中的隐式类型转换/#more">
           <span>继续阅读</span>
         </a>
       </p>
@@ -525,7 +302,7 @@
 </section>
   
   <nav class="pagination">
-      <a class="extend prev" rel="prev" href="/page/2/">< 上一页</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/4/">下一页 ></a>
+      <a class="extend prev" rel="prev" href="/page/2/">< 上一页</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span>
   </nav>
 
 
