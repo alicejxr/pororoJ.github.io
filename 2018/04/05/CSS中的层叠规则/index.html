@@ -274,7 +274,7 @@
 <h3 id="定位元素和传统层叠上下文"><a href="#定位元素和传统层叠上下文" class="headerlink" title="定位元素和传统层叠上下文"></a>定位元素和传统层叠上下文</h3><p>当定位元素的 z-index 的值不为 auto 时，会创建层叠上下文。</p>
 <p><a href="https://codepen.io/anon/pen/yKdKde" target="_blank" rel="noopener">example</a></p>
 <p>position：fixed 属性使元素天然具有层叠上下文。</p>
-<h3 id="CSS3-中的层叠上下文"><a href="#CSS3-中的层叠上下文" class="headerlink" title="CSS3 中的层叠上下文"></a>CSS3 中的层叠上下文</h3><ol>
+<h3 id="CSS3-中的层叠上下文-example"><a href="#CSS3-中的层叠上下文-example" class="headerlink" title="CSS3 中的层叠上下文 !!! example"></a>CSS3 中的层叠上下文 !!! example</h3><ol>
 <li>元素为 flex 布局元素同时 z-index 值不为 auto</li>
 <li>元素的 opacity 值不是 1</li>
 <li>元素的 transform 值不是 none</li>
@@ -290,11 +290,16 @@
 </ol>
 <p>元素一旦成为定位元素，就会自动具有 z-index：auto 属性。</p>
 <p>不支持 z-index 的层叠上下文元素是天然 z-index：auto，和定位元素是一个层叠顺序，当它们发生层叠时，遵守“后来元素在上”的规则。</p>
-<p>example：</p>
+<p>层叠顺序可以更新一下;</p>
+<p><img src="http://oy5zqmv54.bkt.clouddn.com/z-index-2.png" alt="z-index-2"></p>
+<p><a href="https://codepen.io/anon/pen/yKdQWY" target="_blank" rel="noopener">auto</a></p>
 <h1 id="z-index负值深入理解"><a href="#z-index负值深入理解" class="headerlink" title="z-index负值深入理解"></a>z-index负值深入理解</h1><p>由之前的层叠顺序图可以看出来，z-index 负值元素的层级在层叠上下文上面、block 元素下面。</p>
 <p>所以在一个层级上下文里不管 z-index 的负值再小，都不会突破当前层级上下文。</p>
 <p>z-index 负值渲染的过程就是一个寻找第一个层叠上下文元素的过程，然后层叠顺序止步于这个层叠上下文元素。</p>
-<p>应用：</p>
+<p><a href="https://codepen.io/anon/pen/bvPQXP?editors=1000" target="_blank" rel="noopener">example</a></p>
+<p><a href="https://codepen.io/anon/pen/GxbwPX" target="_blank" rel="noopener">flex-example</a></p>
+<p>应用:</p>
+<p><a href="https://codepen.io/anon/pen/VXJqPE" target="_blank" rel="noopener">卷起效果</a></p>
 <h1 id="关于-z-index-注意事项"><a href="#关于-z-index-注意事项" class="headerlink" title="关于 z-index 注意事项"></a>关于 z-index 注意事项</h1><p>对于非浮层元素，避免设置z-index值，z-index值没有任何道理需要超过2。</p>
 <ol>
 <li>定位元素一旦设置了z-index值，就从普通定位元素变成了层叠上下文元素，相互间的层叠顺序就发生了根本的变化，很容易出现设置了巨大的z-index值也无法覆盖其他元素的问题。</li>
@@ -364,7 +369,7 @@
     <span class="title" id="toc-switch"><span>文章导航</span></span>
     <div class="toc-inner syuanpi back-1 fallIn-light">
       <li class="title-link"><a href="javascript:;" class="toTop">CSS中的层叠规则</a></li>
-      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#z-index"><span class="toc-text">z-index</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#层叠上下文和层叠水平"><span class="toc-text">层叠上下文和层叠水平</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#层叠上下文"><span class="toc-text">层叠上下文</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#层叠水平"><span class="toc-text">层叠水平</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#元素的层叠顺序"><span class="toc-text">元素的层叠顺序</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#层叠准则"><span class="toc-text">层叠准则</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#深入理解层叠上下文"><span class="toc-text">深入理解层叠上下文</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#层叠上下文的特性"><span class="toc-text">层叠上下文的特性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#层叠上下文的创建"><span class="toc-text">层叠上下文的创建</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#根层叠上下文"><span class="toc-text">根层叠上下文</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#定位元素和传统层叠上下文"><span class="toc-text">定位元素和传统层叠上下文</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CSS3-中的层叠上下文"><span class="toc-text">CSS3 中的层叠上下文</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#层叠上下文和层叠顺序"><span class="toc-text">层叠上下文和层叠顺序</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#z-index负值深入理解"><span class="toc-text">z-index负值深入理解</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#关于-z-index-注意事项"><span class="toc-text">关于 z-index 注意事项</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#z-index"><span class="toc-text">z-index</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#层叠上下文和层叠水平"><span class="toc-text">层叠上下文和层叠水平</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#层叠上下文"><span class="toc-text">层叠上下文</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#层叠水平"><span class="toc-text">层叠水平</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#元素的层叠顺序"><span class="toc-text">元素的层叠顺序</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#层叠准则"><span class="toc-text">层叠准则</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#深入理解层叠上下文"><span class="toc-text">深入理解层叠上下文</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#层叠上下文的特性"><span class="toc-text">层叠上下文的特性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#层叠上下文的创建"><span class="toc-text">层叠上下文的创建</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#根层叠上下文"><span class="toc-text">根层叠上下文</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#定位元素和传统层叠上下文"><span class="toc-text">定位元素和传统层叠上下文</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CSS3-中的层叠上下文-example"><span class="toc-text">CSS3 中的层叠上下文 !!! example</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#层叠上下文和层叠顺序"><span class="toc-text">层叠上下文和层叠顺序</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#z-index负值深入理解"><span class="toc-text">z-index负值深入理解</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#关于-z-index-注意事项"><span class="toc-text">关于 z-index 注意事项</span></a></li></ol>
     </div>
   </aside>
 
