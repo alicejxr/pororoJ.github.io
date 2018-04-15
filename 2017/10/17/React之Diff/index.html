@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <link rel="stylesheet" href="/style/style.css">
+<script>
+    var NlviConfig = {
+        title: "Pororo's blog",
+        author: "Pororo",
+        theme: "banderole",
+        lightbox: true,
+        animate: true,
+        baseUrl: "/",
+        search: true
+    }
+</script>
+
+
+
+    <link rel="stylesheet" href="/script/lib/lightbox/css/lightbox.min.css">
+
+
+
+
+    <link rel="stylesheet" href="/syuanpi/syuanpi.min.css">
+
+
+
+
+    <link rel="icon" href="/images/favicon.ico">
+
+
+
+
+
+
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="browsermode" content="application">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Pororo's blog">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="msapplication-navbutton-color" content="#666666">
+<meta name= "format-detection" content="telephone=no" />
+<meta name="keywords" content="nlvi, Nlvi" />
+
+  <link rel="apple-touch-icon"  sizes="72x72"  href="/images/favicon.ico">
+  <link rel="apple-touch-icon-precomposed"  sizes="72x72"  href="/images/favicon.ico">
+
+
+
+  <meta name="description" content="现在的我可能不那么优秀，但可以从现在开始努力变得优秀。">
+
+
+
+  <meta name="keywords" content="Diff, Nlvi" />
+
+  <title> React之Diff · Pororo's blog </title>
+</head>
+<body>
+  <div class="progress">
+  <div class="progress-inner"></div>
+</div>
+  
+  
+    <div class="tagcloud-mask"></div>  
+<div class="tagcloud" id="tagcloud">
+  <div class="tagcloud-inner">
+    <a href="/tags/Ajax/" style="font-size: 14px;">Ajax</a> <a href="/tags/CSS层叠规则/" style="font-size: 14px;">CSS层叠规则</a> <a href="/tags/Comet/" style="font-size: 14px;">Comet</a> <a href="/tags/DOM/" style="font-size: 14px;">DOM</a> <a href="/tags/Diff/" style="font-size: 14px;">Diff</a> <a href="/tags/HOC/" style="font-size: 14px;">HOC</a> <a href="/tags/HTML5/" style="font-size: 14px;">HTML5</a> <a href="/tags/HTML5，DOM/" style="font-size: 14px;">HTML5，DOM</a> <a href="/tags/Promise串行执行/" style="font-size: 14px;">Promise串行执行</a> <a href="/tags/React生命周期/" style="font-size: 14px;">React生命周期</a> <a href="/tags/apply/" style="font-size: 14px;">apply</a> <a href="/tags/bind/" style="font-size: 14px;">bind</a> <a href="/tags/call/" style="font-size: 14px;">call</a> <a href="/tags/form/" style="font-size: 14px;">form</a> <a href="/tags/react/" style="font-size: 14px;">react</a> <a href="/tags/setState/" style="font-size: 14px;">setState</a> <a href="/tags/this/" style="font-size: 14px;">this</a> <a href="/tags/作用域链/" style="font-size: 14px;">作用域链</a> <a href="/tags/变量对象/" style="font-size: 14px;">变量对象</a> <a href="/tags/定位导航/" style="font-size: 14px;">定位导航</a> <a href="/tags/执行上下文/" style="font-size: 14px;">执行上下文</a> <a href="/tags/执行上下文栈/" style="font-size: 14px;">执行上下文栈</a> <a href="/tags/算法/" style="font-size: 14px;">算法</a> <a href="/tags/节流/" style="font-size: 14px;">节流</a> <a href="/tags/运算符类型转换/" style="font-size: 14px;">运算符类型转换</a> <a href="/tags/闭包/" style="font-size: 14px;">闭包</a> <a href="/tags/防抖/" style="font-size: 14px;">防抖</a>
+  </div>
+</div>  
+  
+
+  <div class="container">
+
+    <header class="header" id="header">
+  <div class="header-wrapper">
+    <div class="logo">
+  <div class="logo-inner syuanpi tvIn">
+    <span><a href="/">Pororo's blog</a></span>
+    
+  </div>
+</div>
+    <nav class="main-nav">
+        
+  <ul class="main-nav-list syuanpi tvIn">
+  
+    <li class="menu-item">
+      <a href="javascript:;" id="search">
+        <span>搜索</span>
+        
+          <span class="menu-item-label">search</span>
+        
+      </a>
+    </li>
+  
+  
+    
+      
+    
+    <li class="menu-item">
+      <a href="/" id="article">
+        <span class="base-name">文章</span>
+        
+          <span class="menu-item-label">article</span>
+        
+      </a>
+    </li>  
+  
+    
+      
+    
+    <li class="menu-item">
+      <a href="/archives" id="archives">
+        <span class="base-name">归档</span>
+        
+          <span class="menu-item-label">archives</span>
+        
+      </a>
+    </li>  
+  
+    
+      
+    
+    <li class="menu-item">
+      <a href="javascript:;" id="tags">
+        <span class="base-name">标签</span>
+        
+          <span class="menu-item-label">tags</span>
+        
+      </a>
+    </li>  
+  
+  </ul>
+  
+</nav>
+    
+    
+  </div>
+</header>
+<div class="mobile-header">
+  <div class="mobile-header-body">
+    <div class="mobile-header-list">
+      
+        
+            <div class="mobile-nav-item">
+                <a href="/">
+                    <span>文章</span>
+                    
+                        <span class="menu-item-label">article</span>
+                    
+                </a>
+            </div>
+        
+      
+        
+            <div class="mobile-nav-item">
+                <a href="/archives">
+                    <span>归档</span>
+                    
+                        <span class="menu-item-label">archives</span>
+                    
+                </a>
+            </div>
+        
+      
+        
+          <div class="mobile-nav-item inner-cloud">
+            <div class="mobile-nav-tag">
+              <a href="javascript:;" id="mobile-tags">
+                <span>标签</span>
+                
+                    <span class="menu-item-label">tags</span>
+                
+              </a>
+            </div>
+            <div class="mobile-nav-tagcloud">
+              <div class="mobile-tagcloud-inner">
+                <a href="/tags/Ajax/" style="font-size: 14px;">Ajax</a> <a href="/tags/CSS层叠规则/" style="font-size: 14px;">CSS层叠规则</a> <a href="/tags/Comet/" style="font-size: 14px;">Comet</a> <a href="/tags/DOM/" style="font-size: 14px;">DOM</a> <a href="/tags/Diff/" style="font-size: 14px;">Diff</a> <a href="/tags/HOC/" style="font-size: 14px;">HOC</a> <a href="/tags/HTML5/" style="font-size: 14px;">HTML5</a> <a href="/tags/HTML5，DOM/" style="font-size: 14px;">HTML5，DOM</a> <a href="/tags/Promise串行执行/" style="font-size: 14px;">Promise串行执行</a> <a href="/tags/React生命周期/" style="font-size: 14px;">React生命周期</a> <a href="/tags/apply/" style="font-size: 14px;">apply</a> <a href="/tags/bind/" style="font-size: 14px;">bind</a> <a href="/tags/call/" style="font-size: 14px;">call</a> <a href="/tags/form/" style="font-size: 14px;">form</a> <a href="/tags/react/" style="font-size: 14px;">react</a> <a href="/tags/setState/" style="font-size: 14px;">setState</a> <a href="/tags/this/" style="font-size: 14px;">this</a> <a href="/tags/作用域链/" style="font-size: 14px;">作用域链</a> <a href="/tags/变量对象/" style="font-size: 14px;">变量对象</a> <a href="/tags/定位导航/" style="font-size: 14px;">定位导航</a> <a href="/tags/执行上下文/" style="font-size: 14px;">执行上下文</a> <a href="/tags/执行上下文栈/" style="font-size: 14px;">执行上下文栈</a> <a href="/tags/算法/" style="font-size: 14px;">算法</a> <a href="/tags/节流/" style="font-size: 14px;">节流</a> <a href="/tags/运算符类型转换/" style="font-size: 14px;">运算符类型转换</a> <a href="/tags/闭包/" style="font-size: 14px;">闭包</a> <a href="/tags/防抖/" style="font-size: 14px;">防抖</a>
+              </div>
+            </div>
+          </div>
+        
+      
+    </div>
+  </div>
+  <div class="mobile-header-nav">
+    <div class="mobile-header-item" id="mobile-left">
+      <div class="header-menu-item">
+        <span class="header-menu-line"></span>
+      </div>
+    </div>
+    <h1 class="mobile-header-title">
+      <a href="/">Pororo's blog</a>
+    </h1>
+    <div class="mobile-header-item"></div>
+  </div>
+</div>
+    <div class="container-inner">
+      <main class="main" id="main">
+        <div class="main-wrapper">
+          
+    
+  <article class="
+  post
+   is_post 
+  ">
+    <header class="post-header">
+      <div class="post-time syuanpi riseIn-light back-1">
+        <div class="post-time-wrapper">
+          <span>2017-10-17</span>
+          
+            
+              <span class="post-category"><a href="/categories/React/">React</a></span>
+            
+          
+          
+            
+              <aside class="post-tags syuanpi riseIn-light back-3">
+              
+                <a href="/tags/Diff/">Diff</a>
+              
+              </aside>
+            
+          
+        </div>
+      </div>
+      <h1 class="post-title syuanpi riseIn-light back-2">
+        
+          React之Diff
+        
+      </h1>
+    </header>
+    <div class="post-content syuanpi riseIn-light back-3">
+      
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>React之所以高效有一部分原因是因为Virtual DOM和diff算法的完美结合。React Diff会帮助我们计算出Virtual DOM真正变化的部分，只针对变化部分进行实际的DOM操作，并不对整个页面进行重新渲染，从而大大提高了渲染的效率。</p>
+<p>但是React的Diff算法与传统的Diff算法又有不同，React技术团队对Diff算法进行优化。</p>
+<p>传统Diff算法的复杂度达到了O(n^3)（n为树中的总结点数）,而React将算法的复杂度降低到O(n),使Diff算法更加稳定高效。</p>
+<a id="more"></a>
+<h1 id="React-Diff"><a href="#React-Diff" class="headerlink" title="React Diff"></a>React Diff</h1><h2 id="tree-diff"><a href="#tree-diff" class="headerlink" title="tree diff"></a>tree diff</h2><p><strong>由于Web UI中DOM节点跨层级的移动特别少，可以忽略不计。</strong>React对树的算法进行优化，对树进行分层比较，只会比较两棵树的同一层级节点。当节点已不存在，则该层级节点被完全删除掉，不进行进一步比较。因而，一次遍历就可以完成整个DOM树的比较。</p>
+<p><img src="/images/tree_diff.png" alt="tree——DOM"></p>
+<p>献上源码</p>
+<pre><code class="javascript">updateChildren: function(nextNestedChildrenElements, transaction, context) {
+  updateDepth++;
+  var errorThrown = true;
+  try {
+    this._updateChildren(nextNestedChildrenElements, transaction, context);
+    errorThrown = false;
+  } finally {
+    updateDepth--;
+    if (!updateDepth) {
+      if (errorThrown) {
+        clearQueue();
+      } else {
+        processQueue();
+      }
+    }
+  }
+}
+</code></pre>
+<p>那如果真的出现了DOM节点的跨层级移动操作，React diff会怎样操作？</p>
+<p>此时，React diff的执行情况：createA-&gt;createB-&gt;createC-&gt;deleteA。因为React只考虑同层级节点的位置变换；而对于不同层级的节点，只有创建和删除。</p>
+<p><img src="/images/DOM跨层级移动.png" alt="DOM跨层级移动"></p>
+<p>所以，上图并没有把A节点及子节点移动，而是以A为根节点重新创建整个树。这是非常消耗性能的操作，因此，在项目里要避免。（DOM结构的稳定有助于性能的提升。）</p>
+<h2 id="component-diff"><a href="#component-diff" class="headerlink" title="component diff"></a>component diff</h2><p>基本的思想是：<strong>拥有相同类的两个组件将会生成相似的树形结构，拥有不同类的两个组件将会生成不同的树形结构。</strong></p>
+<p>所以component diff分为两种情况：</p>
+<ol>
+<li>同一类型的组件，按照原策略继续比较virtual DOM tree；如果可以准确的知道virtual DOM有没有任何变化，就可以通过shouldComponentUpdate（）来判断组件是否要进行diff。</li>
+<li>不同类型的组件，则会将其判断为dirty component，并替换整个组件下的所有子节点。</li>
+</ol>
+<p><img src="/images/componentdiff.png" alt="componentdiff"></p>
+<p>如上图，当component D变为component G时，即使他们结构是相似的，但是D和G是不同类型的组件，因而就不会比较二者的结构，而是直接删除D，重新创建D及其子节点。（component很少存在DOM tree相似的情况，所以就可以不考虑这种情况对性能的影响）</p>
+<h2 id="element-diff"><a href="#element-diff" class="headerlink" title="element diff"></a>element diff</h2><p><strong>对于同一层级的一组子节点，它们可以通过唯一 id 进行区分。</strong></p>
+<p>React diff提供了三种节点操作：</p>
+<ol>
+<li>INSERT_MARKUP，新的 component 类型不在老集合里， 即是全新的节点，需要对新节点执行插入操作。</li>
+<li>MOVE_EXISTING，在老集合有新 component 类型，且 element 是可更新的类型，generateComponentChildren 已调用 receiveComponent，这种情况下 prevChild=nextChild，就需要做移动操作，可以复用以前的 DOM 节点。</li>
+<li>REMOVE_NODE，老 component 类型，在新集合里也有，但对应的 element 不同则不能直接复用和更新，需要执行删除操作，或者老 component 不在新集合里的，也需要执行删除操作。</li>
+</ol>
+<p>献上源码:</p>
+<pre><code class="javascript">function enqueueInsertMarkup(parentInst, markup, toIndex) {
+  updateQueue.push({
+    parentInst: parentInst,
+    parentNode: null,
+    type: ReactMultiChildUpdateTypes.INSERT_MARKUP,
+    markupIndex: markupQueue.push(markup) - 1,
+    content: null,
+    fromIndex: null,
+    toIndex: toIndex,
+  });
+}
+
+function enqueueMove(parentInst, fromIndex, toIndex) {
+  updateQueue.push({
+    parentInst: parentInst,
+    parentNode: null,
+    type: ReactMultiChildUpdateTypes.MOVE_EXISTING,
+    markupIndex: null,
+    content: null,
+    fromIndex: fromIndex,
+    toIndex: toIndex,
+  });
+}
+
+function enqueueRemove(parentInst, fromIndex) {
+  updateQueue.push({
+    parentInst: parentInst,
+    parentNode: null,
+    type: ReactMultiChildUpdateTypes.REMOVE_NODE,
+    markupIndex: null,
+    content: null,
+    fromIndex: fromIndex,
+    toIndex: null,
+  });
+}
+</code></pre>
+<p>如下图，老集合中包含节点：A、B、C、D，更新后的新集合中包含节点：B、A、D、C，此时新老集合进行 diff 差异化对比，发现 B != A，则创建并插入 B 至新集合，删除老集合 A；以此类推，创建并插入 A、D 和 C，删除 B、C 和 D。</p>
+<p><img src="/images/elementtree.png" alt="elementtree"></p>
+<p>React 发现这类操作繁琐冗余，因为这些都是相同的节点，但由于位置发生变化，导致需要进行繁杂低效的删除、创建操作，其实只要对这些节点进行位置移动即可。</p>
+<p>针对这一现象，React 提出优化策略：允许开发者对同一层级的同组子节点，添加唯一 key 进行区分，虽然只是小小的改动，性能上却发生了翻天覆地的变化！</p>
+<p>新老集合所包含的节点，如下图所示，新老集合进行 diff 差异化对比，通过 key 发现新老集合中的节点都是相同的节点，因此无需进行节点删除和创建，只需要将老集合中节点的位置进行移动，更新为新集合中节点的位置，此时 React 给出的 diff 结果为：B、D 不做任何操作，A、C 进行移动操作，即可。</p>
+<p><img src="/images/elementtreekey.png" alt="elementtreekey"></p>
+<pre><code>_updateChildren: function(nextNestedChildrenElements, transaction, context) {
+  var prevChildren = this._renderedChildren;
+  var nextChildren = this._reconcilerUpdateChildren(
+    prevChildren, nextNestedChildrenElements, transaction, context
+  );
+  if (!nextChildren &amp;&amp; !prevChildren) {
+    return;
+  }
+  var name;
+  var lastIndex = 0;
+  var nextIndex = 0;
+  for (name in nextChildren) {
+    if (!nextChildren.hasOwnProperty(name)) {
+      continue;
+    }
+    var prevChild = prevChildren &amp;&amp; prevChildren[name];
+    var nextChild = nextChildren[name];
+    if (prevChild === nextChild) {
+      // 移动节点
+      this.moveChild(prevChild, nextIndex, lastIndex);
+      lastIndex = Math.max(prevChild._mountIndex, lastIndex);
+      prevChild._mountIndex = nextIndex;
+    } else {
+      if (prevChild) {
+        lastIndex = Math.max(prevChild._mountIndex, lastIndex);
+        // 删除节点
+        this._unmountChild(prevChild);
+      }
+      // 初始化并创建节点
+      this._mountChildAtIndex(
+        nextChild, nextIndex, transaction, context
+      );
+    }
+    nextIndex++;
+  }
+  for (name in prevChildren) {
+    if (prevChildren.hasOwnProperty(name) &amp;&amp;
+        !(nextChildren &amp;&amp; nextChildren.hasOwnProperty(name))) {
+      this._unmountChild(prevChildren[name]);
+    }
+  }
+  this._renderedChildren = nextChildren;
+},
+// 移动节点
+moveChild: function(child, toIndex, lastIndex) {
+  if (child._mountIndex &lt; lastIndex) {
+    this.prepareToManageChildren();
+    enqueueMove(this, child._mountIndex, toIndex);
+  }
+},
+// 创建节点
+createChild: function(child, mountImage) {
+  this.prepareToManageChildren();
+  enqueueInsertMarkup(this, mountImage, child._mountIndex);
+},
+// 删除节点
+removeChild: function(child) {
+  this.prepareToManageChildren();
+  enqueueRemove(this, child._mountIndex);
+},
+
+_unmountChild: function(child) {
+  this.removeChild(child);
+  child._mountIndex = null;
+},
+
+_mountChildAtIndex: function(
+  child,
+  index,
+  transaction,
+  context) {
+  var mountImage = ReactReconciler.mountComponent(
+    child,
+    transaction,
+    this,
+    this._nativeContainerInfo,
+    context
+  );
+  child._mountIndex = index;
+  this.createChild(child, mountImage);
+},
+</code></pre><p>首先对新集合的节点进行循环遍历，for (name in nextChildren)，通过唯一 key 可以判断新老集合中是否存在相同的节点，if (prevChild === nextChild)，如果存在相同节点，则进行移动操作，但在移动前需要将当前节点在老集合中的位置与 lastIndex 进行比较，if (child._mountIndex &lt; lastIndex)，则进行节点移动操作，否则不执行该操作。这是一种顺序优化手段，lastIndex 一直在更新，表示访问过的节点在老集合中最右的位置（即最大的位置），如果新集合中当前访问的节点比 lastIndex 大，说明当前访问节点在老集合中就比上一个节点位置靠后，则该节点不会影响其他节点的位置，因此不用添加到差异队列中，即不执行移动操作，只有当访问的节点比 lastIndex 小时，才需要进行移动操作。</p>
+<p>以上图为例，可以更为清晰直观的描述 diff 的差异对比过程：</p>
+<ol>
+<li>从新集合中取得 B，判断老集合中存在相同节点 B，通过对比节点位置判断是否进行移动操作，B 在老集合中的位置 B._mountIndex = 1，此时 lastIndex = 0，不满足 child._mountIndex &lt; lastIndex 的条件，因此不对 B 进行移动操作；更新 lastIndex = Math.max(prevChild._mountIndex, lastIndex)，其中 prevChild._mountIndex 表示 B 在老集合中的位置，则 lastIndex ＝ 1，并将 B 的位置更新为新集合中的位置prevChild._mountIndex = nextIndex，此时新集合中 B._mountIndex = 0，nextIndex++ 进入下一个节点的判断。</li>
+<li>从新集合中取得 A，判断老集合中存在相同节点 A，通过对比节点位置判断是否进行移动操作，A 在老集合中的位置 A._mountIndex = 0，此时 lastIndex = 1，满足 child._mountIndex &lt; lastIndex的条件，因此对 A 进行移动操作enqueueMove(this, child._mountIndex, toIndex)，其中 toIndex 其实就是 nextIndex，表示 A 需要移动到的位置；更新 lastIndex = Math.max(prevChild._mountIndex, lastIndex)，则 lastIndex ＝ 1，并将 A 的位置更新为新集合中的位置 prevChild._mountIndex = nextIndex，此时新集合中A._mountIndex = 1，nextIndex++ 进入下一个节点的判断。</li>
+<li>从新集合中取得 D，判断老集合中存在相同节点 D，通过对比节点位置判断是否进行移动操作，D 在老集合中的位置 D._mountIndex = 3，此时 lastIndex = 1，不满足 child._mountIndex &lt; lastIndex的条件，因此不对 D 进行移动操作；更新 lastIndex = Math.max(prevChild._mountIndex, lastIndex)，则 lastIndex ＝ 3，并将 D 的位置更新为新集合中的位置 prevChild._mountIndex = nextIndex，此时新集合中D._mountIndex = 2，nextIndex++ 进入下一个节点的判断。</li>
+<li>从新集合中取得 C，判断老集合中存在相同节点 C，通过对比节点位置判断是否进行移动操作，C 在老集合中的位置 C._mountIndex = 2，此时 lastIndex = 3，满足 child._mountIndex &lt; lastIndex 的条件，因此对 C 进行移动操作 enqueueMove(this, child._mountIndex, toIndex)；更新 lastIndex = Math.max(prevChild._mountIndex, lastIndex)，则 lastIndex ＝ 3，并将 C 的位置更新为新集合中的位置 prevChild._mountIndex = nextIndex，此时新集合中 C._mountIndex = 3，nextIndex++ 进入下一个节点的判断，由于 C 已经是最后一个节点，因此 diff 到此完成。</li>
+</ol>
+<p>如果新集合中有新加入的节点且老集合存在需要删除的节点，那么 React diff 又是如何对比运作的呢？</p>
+<p>以下图为例：</p>
+<p><img src="/images/elementtreekeydel.png" alt="elementtreekeydel"></p>
+<ol>
+<li>从新集合中取得 B，判断老集合中存在相同节点 B，由于 B 在老集合中的位置 B._mountIndex = 1，此时lastIndex = 0，因此不对 B 进行移动操作；更新 lastIndex ＝ 1，并将 B 的位置更新为新集合中的位置B._mountIndex = 0，nextIndex++进入下一个节点的判断。</li>
+<li>从新集合中取得 E，判断老集合中不存在相同节点 E，则创建新节点 E；更新 lastIndex ＝ 1，并将 E 的位置更新为新集合中的位置，nextIndex++进入下一个节点的判断。</li>
+<li>从新集合中取得 C，判断老集合中存在相同节点 C，由于 C 在老集合中的位置C._mountIndex = 2，lastIndex = 1，此时 C._mountIndex &gt; lastIndex，因此不对 C 进行移动操作；更新 lastIndex ＝ 2，并将 C 的位置更新为新集合中的位置，nextIndex++ 进入下一个节点的判断。</li>
+<li>从新集合中取得 A，判断老集合中存在相同节点 A，由于 A 在老集合中的位置A._mountIndex = 0，lastIndex = 2，此时 A._mountIndex &lt; lastIndex，因此对 A 进行移动操作；更新 lastIndex ＝ 2，并将 A 的位置更新为新集合中的位置，nextIndex++ 进入下一个节点的判断。</li>
+<li>当完成新集合中所有节点 diff 时，最后还需要对老集合进行循环遍历，判断是否存在新集合中没有但老集合中仍存在的节点，发现存在这样的节点 D，因此删除节点 D，到此 diff 全部完成。</li>
+</ol>
+<p>当然，React diff 还是存在些许不足与待优化的地方，若新集合的节点更新为：D、A、B、C，与老集合对比只有 D 节点移动，而 A、B、C 仍然保持原有的顺序，理论上 diff 应该只需对 D 执行移动操作，然而由于 D 在老集合的位置是最大的，导致其他节点的 _mountIndex &lt; lastIndex，造成 D 没有执行移动操作，而是 A、B、C 全部移动到 D 节点后面的现象。</p>
+<p>所以，在开发过程中，尽量减少类似将最后一个节点移动到列表首部的操作，当节点数量过大或更新操作过于频繁时，在一定程度上会影响 React 的渲染性能。</p>
+
+      
+    
+    </div>
+    
+      
+      
+  <hr class="copy-line">
+  <div class="post-copyright">
+    <div class="copy-author">
+      <span>作者 :</span>
+      <span>Pororo</span>
+    </div>
+    <div class="copy-url">
+      <span>地址 :</span>
+      <a href="http://120.78.174.232/2017/10/17/React之Diff/">http://120.78.174.232/2017/10/17/React之Diff/</a>
+    </div>
+    <div class="copy-origin">
+      <span>来源 :</span>
+      <a href="http://120.78.174.232">http://120.78.174.232</a>
+    </div>
+    <div class="copy-license">
+      
+      著作权归作者所有，转载请联系作者获得授权。
+    </div>
+  </div>
+
+    
+  </article>
+  
+    
+  <nav class="article-page">
+    
+      <a href="/2017/10/19/React：setState详解/" id="art-left" class="art-left">
+        <span class="next-title">
+          <i class="iconfont icon-left"></i>React：setState详解
+        </span>
+      </a>
+    
+    
+      <a href="/2017/09/20/js之call、apply、bind的模拟实现/" id="art-right" class="art-right">
+        <span class="prev-title"> 
+          js之call、apply、bind的模拟实现<i class="iconfont icon-right"></i>  
+        </span>
+      </a>
+    
+  </nav>
+
+    
+  <i id="com-switch" class="iconfont icon-more jumping-in long infinite" style="font-size:24px;display:block;text-align:center;transform:rotate(180deg);"></i>
+  <div class="post-comments" id="post-comments" style="display: block;margin: auto 16px;">
+    
+    
+    
+
+  </div>
+
+
+  
+   
+    
+  
+  <aside class="post-toc">
+    <span class="title" id="toc-switch"><span>文章导航</span></span>
+    <div class="toc-inner syuanpi back-1 fallIn-light">
+      <li class="title-link"><a href="javascript:;" class="toTop">React之Diff</a></li>
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#前言"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#React-Diff"><span class="toc-text">React Diff</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#tree-diff"><span class="toc-text">tree diff</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#component-diff"><span class="toc-text">component diff</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#element-diff"><span class="toc-text">element diff</span></a></li></ol></li></ol>
+    </div>
+  </aside>
+
+
+  
+
+
+        </div>
+      </main>
+
+      <footer class="footer syuanpi fadeIn" id="footer">
+  <hr>
+  <div class="footer-wrapper">
+    <div class="left">
+      <div class="contact-icon">
+    
+    
+    
+    
+    
+    
+    
+    
+        
+            <a href="https://github.com/pororoj" class="iconfont icon-github" title="github"></a>
+        
+        
+        
+        
+        
+        
+        
+    
+</div>
+    </div>
+    <div class="right">
+      <div class="copyright">
+    <div class="info">
+        <span>&copy;</span>
+        <span>2017 ~ 2018</span>
+        <span>❤</span>
+        <span>Pororo</span>
+    </div>
+    <div class="theme">
+        <span>
+            动力来源于
+            <a href="http://hexo.io/" target="_blank">Hexo </a>
+        </span>
+        <span>
+            主题
+            <a href="https://github.com/ColMugX/hexo-theme-Nlvi"> Nlvi </a>
+        </span>
+    </div>
+    
+    <div class="visit_count">
+        <i class="iconfont icon-visit"></i>
+        <span id="busuanzi_value_site_uv"></span>
+        <i class="iconfont icon-people"></i>
+        <span id="busuanzi_value_site_pv"></span>
+    </div>
+    
+</div>
+    </div>
+  </div>
+</footer>
+    </div>
+  </div>
+  <script src="/script/lib/jquery/jquery-3.2.1.min.js"></script>
+
+
+    <script src="/script/lib/lightbox/js/lightbox.min.js"></script>
+
+
+
+
+
+
+<script src="/script/src/nlvi.js"></script>
+<script src="/script/src/utils.js"></script>
+<script src="/script/scheme/balance.js"></script>
+<script src="/script/src/plugins.js"></script>
+<script src="/script/bootstarp.js"></script>
+
+
+<div class="backtop syuanpi dead toTop" id="backtop">
+    <i class="iconfont icon-up"></i>
+    <span style="text-align:center;font-family:Georgia;"><span style="font-family:Georgia;" id="scrollpercent">1</span>%</span>
+</div>
+
+
+  <div class="search" id="search">
+    <div class="mask" id="mask"></div>
+    <div class="search-wrapper syuanpi">
+      <h2 id="search-header" class="syuanpi">搜索一下？</h2>
+      <div class="input">
+        <input type="text" id="local-search-input" results="0" name="">
+      </div>
+      <div id="local-search-result"></div>
+    </div>
+  </div>
+  <script>
+  if (NlviConfig.theme === 'banderole') {
+    var GREETING = {
+      morning: "早早早！记得吃早饭~",
+      noon: "中午好！记得午休~",
+      after: "下午好！记得吃下午茶啊~",
+      night: "晚上好！记得放松一下~",
+      midnight: "赶紧休息啦！少熬夜~"
+    }
+  }
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <link rel="stylesheet" href="/style/style.css">
+<script>
+    var NlviConfig = {
+        title: "Pororo's blog",
+        author: "Pororo",
+        theme: "banderole",
+        lightbox: true,
+        animate: true,
+        baseUrl: "/",
+        search: true
+    }
+</script>
+
+
+
+    <link rel="stylesheet" href="/script/lib/lightbox/css/lightbox.min.css">
+
+
+
+
+    <link rel="stylesheet" href="/syuanpi/syuanpi.min.css">
+
+
+
+
+    <link rel="icon" href="/images/favicon.ico">
+
+
+
+
+
+
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="browsermode" content="application">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Pororo's blog">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="msapplication-navbutton-color" content="#666666">
+<meta name= "format-detection" content="telephone=no" />
+<meta name="keywords" content="nlvi, Nlvi" />
+
+  <link rel="apple-touch-icon"  sizes="72x72"  href="/images/favicon.ico">
+  <link rel="apple-touch-icon-precomposed"  sizes="72x72"  href="/images/favicon.ico">
+
+
+
+  <meta name="description" content="现在的我可能不那么优秀，但可以从现在开始努力变得优秀。">
+
+
+
+  <meta name="keywords" content="执行上下文, 作用域链, Nlvi" />
+
+  <title> js执行上下文之作用域链 · Pororo's blog </title>
+</head>
+<body>
+  <div class="progress">
+  <div class="progress-inner"></div>
+</div>
+  
+  
+    <div class="tagcloud-mask"></div>  
+<div class="tagcloud" id="tagcloud">
+  <div class="tagcloud-inner">
+    <a href="/tags/Ajax/" style="font-size: 14px;">Ajax</a> <a href="/tags/CSS层叠规则/" style="font-size: 14px;">CSS层叠规则</a> <a href="/tags/Comet/" style="font-size: 14px;">Comet</a> <a href="/tags/DOM/" style="font-size: 14px;">DOM</a> <a href="/tags/Diff/" style="font-size: 14px;">Diff</a> <a href="/tags/HOC/" style="font-size: 14px;">HOC</a> <a href="/tags/HTML5/" style="font-size: 14px;">HTML5</a> <a href="/tags/HTML5，DOM/" style="font-size: 14px;">HTML5，DOM</a> <a href="/tags/Promise串行执行/" style="font-size: 14px;">Promise串行执行</a> <a href="/tags/React生命周期/" style="font-size: 14px;">React生命周期</a> <a href="/tags/apply/" style="font-size: 14px;">apply</a> <a href="/tags/bind/" style="font-size: 14px;">bind</a> <a href="/tags/call/" style="font-size: 14px;">call</a> <a href="/tags/form/" style="font-size: 14px;">form</a> <a href="/tags/react/" style="font-size: 14px;">react</a> <a href="/tags/setState/" style="font-size: 14px;">setState</a> <a href="/tags/this/" style="font-size: 14px;">this</a> <a href="/tags/作用域链/" style="font-size: 14px;">作用域链</a> <a href="/tags/变量对象/" style="font-size: 14px;">变量对象</a> <a href="/tags/定位导航/" style="font-size: 14px;">定位导航</a> <a href="/tags/执行上下文/" style="font-size: 14px;">执行上下文</a> <a href="/tags/执行上下文栈/" style="font-size: 14px;">执行上下文栈</a> <a href="/tags/算法/" style="font-size: 14px;">算法</a> <a href="/tags/节流/" style="font-size: 14px;">节流</a> <a href="/tags/运算符类型转换/" style="font-size: 14px;">运算符类型转换</a> <a href="/tags/闭包/" style="font-size: 14px;">闭包</a> <a href="/tags/防抖/" style="font-size: 14px;">防抖</a>
+  </div>
+</div>  
+  
+
+  <div class="container">
+
+    <header class="header" id="header">
+  <div class="header-wrapper">
+    <div class="logo">
+  <div class="logo-inner syuanpi tvIn">
+    <span><a href="/">Pororo's blog</a></span>
+    
+  </div>
+</div>
+    <nav class="main-nav">
+        
+  <ul class="main-nav-list syuanpi tvIn">
+  
+    <li class="menu-item">
+      <a href="javascript:;" id="search">
+        <span>搜索</span>
+        
+          <span class="menu-item-label">search</span>
+        
+      </a>
+    </li>
+  
+  
+    
+      
+    
+    <li class="menu-item">
+      <a href="/" id="article">
+        <span class="base-name">文章</span>
+        
+          <span class="menu-item-label">article</span>
+        
+      </a>
+    </li>  
+  
+    
+      
+    
+    <li class="menu-item">
+      <a href="/archives" id="archives">
+        <span class="base-name">归档</span>
+        
+          <span class="menu-item-label">archives</span>
+        
+      </a>
+    </li>  
+  
+    
+      
+    
+    <li class="menu-item">
+      <a href="javascript:;" id="tags">
+        <span class="base-name">标签</span>
+        
+          <span class="menu-item-label">tags</span>
+        
+      </a>
+    </li>  
+  
+  </ul>
+  
+</nav>
+    
+    
+  </div>
+</header>
+<div class="mobile-header">
+  <div class="mobile-header-body">
+    <div class="mobile-header-list">
+      
+        
+            <div class="mobile-nav-item">
+                <a href="/">
+                    <span>文章</span>
+                    
+                        <span class="menu-item-label">article</span>
+                    
+                </a>
+            </div>
+        
+      
+        
+            <div class="mobile-nav-item">
+                <a href="/archives">
+                    <span>归档</span>
+                    
+                        <span class="menu-item-label">archives</span>
+                    
+                </a>
+            </div>
+        
+      
+        
+          <div class="mobile-nav-item inner-cloud">
+            <div class="mobile-nav-tag">
+              <a href="javascript:;" id="mobile-tags">
+                <span>标签</span>
+                
+                    <span class="menu-item-label">tags</span>
+                
+              </a>
+            </div>
+            <div class="mobile-nav-tagcloud">
+              <div class="mobile-tagcloud-inner">
+                <a href="/tags/Ajax/" style="font-size: 14px;">Ajax</a> <a href="/tags/CSS层叠规则/" style="font-size: 14px;">CSS层叠规则</a> <a href="/tags/Comet/" style="font-size: 14px;">Comet</a> <a href="/tags/DOM/" style="font-size: 14px;">DOM</a> <a href="/tags/Diff/" style="font-size: 14px;">Diff</a> <a href="/tags/HOC/" style="font-size: 14px;">HOC</a> <a href="/tags/HTML5/" style="font-size: 14px;">HTML5</a> <a href="/tags/HTML5，DOM/" style="font-size: 14px;">HTML5，DOM</a> <a href="/tags/Promise串行执行/" style="font-size: 14px;">Promise串行执行</a> <a href="/tags/React生命周期/" style="font-size: 14px;">React生命周期</a> <a href="/tags/apply/" style="font-size: 14px;">apply</a> <a href="/tags/bind/" style="font-size: 14px;">bind</a> <a href="/tags/call/" style="font-size: 14px;">call</a> <a href="/tags/form/" style="font-size: 14px;">form</a> <a href="/tags/react/" style="font-size: 14px;">react</a> <a href="/tags/setState/" style="font-size: 14px;">setState</a> <a href="/tags/this/" style="font-size: 14px;">this</a> <a href="/tags/作用域链/" style="font-size: 14px;">作用域链</a> <a href="/tags/变量对象/" style="font-size: 14px;">变量对象</a> <a href="/tags/定位导航/" style="font-size: 14px;">定位导航</a> <a href="/tags/执行上下文/" style="font-size: 14px;">执行上下文</a> <a href="/tags/执行上下文栈/" style="font-size: 14px;">执行上下文栈</a> <a href="/tags/算法/" style="font-size: 14px;">算法</a> <a href="/tags/节流/" style="font-size: 14px;">节流</a> <a href="/tags/运算符类型转换/" style="font-size: 14px;">运算符类型转换</a> <a href="/tags/闭包/" style="font-size: 14px;">闭包</a> <a href="/tags/防抖/" style="font-size: 14px;">防抖</a>
+              </div>
+            </div>
+          </div>
+        
+      
+    </div>
+  </div>
+  <div class="mobile-header-nav">
+    <div class="mobile-header-item" id="mobile-left">
+      <div class="header-menu-item">
+        <span class="header-menu-line"></span>
+      </div>
+    </div>
+    <h1 class="mobile-header-title">
+      <a href="/">Pororo's blog</a>
+    </h1>
+    <div class="mobile-header-item"></div>
+  </div>
+</div>
+    <div class="container-inner">
+      <main class="main" id="main">
+        <div class="main-wrapper">
+          
+    
+  <article class="
+  post
+   is_post 
+  ">
+    <header class="post-header">
+      <div class="post-time syuanpi riseIn-light back-1">
+        <div class="post-time-wrapper">
+          <span>2017-09-17</span>
+          
+            
+              <span class="post-category"><a href="/categories/JavaScript/">JavaScript</a></span>
+            
+          
+          
+            
+              <aside class="post-tags syuanpi riseIn-light back-3">
+              
+                <a href="/tags/执行上下文/">执行上下文</a>
+              
+                <a href="/tags/作用域链/">作用域链</a>
+              
+              </aside>
+            
+          
+        </div>
+      </div>
+      <h1 class="post-title syuanpi riseIn-light back-2">
+        
+          js执行上下文之作用域链
+        
+      </h1>
+    </header>
+    <div class="post-content syuanpi riseIn-light back-3">
+      
+        <h1 id="作用域链"><a href="#作用域链" class="headerlink" title="作用域链"></a>作用域链</h1><p>本系列均是参考 <a href="https://github.com/mqyqingfeng/Blog" target="_blank" rel="noopener">冴羽的博客</a> 后为加深记忆做的总结并非原创。</p>
+<p>《JavaScript高级程序设计》中是这样解释作用域链的：</p>
+<blockquote>
+<p>当代码在一个执行上下文中执行时，会创建变量对象的一个<strong>作用域链</strong>（scope chain）。作用域链的用途是：保证对执行上下文有权访问的所有变量和函数的有序访问。作用域链的前端，始终都是当前执行的代码所在上下文的变量对象。作用域链中的下一个变量对象；来自包含的（外部）上下文，而再一个变量对象则来自下一个包含对象。这样，一直延续到全局执行上下文；全局执行上下文的变量对象始终都是作用域链中的最后一个对象。</p>
+</blockquote>
+<a id="more"></a>
+<h1 id="作用域链的创建"><a href="#作用域链的创建" class="headerlink" title="作用域链的创建"></a>作用域链的创建</h1><p>这里用函数的作用域链的创建和变化为例</p>
+<h2 id="函数的创建"><a href="#函数的创建" class="headerlink" title="函数的创建"></a>函数的创建</h2><p>函数的作用域在函数定义的时候就决定了。</p>
+<p>这是因为函数有一个内部属性 [[scope]]，当函数创建的时候，就会保存所有父变量对象到其中，你可以理解 [[scope]] 就是所有父变量对象的层级链，但是注意：[[scope]] 并不代表完整的作用域链！函数内部的[[scope]]属性是虚拟出来的一个属性，我们实际访问时访问不到这个属性的，这个属性是为了让我们更好的理解函数，虚拟出来的一个属性。</p>
+<p>例子：</p>
+<pre><code class="javascript">    function foo() {
+      function bar() {
+        ...
+      }
+    }
+</code></pre>
+<p>函数创建时，上面例子各自的[[scope]]属性为：</p>
+<pre><code class="javascript">    foo.[[scope]] = {
+      globalContext.AO;
+    }
+    bar.[[scope]] = {
+      fooContext.AO;
+      globalContext.VO;
+    }
+</code></pre>
+<h2 id="函数的激活"><a href="#函数的激活" class="headerlink" title="函数的激活"></a>函数的激活</h2><p>当函数激活时，进入函数上下文，创建 VO/AO 后，就会将活动对象添加到作用链的前端。</p>
+<p>这时候执行上下文的作用域链，我们命名为 Scope：</p>
+<pre><code class="javascript">    Scope = [AO].concat([[Scope]]);
+</code></pre>
+<p>至此，作用域链创建完毕。</p>
+<p>上面例子中，共涉及到3个执行上下文。分别是：全局执行上下文、foo的执行上下文、bar的执行上下文。</p>
+<p>它的作用域链可以用下图表示：</p>
+<p><img src="/images/window.png" alt=""></p>
+<p>内部环境可以通过作用域链访问所有的外部环境，但外部环境不能访问内部环境中的任何变量和函数。</p>
+<p>每一个执行上下文都可以向上搜索作用域链，但任何执行上下文都不能通过向下搜索作用域链而进入另一个执行上下文。</p>
+<h1 id="加深理解："><a href="#加深理解：" class="headerlink" title="加深理解："></a>加深理解：</h1><p>以下面的例子为例，结合着之前讲的变量对象和执行上下文栈，我们来总结一下函数执行上下文中作用域链和变量对象的创建过程：</p>
+<pre><code class="javascript">    var scope = &quot;global scope&quot;;
+    function checkscope(){
+      var scope2 = &#39;local scope&#39;;
+      return scope2;
+    }
+    checkscope();
+</code></pre>
+<p>执行过程如下：</p>
+<ol>
+<li><p>checkscope 函数被创建，保存作用域链到 内部属性[[scope]]</p>
+<pre><code class="javascript">         checkscope.[[scope]] = [
+           globalContext.VO
+         ];
+</code></pre>
+</li>
+<li><p>执行 checkscope 函数，创建 checkscope 函数执行上下文，checkscope 函数执行上下文被压入执行上下文栈</p>
+<pre><code class="javascript">         ECStack = [
+           checkscopeContext,
+           globalContext
+         ];
+</code></pre>
+</li>
+<li><p>checkscope 函数并不立刻执行，开始做准备工作，第一步：复制函数[[scope]]属性创建作用域链</p>
+<pre><code class="javascript">     checkscopeContext = {
+       Scope: checkscope.[[scope]],
+     }
+</code></pre>
+</li>
+<li><p>第二步：用 arguments 创建活动对象，随后初始化活动对象，加入形参、函数声明、变量声明</p>
+<pre><code class="javascript">     checkscopeContext = {
+       AO: {
+         arguments: {
+         length: 0
+         },
+         scope2: undefined
+       }
+     }
+</code></pre>
+</li>
+<li><p>第三步：将活动对象压入 checkscope 作用域链顶端</p>
+<pre><code class="javascript">     checkscopeContext = {
+       AO: {
+         arguments: {
+           length: 0
+           },
+           scope2: undefined
+       },
+       Scope: [AO, [[Scope]]]
+     }
+</code></pre>
+</li>
+<li><p>准备工作做完，开始执行函数，随着函数的执行，修改 AO 的属性值</p>
+<pre><code class="javascript">     checkscopeContext = {
+       AO: {
+         arguments: {
+           length: 0
+         },
+         scope2: &#39;local scope&#39;
+       },
+       Scope: [AO, [[Scope]]]
+     }
+</code></pre>
+</li>
+<li><p>查找到 scope2 的值，返回后函数执行完毕，函数上下文从执行上下文栈中弹出</p>
+<pre><code class="javascript">     ECStack = [
+       globalContext
+     ];
+</code></pre>
+</li>
+</ol>
+
+      
+    
+    </div>
+    
+      
+      
+  <hr class="copy-line">
+  <div class="post-copyright">
+    <div class="copy-author">
+      <span>作者 :</span>
+      <span>Pororo</span>
+    </div>
+    <div class="copy-url">
+      <span>地址 :</span>
+      <a href="http://120.78.174.232/2017/09/17/js执行上下文之作用域链/">http://120.78.174.232/2017/09/17/js执行上下文之作用域链/</a>
+    </div>
+    <div class="copy-origin">
+      <span>来源 :</span>
+      <a href="http://120.78.174.232">http://120.78.174.232</a>
+    </div>
+    <div class="copy-license">
+      
+      著作权归作者所有，转载请联系作者获得授权。
+    </div>
+  </div>
+
+    
+  </article>
+  
+    
+  <nav class="article-page">
+    
+      <a href="/2017/09/18/js执行上下文之this/" id="art-left" class="art-left">
+        <span class="next-title">
+          <i class="iconfont icon-left"></i>js执行上下文之this
+        </span>
+      </a>
+    
+    
+      <a href="/2017/09/17/js执行上下文之变量对象/" id="art-right" class="art-right">
+        <span class="prev-title"> 
+          js执行上下文之变量对象<i class="iconfont icon-right"></i>  
+        </span>
+      </a>
+    
+  </nav>
+
+    
+  <i id="com-switch" class="iconfont icon-more jumping-in long infinite" style="font-size:24px;display:block;text-align:center;transform:rotate(180deg);"></i>
+  <div class="post-comments" id="post-comments" style="display: block;margin: auto 16px;">
+    
+    
+    
+
+  </div>
+
+
+  
+   
+    
+  
+  <aside class="post-toc">
+    <span class="title" id="toc-switch"><span>文章导航</span></span>
+    <div class="toc-inner syuanpi back-1 fallIn-light">
+      <li class="title-link"><a href="javascript:;" class="toTop">js执行上下文之作用域链</a></li>
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#作用域链"><span class="toc-text">作用域链</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#作用域链的创建"><span class="toc-text">作用域链的创建</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#函数的创建"><span class="toc-text">函数的创建</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#函数的激活"><span class="toc-text">函数的激活</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#加深理解："><span class="toc-text">加深理解：</span></a></li></ol>
+    </div>
+  </aside>
+
+
+  
+
+
+        </div>
+      </main>
+
+      <footer class="footer syuanpi fadeIn" id="footer">
+  <hr>
+  <div class="footer-wrapper">
+    <div class="left">
+      <div class="contact-icon">
+    
+    
+    
+    
+    
+    
+    
+    
+        
+            <a href="https://github.com/pororoj" class="iconfont icon-github" title="github"></a>
+        
+        
+        
+        
+        
+        
+        
+    
+</div>
+    </div>
+    <div class="right">
+      <div class="copyright">
+    <div class="info">
+        <span>&copy;</span>
+        <span>2017 ~ 2018</span>
+        <span>❤</span>
+        <span>Pororo</span>
+    </div>
+    <div class="theme">
+        <span>
+            动力来源于
+            <a href="http://hexo.io/" target="_blank">Hexo </a>
+        </span>
+        <span>
+            主题
+            <a href="https://github.com/ColMugX/hexo-theme-Nlvi"> Nlvi </a>
+        </span>
+    </div>
+    
+    <div class="visit_count">
+        <i class="iconfont icon-visit"></i>
+        <span id="busuanzi_value_site_uv"></span>
+        <i class="iconfont icon-people"></i>
+        <span id="busuanzi_value_site_pv"></span>
+    </div>
+    
+</div>
+    </div>
+  </div>
+</footer>
+    </div>
+  </div>
+  <script src="/script/lib/jquery/jquery-3.2.1.min.js"></script>
+
+
+    <script src="/script/lib/lightbox/js/lightbox.min.js"></script>
+
+
+
+
+
+
+<script src="/script/src/nlvi.js"></script>
+<script src="/script/src/utils.js"></script>
+<script src="/script/scheme/balance.js"></script>
+<script src="/script/src/plugins.js"></script>
+<script src="/script/bootstarp.js"></script>
+
+
+<div class="backtop syuanpi dead toTop" id="backtop">
+    <i class="iconfont icon-up"></i>
+    <span style="text-align:center;font-family:Georgia;"><span style="font-family:Georgia;" id="scrollpercent">1</span>%</span>
+</div>
+
+
+  <div class="search" id="search">
+    <div class="mask" id="mask"></div>
+    <div class="search-wrapper syuanpi">
+      <h2 id="search-header" class="syuanpi">搜索一下？</h2>
+      <div class="input">
+        <input type="text" id="local-search-input" results="0" name="">
+      </div>
+      <div id="local-search-result"></div>
+    </div>
+  </div>
+  <script>
+  if (NlviConfig.theme === 'banderole') {
+    var GREETING = {
+      morning: "早早早！记得吃早饭~",
+      noon: "中午好！记得午休~",
+      after: "下午好！记得吃下午茶啊~",
+      night: "晚上好！记得放松一下~",
+      midnight: "赶紧休息啦！少熬夜~"
+    }
+  }
+  </script>
+
+</body>
+</html>

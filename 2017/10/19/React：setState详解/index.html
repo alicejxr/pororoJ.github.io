@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <link rel="stylesheet" href="/style/style.css">
+<script>
+    var NlviConfig = {
+        title: "Pororo's blog",
+        author: "Pororo",
+        theme: "banderole",
+        lightbox: true,
+        animate: true,
+        baseUrl: "/",
+        search: true
+    }
+</script>
+
+
+
+    <link rel="stylesheet" href="/script/lib/lightbox/css/lightbox.min.css">
+
+
+
+
+    <link rel="stylesheet" href="/syuanpi/syuanpi.min.css">
+
+
+
+
+    <link rel="icon" href="/images/favicon.ico">
+
+
+
+
+
+
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="browsermode" content="application">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Pororo's blog">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="msapplication-navbutton-color" content="#666666">
+<meta name= "format-detection" content="telephone=no" />
+<meta name="keywords" content="nlvi, Nlvi" />
+
+  <link rel="apple-touch-icon"  sizes="72x72"  href="/images/favicon.ico">
+  <link rel="apple-touch-icon-precomposed"  sizes="72x72"  href="/images/favicon.ico">
+
+
+
+  <meta name="description" content="现在的我可能不那么优秀，但可以从现在开始努力变得优秀。">
+
+
+
+  <meta name="keywords" content="setState, Nlvi" />
+
+  <title> React：setState详解 · Pororo's blog </title>
+</head>
+<body>
+  <div class="progress">
+  <div class="progress-inner"></div>
+</div>
+  
+  
+    <div class="tagcloud-mask"></div>  
+<div class="tagcloud" id="tagcloud">
+  <div class="tagcloud-inner">
+    <a href="/tags/Ajax/" style="font-size: 14px;">Ajax</a> <a href="/tags/CSS层叠规则/" style="font-size: 14px;">CSS层叠规则</a> <a href="/tags/Comet/" style="font-size: 14px;">Comet</a> <a href="/tags/DOM/" style="font-size: 14px;">DOM</a> <a href="/tags/Diff/" style="font-size: 14px;">Diff</a> <a href="/tags/HOC/" style="font-size: 14px;">HOC</a> <a href="/tags/HTML5/" style="font-size: 14px;">HTML5</a> <a href="/tags/HTML5，DOM/" style="font-size: 14px;">HTML5，DOM</a> <a href="/tags/Promise串行执行/" style="font-size: 14px;">Promise串行执行</a> <a href="/tags/React生命周期/" style="font-size: 14px;">React生命周期</a> <a href="/tags/apply/" style="font-size: 14px;">apply</a> <a href="/tags/bind/" style="font-size: 14px;">bind</a> <a href="/tags/call/" style="font-size: 14px;">call</a> <a href="/tags/form/" style="font-size: 14px;">form</a> <a href="/tags/react/" style="font-size: 14px;">react</a> <a href="/tags/setState/" style="font-size: 14px;">setState</a> <a href="/tags/this/" style="font-size: 14px;">this</a> <a href="/tags/作用域链/" style="font-size: 14px;">作用域链</a> <a href="/tags/变量对象/" style="font-size: 14px;">变量对象</a> <a href="/tags/定位导航/" style="font-size: 14px;">定位导航</a> <a href="/tags/执行上下文/" style="font-size: 14px;">执行上下文</a> <a href="/tags/执行上下文栈/" style="font-size: 14px;">执行上下文栈</a> <a href="/tags/算法/" style="font-size: 14px;">算法</a> <a href="/tags/节流/" style="font-size: 14px;">节流</a> <a href="/tags/运算符类型转换/" style="font-size: 14px;">运算符类型转换</a> <a href="/tags/闭包/" style="font-size: 14px;">闭包</a> <a href="/tags/防抖/" style="font-size: 14px;">防抖</a>
+  </div>
+</div>  
+  
+
+  <div class="container">
+
+    <header class="header" id="header">
+  <div class="header-wrapper">
+    <div class="logo">
+  <div class="logo-inner syuanpi tvIn">
+    <span><a href="/">Pororo's blog</a></span>
+    
+  </div>
+</div>
+    <nav class="main-nav">
+        
+  <ul class="main-nav-list syuanpi tvIn">
+  
+    <li class="menu-item">
+      <a href="javascript:;" id="search">
+        <span>搜索</span>
+        
+          <span class="menu-item-label">search</span>
+        
+      </a>
+    </li>
+  
+  
+    
+      
+    
+    <li class="menu-item">
+      <a href="/" id="article">
+        <span class="base-name">文章</span>
+        
+          <span class="menu-item-label">article</span>
+        
+      </a>
+    </li>  
+  
+    
+      
+    
+    <li class="menu-item">
+      <a href="/archives" id="archives">
+        <span class="base-name">归档</span>
+        
+          <span class="menu-item-label">archives</span>
+        
+      </a>
+    </li>  
+  
+    
+      
+    
+    <li class="menu-item">
+      <a href="javascript:;" id="tags">
+        <span class="base-name">标签</span>
+        
+          <span class="menu-item-label">tags</span>
+        
+      </a>
+    </li>  
+  
+  </ul>
+  
+</nav>
+    
+    
+  </div>
+</header>
+<div class="mobile-header">
+  <div class="mobile-header-body">
+    <div class="mobile-header-list">
+      
+        
+            <div class="mobile-nav-item">
+                <a href="/">
+                    <span>文章</span>
+                    
+                        <span class="menu-item-label">article</span>
+                    
+                </a>
+            </div>
+        
+      
+        
+            <div class="mobile-nav-item">
+                <a href="/archives">
+                    <span>归档</span>
+                    
+                        <span class="menu-item-label">archives</span>
+                    
+                </a>
+            </div>
+        
+      
+        
+          <div class="mobile-nav-item inner-cloud">
+            <div class="mobile-nav-tag">
+              <a href="javascript:;" id="mobile-tags">
+                <span>标签</span>
+                
+                    <span class="menu-item-label">tags</span>
+                
+              </a>
+            </div>
+            <div class="mobile-nav-tagcloud">
+              <div class="mobile-tagcloud-inner">
+                <a href="/tags/Ajax/" style="font-size: 14px;">Ajax</a> <a href="/tags/CSS层叠规则/" style="font-size: 14px;">CSS层叠规则</a> <a href="/tags/Comet/" style="font-size: 14px;">Comet</a> <a href="/tags/DOM/" style="font-size: 14px;">DOM</a> <a href="/tags/Diff/" style="font-size: 14px;">Diff</a> <a href="/tags/HOC/" style="font-size: 14px;">HOC</a> <a href="/tags/HTML5/" style="font-size: 14px;">HTML5</a> <a href="/tags/HTML5，DOM/" style="font-size: 14px;">HTML5，DOM</a> <a href="/tags/Promise串行执行/" style="font-size: 14px;">Promise串行执行</a> <a href="/tags/React生命周期/" style="font-size: 14px;">React生命周期</a> <a href="/tags/apply/" style="font-size: 14px;">apply</a> <a href="/tags/bind/" style="font-size: 14px;">bind</a> <a href="/tags/call/" style="font-size: 14px;">call</a> <a href="/tags/form/" style="font-size: 14px;">form</a> <a href="/tags/react/" style="font-size: 14px;">react</a> <a href="/tags/setState/" style="font-size: 14px;">setState</a> <a href="/tags/this/" style="font-size: 14px;">this</a> <a href="/tags/作用域链/" style="font-size: 14px;">作用域链</a> <a href="/tags/变量对象/" style="font-size: 14px;">变量对象</a> <a href="/tags/定位导航/" style="font-size: 14px;">定位导航</a> <a href="/tags/执行上下文/" style="font-size: 14px;">执行上下文</a> <a href="/tags/执行上下文栈/" style="font-size: 14px;">执行上下文栈</a> <a href="/tags/算法/" style="font-size: 14px;">算法</a> <a href="/tags/节流/" style="font-size: 14px;">节流</a> <a href="/tags/运算符类型转换/" style="font-size: 14px;">运算符类型转换</a> <a href="/tags/闭包/" style="font-size: 14px;">闭包</a> <a href="/tags/防抖/" style="font-size: 14px;">防抖</a>
+              </div>
+            </div>
+          </div>
+        
+      
+    </div>
+  </div>
+  <div class="mobile-header-nav">
+    <div class="mobile-header-item" id="mobile-left">
+      <div class="header-menu-item">
+        <span class="header-menu-line"></span>
+      </div>
+    </div>
+    <h1 class="mobile-header-title">
+      <a href="/">Pororo's blog</a>
+    </h1>
+    <div class="mobile-header-item"></div>
+  </div>
+</div>
+    <div class="container-inner">
+      <main class="main" id="main">
+        <div class="main-wrapper">
+          
+    
+  <article class="
+  post
+   is_post 
+  ">
+    <header class="post-header">
+      <div class="post-time syuanpi riseIn-light back-1">
+        <div class="post-time-wrapper">
+          <span>2017-10-19</span>
+          
+            
+              <span class="post-category"><a href="/categories/React/">React</a></span>
+            
+          
+          
+            
+              <aside class="post-tags syuanpi riseIn-light back-3">
+              
+                <a href="/tags/setState/">setState</a>
+              
+              </aside>
+            
+          
+        </div>
+      </div>
+      <h1 class="post-title syuanpi riseIn-light back-2">
+        
+          React：setState详解
+        
+      </h1>
+    </header>
+    <div class="post-content syuanpi riseIn-light back-3">
+      
+        <p>首先我们来看一个栗子：</p>
+<pre><code class="JavaScript">class Eg extends Component {
+  contructor () {
+    super()
+    this.state = {
+      value: 0,
+      index: 0
+    }
+  }
+
+  componentDidMount () {
+    this.setState({value: this.state.value + 1})
+    console.log(this.state.value) // 第一次输出
+    this.setState({value: this.state.value + 1})
+    console.log(this.state.value) // 第二次输出
+    setTimeout(() =&gt; {
+      this.setState({value: this.state.value + 1})
+      console.log(this.state.value) // 第三次输出
+      this.setState({value: this.state.value + 1})
+      console.log(this.state.value) // 第四次输出
+    }, 0)；
+        this.refs.button.addEventListener(&#39;click&#39;, this.click)
+  }
+
+  click = () =&gt; {
+    this.setState({value: this.state.index + 1})
+    this.setState({value: this.state.index + 1})
+  }
+
+  render () {
+    return (
+      &lt;div&gt;&lt;span&gt;value: {this.state.value}index: {this.props.index}&lt;/span&gt;
+        &lt;button ref=&quot;button&quot; onClick={this.click}&gt;点击&lt;/button&gt;
+      &lt;/div&gt;
+    )
+  }
+}
+</code></pre>
+<p>这四次输出，按常理来说分别是: 1，2，3，4。但是，实际输出为: 0, 0, 2, 3。</p>
+<a id="more"></a>
+<p>在分析之前，需要知道setState的一些关键点。</p>
+<h1 id="setState的关键点"><a href="#setState的关键点" class="headerlink" title="setState的关键点"></a>setState的关键点</h1><ol>
+<li><p>setState不会立刻改变React组件中state的值</p>
+</li>
+<li><p>setState通过引发一次组件的更新过程来引发重新绘制</p>
+<p> 重绘指的就是引起React的更新生命周期函数4个函数：</p>
+<ul>
+<li>shouldComponentUpdate（被调用时this.state没有更新；如果返回了false，生命周期被中断，虽然不调用之后的函数了，但是state仍然会被更新）</li>
+<li>componentWillUpdate（被调用时this.state没有更新）</li>
+<li>render（被调用时this.state得到更新）</li>
+<li>componentDidUpdate</li>
+</ul>
+</li>
+<li><p>多次setState函数调用产生的效果会合并。</p>
+<pre><code class="JavaScript"> this.setState({name: &#39;Pororo&#39;})
+ this.setState({age: 20})
+</code></pre>
+<pre><code class="JavaScript"> this.setState({name: &#39;Pororo&#39;，age: 20})
+</code></pre>
+<p> 上面两块代码的效果是一样的。如果每次调用都引发一次生命周期更新，那性能就会消耗很大了。所以，React会将多个this.setState产生的修改放进一个队列里，等差不多的时候就会引发一次生命周期更新。</p>
+</li>
+</ol>
+<h1 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h1><blockquote>
+<p>知道了这些之后就开始分析。</p>
+</blockquote>
+<h2 id="先来分析前两次setState："><a href="#先来分析前两次setState：" class="headerlink" title="先来分析前两次setState："></a>先来分析前两次setState：</h2><pre><code class="JavaScript">this.setState({value: this.state.val + 1});
+console.log(this.state.value); // 第一次输出
+this.setState({value: this.state.val + 1});
+console.log(this.state.value); // 第二次输出
+</code></pre>
+<p>由于setState不会立即改变React组件中state的值，所以两次setState中this.state.value都是同一个值0，故而，这两次输出都是0。因而value只被加1。</p>
+<p>既然这样，那么是不是可以直接操作<code>this.state</code>呢？比如：<code>this.state.value=this.state.value+1;</code>这样的确可以修改this.state.value的状态但是却不可以引发重复渲染。所以，就必须通过React设定的setState函数去改变this.state，从而引发重新渲染。 </p>
+<h2 id="接下来分析setTimeout里面的两次setState："><a href="#接下来分析setTimeout里面的两次setState：" class="headerlink" title="接下来分析setTimeout里面的两次setState："></a>接下来分析setTimeout里面的两次setState：</h2><pre><code class="JavaScript">setTimeout(() =&gt; {
+  this.setState({value: this.state.value + 1})
+  console.log(this.state.value) // 第三次输出
+  this.setState({value: this.state.value + 1})
+  console.log(this.state.value) // 第四次输出
+}, 0)；
+</code></pre>
+<p>这两次this.stat的值同步更新了，这是为什么的呢？</p>
+<p>在React中，<strong>如果是由React引发的事件处理（比如：onClick引发的事件处理），调用setState不会同步更新this.state，除此之外的setState调用会同步执行this.setState。</strong> “除此之外”指的是：绕过React通过addEventListener直接添加的事件处理函数和setTimeout/setInterval产生的异步调用。</p>
+<p>那为什么会这样呢？</p>
+<p><img src="/images/setState.png" alt=""></p>
+<p>每次setState产生新的state会依次被存入一个队列，然后会根据<strong>isBathingUpdates</strong>变量判断是直接更新this.state还是放进dirtyComponent里回头再说。isBatchingUpdates默认是false，也就表示setState会同步更新this.state。但是，当React在调用事件处理函数之前就会调用batchedUpdates，这个函数会把isBatchingUpdates修改为true，造成的后果就是由React控制的事件处理过程setState不会同步更新this.state。</p>
+<h1 id="同步更新state的办法—函数式setState"><a href="#同步更新state的办法—函数式setState" class="headerlink" title="同步更新state的办法—函数式setState"></a>同步更新state的办法—函数式setState</h1><p>如果this.setState的参数不是一个对象而是一个函数时，这个函数会接收到两个参数，第一个是当前的state值，第二个是当前的props，这个函数应该返回一个对象，这个对象代表想要对this.state的更改，换句话说，之前你想给this.setState传递什么对象参数，在这种函数里就返回什么对象。不过，计算这个对象的方法有些改变，不再依赖于this.state，而是依赖于输入参数state。</p>
+<pre><code class="JavaScript">function increment(state, props) {
+  return {count: state.count + 1};
+}
+</code></pre>
+<pre><code class="JavaScript">function incrementMultiple() {
+  this.setState(increment);
+  this.setState(increment);
+  this.setState(increment);
+}
+</code></pre>
+<p>假如当前this.state.count的值是0，第一次调用this.setState(increment)，传给increment的state参数是0，第二调用时，state参数是1，第三次调用是，参数是2，最终incrementMultiple让this.state.count变成了3。</p>
+<p>对于多次调用函数式setState的情况，React会保证调用每次increment时，state都已经合并了之前的状态修改结果。</p>
+<blockquote>
+<p>要注意的是，在increment函数被调用时，this.state并没有被改变，依然，要等到render函数被重新执行时（或者shouldComponentUpdate函数返回false之后）才被改变。</p>
+</blockquote>
+<h1 id="把两种setState的用法混用，会有什么效果？"><a href="#把两种setState的用法混用，会有什么效果？" class="headerlink" title="把两种setState的用法混用，会有什么效果？"></a>把两种setState的用法混用，会有什么效果？</h1><p>我们把incrementMultiple改成这样。</p>
+<pre><code class="JavaScript">function incrementMultiple() {
+  this.setState(increment);
+  this.setState(increment);
+  this.setState({count: this.state.count + 1});
+  this.setState(increment);
+}
+</code></pre>
+<p>在几个函数式setState调用中插入一个传统式setState调用，最后得到的结果是让this.state.count增加了2，而不是增加4。</p>
+<p>这是因为React会依次合并所有setState产生的效果，虽然前两个函数式setState调用产生的效果是count加2，但是中间出现一个传统式setState调用，一下子强行把积攒的效果清空，用count加1取代。</p>
+<p>所以，传统式setState与函数式setState一定不要混用。</p>
+<p>总结自<a href="https://zhuanlan.zhihu.com/p/26069727" target="_blank" rel="noopener">setState何时同步更新状态</a>、<a href="https://zhuanlan.zhihu.com/p/25990883" target="_blank" rel="noopener">setState为什么不会同步更新组件状态</a></p>
+
+      
+    
+    </div>
+    
+      
+      
+  <hr class="copy-line">
+  <div class="post-copyright">
+    <div class="copy-author">
+      <span>作者 :</span>
+      <span>Pororo</span>
+    </div>
+    <div class="copy-url">
+      <span>地址 :</span>
+      <a href="http://120.78.174.232/2017/10/19/React：setState详解/">http://120.78.174.232/2017/10/19/React：setState详解/</a>
+    </div>
+    <div class="copy-origin">
+      <span>来源 :</span>
+      <a href="http://120.78.174.232">http://120.78.174.232</a>
+    </div>
+    <div class="copy-license">
+      
+      著作权归作者所有，转载请联系作者获得授权。
+    </div>
+  </div>
+
+    
+  </article>
+  
+    
+  <nav class="article-page">
+    
+      <a href="/2017/10/22/JavaScript高级程序设计节点层次之Node类型/" id="art-left" class="art-left">
+        <span class="next-title">
+          <i class="iconfont icon-left"></i>JavaScript高级程序设计节点层次之Node类型
+        </span>
+      </a>
+    
+    
+      <a href="/2017/10/17/React之Diff/" id="art-right" class="art-right">
+        <span class="prev-title"> 
+          React之Diff<i class="iconfont icon-right"></i>  
+        </span>
+      </a>
+    
+  </nav>
+
+    
+  <i id="com-switch" class="iconfont icon-more jumping-in long infinite" style="font-size:24px;display:block;text-align:center;transform:rotate(180deg);"></i>
+  <div class="post-comments" id="post-comments" style="display: block;margin: auto 16px;">
+    
+    
+    
+
+  </div>
+
+
+  
+   
+    
+  
+  <aside class="post-toc">
+    <span class="title" id="toc-switch"><span>文章导航</span></span>
+    <div class="toc-inner syuanpi back-1 fallIn-light">
+      <li class="title-link"><a href="javascript:;" class="toTop">React：setState详解</a></li>
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#setState的关键点"><span class="toc-text">setState的关键点</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#分析"><span class="toc-text">分析</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#先来分析前两次setState："><span class="toc-text">先来分析前两次setState：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#接下来分析setTimeout里面的两次setState："><span class="toc-text">接下来分析setTimeout里面的两次setState：</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#同步更新state的办法—函数式setState"><span class="toc-text">同步更新state的办法—函数式setState</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#把两种setState的用法混用，会有什么效果？"><span class="toc-text">把两种setState的用法混用，会有什么效果？</span></a></li></ol>
+    </div>
+  </aside>
+
+
+  
+
+
+        </div>
+      </main>
+
+      <footer class="footer syuanpi fadeIn" id="footer">
+  <hr>
+  <div class="footer-wrapper">
+    <div class="left">
+      <div class="contact-icon">
+    
+    
+    
+    
+    
+    
+    
+    
+        
+            <a href="https://github.com/pororoj" class="iconfont icon-github" title="github"></a>
+        
+        
+        
+        
+        
+        
+        
+    
+</div>
+    </div>
+    <div class="right">
+      <div class="copyright">
+    <div class="info">
+        <span>&copy;</span>
+        <span>2017 ~ 2018</span>
+        <span>❤</span>
+        <span>Pororo</span>
+    </div>
+    <div class="theme">
+        <span>
+            动力来源于
+            <a href="http://hexo.io/" target="_blank">Hexo </a>
+        </span>
+        <span>
+            主题
+            <a href="https://github.com/ColMugX/hexo-theme-Nlvi"> Nlvi </a>
+        </span>
+    </div>
+    
+    <div class="visit_count">
+        <i class="iconfont icon-visit"></i>
+        <span id="busuanzi_value_site_uv"></span>
+        <i class="iconfont icon-people"></i>
+        <span id="busuanzi_value_site_pv"></span>
+    </div>
+    
+</div>
+    </div>
+  </div>
+</footer>
+    </div>
+  </div>
+  <script src="/script/lib/jquery/jquery-3.2.1.min.js"></script>
+
+
+    <script src="/script/lib/lightbox/js/lightbox.min.js"></script>
+
+
+
+
+
+
+<script src="/script/src/nlvi.js"></script>
+<script src="/script/src/utils.js"></script>
+<script src="/script/scheme/balance.js"></script>
+<script src="/script/src/plugins.js"></script>
+<script src="/script/bootstarp.js"></script>
+
+
+<div class="backtop syuanpi dead toTop" id="backtop">
+    <i class="iconfont icon-up"></i>
+    <span style="text-align:center;font-family:Georgia;"><span style="font-family:Georgia;" id="scrollpercent">1</span>%</span>
+</div>
+
+
+  <div class="search" id="search">
+    <div class="mask" id="mask"></div>
+    <div class="search-wrapper syuanpi">
+      <h2 id="search-header" class="syuanpi">搜索一下？</h2>
+      <div class="input">
+        <input type="text" id="local-search-input" results="0" name="">
+      </div>
+      <div id="local-search-result"></div>
+    </div>
+  </div>
+  <script>
+  if (NlviConfig.theme === 'banderole') {
+    var GREETING = {
+      morning: "早早早！记得吃早饭~",
+      noon: "中午好！记得午休~",
+      after: "下午好！记得吃下午茶啊~",
+      night: "晚上好！记得放松一下~",
+      midnight: "赶紧休息啦！少熬夜~"
+    }
+  }
+  </script>
+
+</body>
+</html>

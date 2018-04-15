@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <link rel="stylesheet" href="/style/style.css">
+<script>
+    var NlviConfig = {
+        title: "Pororo's blog",
+        author: "Pororo",
+        theme: "banderole",
+        lightbox: true,
+        animate: true,
+        baseUrl: "/",
+        search: true
+    }
+</script>
+
+
+
+    <link rel="stylesheet" href="/script/lib/lightbox/css/lightbox.min.css">
+
+
+
+
+    <link rel="stylesheet" href="/syuanpi/syuanpi.min.css">
+
+
+
+
+    <link rel="icon" href="/images/favicon.ico">
+
+
+
+
+
+
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="browsermode" content="application">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Pororo's blog">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="msapplication-navbutton-color" content="#666666">
+<meta name= "format-detection" content="telephone=no" />
+<meta name="keywords" content="nlvi, Nlvi" />
+
+  <link rel="apple-touch-icon"  sizes="72x72"  href="/images/favicon.ico">
+  <link rel="apple-touch-icon-precomposed"  sizes="72x72"  href="/images/favicon.ico">
+
+
+
+  <meta name="description" content="现在的我可能不那么优秀，但可以从现在开始努力变得优秀。">
+
+
+
+  <meta name="keywords" content="节流, 防抖, Nlvi" />
+
+  <title> 滚动无限加载的页面渲染优化 · Pororo's blog </title>
+</head>
+<body>
+  <div class="progress">
+  <div class="progress-inner"></div>
+</div>
+  
+  
+    <div class="tagcloud-mask"></div>  
+<div class="tagcloud" id="tagcloud">
+  <div class="tagcloud-inner">
+    <a href="/tags/Ajax/" style="font-size: 14px;">Ajax</a> <a href="/tags/CSS层叠规则/" style="font-size: 14px;">CSS层叠规则</a> <a href="/tags/Comet/" style="font-size: 14px;">Comet</a> <a href="/tags/DOM/" style="font-size: 14px;">DOM</a> <a href="/tags/Diff/" style="font-size: 14px;">Diff</a> <a href="/tags/HOC/" style="font-size: 14px;">HOC</a> <a href="/tags/HTML5/" style="font-size: 14px;">HTML5</a> <a href="/tags/HTML5，DOM/" style="font-size: 14px;">HTML5，DOM</a> <a href="/tags/Promise串行执行/" style="font-size: 14px;">Promise串行执行</a> <a href="/tags/React生命周期/" style="font-size: 14px;">React生命周期</a> <a href="/tags/apply/" style="font-size: 14px;">apply</a> <a href="/tags/bind/" style="font-size: 14px;">bind</a> <a href="/tags/call/" style="font-size: 14px;">call</a> <a href="/tags/form/" style="font-size: 14px;">form</a> <a href="/tags/react/" style="font-size: 14px;">react</a> <a href="/tags/setState/" style="font-size: 14px;">setState</a> <a href="/tags/this/" style="font-size: 14px;">this</a> <a href="/tags/作用域链/" style="font-size: 14px;">作用域链</a> <a href="/tags/变量对象/" style="font-size: 14px;">变量对象</a> <a href="/tags/定位导航/" style="font-size: 14px;">定位导航</a> <a href="/tags/执行上下文/" style="font-size: 14px;">执行上下文</a> <a href="/tags/执行上下文栈/" style="font-size: 14px;">执行上下文栈</a> <a href="/tags/算法/" style="font-size: 14px;">算法</a> <a href="/tags/节流/" style="font-size: 14px;">节流</a> <a href="/tags/运算符类型转换/" style="font-size: 14px;">运算符类型转换</a> <a href="/tags/闭包/" style="font-size: 14px;">闭包</a> <a href="/tags/防抖/" style="font-size: 14px;">防抖</a>
+  </div>
+</div>  
+  
+
+  <div class="container">
+
+    <header class="header" id="header">
+  <div class="header-wrapper">
+    <div class="logo">
+  <div class="logo-inner syuanpi tvIn">
+    <span><a href="/">Pororo's blog</a></span>
+    
+  </div>
+</div>
+    <nav class="main-nav">
+        
+  <ul class="main-nav-list syuanpi tvIn">
+  
+    <li class="menu-item">
+      <a href="javascript:;" id="search">
+        <span>搜索</span>
+        
+          <span class="menu-item-label">search</span>
+        
+      </a>
+    </li>
+  
+  
+    
+      
+    
+    <li class="menu-item">
+      <a href="/" id="article">
+        <span class="base-name">文章</span>
+        
+          <span class="menu-item-label">article</span>
+        
+      </a>
+    </li>  
+  
+    
+      
+    
+    <li class="menu-item">
+      <a href="/archives" id="archives">
+        <span class="base-name">归档</span>
+        
+          <span class="menu-item-label">archives</span>
+        
+      </a>
+    </li>  
+  
+    
+      
+    
+    <li class="menu-item">
+      <a href="javascript:;" id="tags">
+        <span class="base-name">标签</span>
+        
+          <span class="menu-item-label">tags</span>
+        
+      </a>
+    </li>  
+  
+  </ul>
+  
+</nav>
+    
+    
+  </div>
+</header>
+<div class="mobile-header">
+  <div class="mobile-header-body">
+    <div class="mobile-header-list">
+      
+        
+            <div class="mobile-nav-item">
+                <a href="/">
+                    <span>文章</span>
+                    
+                        <span class="menu-item-label">article</span>
+                    
+                </a>
+            </div>
+        
+      
+        
+            <div class="mobile-nav-item">
+                <a href="/archives">
+                    <span>归档</span>
+                    
+                        <span class="menu-item-label">archives</span>
+                    
+                </a>
+            </div>
+        
+      
+        
+          <div class="mobile-nav-item inner-cloud">
+            <div class="mobile-nav-tag">
+              <a href="javascript:;" id="mobile-tags">
+                <span>标签</span>
+                
+                    <span class="menu-item-label">tags</span>
+                
+              </a>
+            </div>
+            <div class="mobile-nav-tagcloud">
+              <div class="mobile-tagcloud-inner">
+                <a href="/tags/Ajax/" style="font-size: 14px;">Ajax</a> <a href="/tags/CSS层叠规则/" style="font-size: 14px;">CSS层叠规则</a> <a href="/tags/Comet/" style="font-size: 14px;">Comet</a> <a href="/tags/DOM/" style="font-size: 14px;">DOM</a> <a href="/tags/Diff/" style="font-size: 14px;">Diff</a> <a href="/tags/HOC/" style="font-size: 14px;">HOC</a> <a href="/tags/HTML5/" style="font-size: 14px;">HTML5</a> <a href="/tags/HTML5，DOM/" style="font-size: 14px;">HTML5，DOM</a> <a href="/tags/Promise串行执行/" style="font-size: 14px;">Promise串行执行</a> <a href="/tags/React生命周期/" style="font-size: 14px;">React生命周期</a> <a href="/tags/apply/" style="font-size: 14px;">apply</a> <a href="/tags/bind/" style="font-size: 14px;">bind</a> <a href="/tags/call/" style="font-size: 14px;">call</a> <a href="/tags/form/" style="font-size: 14px;">form</a> <a href="/tags/react/" style="font-size: 14px;">react</a> <a href="/tags/setState/" style="font-size: 14px;">setState</a> <a href="/tags/this/" style="font-size: 14px;">this</a> <a href="/tags/作用域链/" style="font-size: 14px;">作用域链</a> <a href="/tags/变量对象/" style="font-size: 14px;">变量对象</a> <a href="/tags/定位导航/" style="font-size: 14px;">定位导航</a> <a href="/tags/执行上下文/" style="font-size: 14px;">执行上下文</a> <a href="/tags/执行上下文栈/" style="font-size: 14px;">执行上下文栈</a> <a href="/tags/算法/" style="font-size: 14px;">算法</a> <a href="/tags/节流/" style="font-size: 14px;">节流</a> <a href="/tags/运算符类型转换/" style="font-size: 14px;">运算符类型转换</a> <a href="/tags/闭包/" style="font-size: 14px;">闭包</a> <a href="/tags/防抖/" style="font-size: 14px;">防抖</a>
+              </div>
+            </div>
+          </div>
+        
+      
+    </div>
+  </div>
+  <div class="mobile-header-nav">
+    <div class="mobile-header-item" id="mobile-left">
+      <div class="header-menu-item">
+        <span class="header-menu-line"></span>
+      </div>
+    </div>
+    <h1 class="mobile-header-title">
+      <a href="/">Pororo's blog</a>
+    </h1>
+    <div class="mobile-header-item"></div>
+  </div>
+</div>
+    <div class="container-inner">
+      <main class="main" id="main">
+        <div class="main-wrapper">
+          
+    
+  <article class="
+  post
+   is_post 
+  ">
+    <header class="post-header">
+      <div class="post-time syuanpi riseIn-light back-1">
+        <div class="post-time-wrapper">
+          <span>2017-09-02</span>
+          
+            
+              <span class="post-category"><a href="/categories/JavaScript/">JavaScript</a></span>
+            
+          
+          
+            
+              <aside class="post-tags syuanpi riseIn-light back-3">
+              
+                <a href="/tags/节流/">节流</a>
+              
+                <a href="/tags/防抖/">防抖</a>
+              
+              </aside>
+            
+          
+        </div>
+      </div>
+      <h1 class="post-title syuanpi riseIn-light back-2">
+        
+          滚动无限加载的页面渲染优化
+        
+      </h1>
+    </header>
+    <div class="post-content syuanpi riseIn-light back-3">
+      
+        <h1 id="滚动无限加载优化原因"><a href="#滚动无限加载优化原因" class="headerlink" title="滚动无限加载优化原因"></a>滚动无限加载优化原因</h1><p>之前的项目是用react来写的，所以直接在componentDidMount里面直接加了监听事件。代码如下：</p>
+<pre><code class="javascript">    window.addEventListener(&#39;scroll&#39;,function(){
+        //在此写滚动后进行的操作
+    },false);
+</code></pre>
+<p>当它发生时，由于间隔很近，触发频次非常高，DOM开销十分高，所以页面就很容易掉帧。用户体验和性能都非常不好，十分有必要在此基础上进行优化。</p>
+<a id="more"></a>
+<h1 id="防抖和节流"><a href="#防抖和节流" class="headerlink" title="防抖和节流"></a>防抖和节流</h1><h2 id="防抖"><a href="#防抖" class="headerlink" title="防抖"></a>防抖</h2><p>在事件触发 n 秒后才执行，如果你在一个事件触发的 n 秒内又触发了这个事件，那我就以新的事件的时间为准，n 秒后才执行，总之，就是要等你触发完事件 n 秒内不再触发事件，才执行。</p>
+<p>下面是封装后的代码</p>
+<pre><code class="javascript">   &lt;!DOCTYPE html&gt;
+   &lt;html lang=&quot;zh-cmn-Hans&quot;&gt;
+   &lt;head&gt;
+    &lt;meta charset=&quot;utf-8&quot;&gt;
+    &lt;meta http-equiv=&quot;x-ua-compatible&quot; content=&quot;IE=edge, chrome=1&quot;&gt;
+    &lt;title&gt;debounce&lt;/title&gt;
+    &lt;style&gt;
+        #container{
+            width: 100%;
+            height: 200px;
+            line-height: 200px; 
+            text-align: center; 
+            color: #fff; 
+            background-color: #444; 
+            font-size: 30px;
+        }
+    &lt;/style&gt;
+   &lt;/head&gt;
+    &lt;body&gt;
+      &lt;div id=&quot;container&quot;&gt;&lt;/div&gt;
+      &lt;button id=&quot;button&quot;&gt;点击取消debounce&lt;/button&gt;
+      &lt;script type=&quot;application/javascript&quot;&gt;
+      /**
+       * 防抖动函数
+       * @param func 防抖函数所触发的函数
+       * @param wait 两次函数触发所间隔的时间
+       * @param immediate 是否立即触发函数
+       * @returns {debounced}
+       */
+        function debounce(func, wait, immediate) {
+          var timeout, result;
+          return function () {
+            var context = this;
+            var args = arguments;
+            if (timeout) clearTimeout(timeout);
+            if (immediate) {
+              // 如果已经执行过，不再执行
+              var callNow = !timeout;
+              timeout = setTimeout(function(){
+                timeout = null;
+              }, wait)
+              if (callNow) result = func.apply(context, args)
+            }
+            else {
+              timeout = setTimeout(function(){
+                func.apply(context, args)
+              }, wait);
+            }
+            return result;
+          }
+          // 点击取消防抖函数
+          debounced.cancel = function() {
+            clearTimeout(timeout);
+            timeout = null;
+          };
+          return debounced;
+        }     
+        var count = 1;
+        var container = document.getElementById(&#39;container&#39;);
+        function getUserAction() {
+          container.innerHTML = count++;
+        };
+        container.onmousemove = getUserAction;
+        document.getElementById(&quot;button&quot;).addEventListener(&#39;click&#39;,           function(){
+            setUseAction.cancel();
+          })
+      &lt;/script&gt;
+    &lt;/body&gt;
+   &lt;/html&gt;
+
+</code></pre>
+<p>分析：</p>
+<p> <code>var context = this</code> 和 <code>func.apply(context, args)</code></p>
+<p> 使func的this指针指向和未使用debounce函数时this的指向一样。</p>
+<p> <code>var args = arguments</code> 和 <code>func.apply(context, args)</code></p>
+<p> 使func的事件处理函数中提供的事件对象event指向和未使用debounce函数事件对象event的指向一样。 </p>
+<p> 可以尝试两种情况下的console.log(this)和console.log(args)</p>
+<h2 id="节流"><a href="#节流" class="headerlink" title="节流"></a>节流</h2><p>实现防抖后就要解决在停止下滑时图片才能被加载出来的问题，这里就要用到节流的方法。节流函数保证了每次请求在一定时间内至少被执行了一次我们希望出发的事件。</p>
+<pre><code class="javascript">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;utf-8&quot;&gt;
+    &lt;meta http-equiv=&quot;x-ua-compatible&quot; content=&quot;IE=edge, chrome=1&quot;&gt;
+    &lt;title&gt;throttle&lt;/title&gt;
+    &lt;style media=&quot;screen&quot;&gt;
+        #container {
+            width: 100%;
+            height: 200px;
+            line-height: 200px;
+            text-align: center;
+            color: #fff;
+            background-color: #444;
+            font-size: 30px;
+        }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div id=&quot;container&quot;&gt;&lt;/div&gt;
+&lt;button id=&quot;button&quot;&gt;点击取消&lt;/button&gt;
+&lt;script type=&quot;application/javascript&quot;&gt;
+  var count = 1
+  var container = document.getElementById(&#39;container&#39;)
+
+  function getUserAction () {
+    container.innerHTML = count++
+  }
+
+  var setUseAction = throttle(getUserAction, 10000)
+
+  container.onmousemove = setUseAction
+
+  document.getElementById(&#39;button&#39;).addEventListener(&#39;click&#39;, function () {
+    setUseAction.cancel()
+  })
+
+  /**
+   * 节流函数
+   * @param func
+   * @param wait
+   * @param options
+   * @returns {throttled}
+   */
+  function throttle (func, wait, options) {
+    var timeout, context, args, result
+    var previous = 0
+    if (!options) options = {}
+
+    var later = function () {
+      previous = options.leading === false ? 0 : new Date().getTime()
+      timeout = null
+      func.apply(context, args)
+      if (!timeout) context = args = null
+    }
+
+    var throttled = function () {
+      var now = new Date().getTime()
+      if (!previous &amp;&amp; options.leading === false) previous = now
+      var remaining = wait - (now - previous)
+      context = this
+      args = arguments
+      if (remaining &lt;= 0 || remaining &gt; wait) {
+        if (timeout) {
+          clearTimeout(timeout)
+          timeout = null
+        }
+        previous = now
+        func.apply(context, args)
+        if (!timeout) context = args = null
+      } else if (!timeout &amp;&amp; options.trailing !== false) {
+        timeout = setTimeout(later, remaining)
+      }
+    }
+
+    throttled.cancel = function () {
+      clearTimeout(timeout)
+      previous = 0
+      timeout = null
+    }
+
+    return throttled
+  }
+&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<p>以上代码表示的是：在一段时间内 scroll 触发的间隔一直短于 500ms ，那么能保证事件我们希望调用的 handler 至少在 1000ms 内会触发一次。</p>
+<h1 id="使用-rAF（requestAnimationFrame）触发滚动事件"><a href="#使用-rAF（requestAnimationFrame）触发滚动事件" class="headerlink" title="使用 rAF（requestAnimationFrame）触发滚动事件"></a>使用 rAF（requestAnimationFrame）触发滚动事件</h1><p>如果页面只需要兼容高版本浏览器或应用在移动端，又或者页面需要追求高精度的效果，那么可以使用浏览器的原生方法 rAF（requestAnimationFrame）。</p>
+<h2 id="requestAnimationFrame"><a href="#requestAnimationFrame" class="headerlink" title="requestAnimationFrame"></a>requestAnimationFrame</h2><p>window.requestAnimationFrame() 这个方法是用来在页面重绘之前，通知浏览器调用一个指定的函数。这个方法接受一个函数为参，该函数会在重绘前调用。</p>
+<p>rAF 常用于 web 动画的制作，用于准确控制页面的帧刷新渲染，让动画效果更加流畅，当然它的作用不仅仅局限于动画制作，我们可以利用它的特性将它视为一个定时器。（当然它不是定时器）</p>
+<p>通常来说，rAF 被调用的频率是每秒 60 次，也就是 1000/60 ，触发频率大概是 16.7ms 。（当执行复杂操作时，当它发现无法维持 60fps 的频率时，它会把频率降低到 30fps 来保持帧数的稳定。）</p>
+<p>简单而言，使用 requestAnimationFrame 来触发滚动事件，相当于上面的：</p>
+<p><code>throttle(func, xx, 1000/60) //xx 代表 xx ms内不会重复触发事件 handler</code></p>
+<pre><code class="javascript">    var ticking = false; // rAF 触发锁
+
+    function onScroll(){
+      if(!ticking) {
+        requestAnimationFrame(realFunc);
+        ticking = true;
+      }
+    }
+
+    function realFunc(){
+        // do something...
+        console.log(&quot;Success&quot;);
+        ticking = false;
+    }
+    // 滚动事件监听
+    window.addEventListener(&#39;scroll&#39;, onScroll, false);
+</code></pre>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><ol>
+<li>防抖动：防抖技术即是可以把多个顺序地调用合并成一次，也就是在一定时间内，规定事件被触发的次数。</li>
+<li>节流函数：只允许一个函数在 X 毫秒内执行一次，只有当上一次函数执行后过了你规定的时间间隔，才能进行下一次该函数的调用。</li>
+<li>rAF：16.7ms 触发一次 handler，降低了可控性，但是提升了性能和精确度。</li>
+</ol>
+<p>本文部分参考于 <a href="http://www.cnblogs.com/coco1s/p/5499469.html" target="_blank" rel="noopener">ChokCoco</a> （更多注意事项也可参考该文章）</p>
+
+      
+    
+    </div>
+    
+      
+      
+  <hr class="copy-line">
+  <div class="post-copyright">
+    <div class="copy-author">
+      <span>作者 :</span>
+      <span>Pororo</span>
+    </div>
+    <div class="copy-url">
+      <span>地址 :</span>
+      <a href="http://120.78.174.232/2017/09/02/滚动无限加载的页面渲染优化/">http://120.78.174.232/2017/09/02/滚动无限加载的页面渲染优化/</a>
+    </div>
+    <div class="copy-origin">
+      <span>来源 :</span>
+      <a href="http://120.78.174.232">http://120.78.174.232</a>
+    </div>
+    <div class="copy-license">
+      
+      著作权归作者所有，转载请联系作者获得授权。
+    </div>
+  </div>
+
+    
+  </article>
+  
+    
+  <nav class="article-page">
+    
+      <a href="/2017/09/16/js执行上下文之执行上下文栈/" id="art-left" class="art-left">
+        <span class="next-title">
+          <i class="iconfont icon-left"></i>js执行上下文之执行上下文栈
+        </span>
+      </a>
+    
+    
+      <a href="/2017/09/01/react生命周期/" id="art-right" class="art-right">
+        <span class="prev-title"> 
+          react生命周期<i class="iconfont icon-right"></i>  
+        </span>
+      </a>
+    
+  </nav>
+
+    
+  <i id="com-switch" class="iconfont icon-more jumping-in long infinite" style="font-size:24px;display:block;text-align:center;transform:rotate(180deg);"></i>
+  <div class="post-comments" id="post-comments" style="display: block;margin: auto 16px;">
+    
+    
+    
+
+  </div>
+
+
+  
+   
+    
+  
+  <aside class="post-toc">
+    <span class="title" id="toc-switch"><span>文章导航</span></span>
+    <div class="toc-inner syuanpi back-1 fallIn-light">
+      <li class="title-link"><a href="javascript:;" class="toTop">滚动无限加载的页面渲染优化</a></li>
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#滚动无限加载优化原因"><span class="toc-text">滚动无限加载优化原因</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#防抖和节流"><span class="toc-text">防抖和节流</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#防抖"><span class="toc-text">防抖</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#节流"><span class="toc-text">节流</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#使用-rAF（requestAnimationFrame）触发滚动事件"><span class="toc-text">使用 rAF（requestAnimationFrame）触发滚动事件</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#requestAnimationFrame"><span class="toc-text">requestAnimationFrame</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#总结"><span class="toc-text">总结</span></a></li></ol>
+    </div>
+  </aside>
+
+
+  
+
+
+        </div>
+      </main>
+
+      <footer class="footer syuanpi fadeIn" id="footer">
+  <hr>
+  <div class="footer-wrapper">
+    <div class="left">
+      <div class="contact-icon">
+    
+    
+    
+    
+    
+    
+    
+    
+        
+            <a href="https://github.com/pororoj" class="iconfont icon-github" title="github"></a>
+        
+        
+        
+        
+        
+        
+        
+    
+</div>
+    </div>
+    <div class="right">
+      <div class="copyright">
+    <div class="info">
+        <span>&copy;</span>
+        <span>2017 ~ 2018</span>
+        <span>❤</span>
+        <span>Pororo</span>
+    </div>
+    <div class="theme">
+        <span>
+            动力来源于
+            <a href="http://hexo.io/" target="_blank">Hexo </a>
+        </span>
+        <span>
+            主题
+            <a href="https://github.com/ColMugX/hexo-theme-Nlvi"> Nlvi </a>
+        </span>
+    </div>
+    
+    <div class="visit_count">
+        <i class="iconfont icon-visit"></i>
+        <span id="busuanzi_value_site_uv"></span>
+        <i class="iconfont icon-people"></i>
+        <span id="busuanzi_value_site_pv"></span>
+    </div>
+    
+</div>
+    </div>
+  </div>
+</footer>
+    </div>
+  </div>
+  <script src="/script/lib/jquery/jquery-3.2.1.min.js"></script>
+
+
+    <script src="/script/lib/lightbox/js/lightbox.min.js"></script>
+
+
+
+
+
+
+<script src="/script/src/nlvi.js"></script>
+<script src="/script/src/utils.js"></script>
+<script src="/script/scheme/balance.js"></script>
+<script src="/script/src/plugins.js"></script>
+<script src="/script/bootstarp.js"></script>
+
+
+<div class="backtop syuanpi dead toTop" id="backtop">
+    <i class="iconfont icon-up"></i>
+    <span style="text-align:center;font-family:Georgia;"><span style="font-family:Georgia;" id="scrollpercent">1</span>%</span>
+</div>
+
+
+  <div class="search" id="search">
+    <div class="mask" id="mask"></div>
+    <div class="search-wrapper syuanpi">
+      <h2 id="search-header" class="syuanpi">搜索一下？</h2>
+      <div class="input">
+        <input type="text" id="local-search-input" results="0" name="">
+      </div>
+      <div id="local-search-result"></div>
+    </div>
+  </div>
+  <script>
+  if (NlviConfig.theme === 'banderole') {
+    var GREETING = {
+      morning: "早早早！记得吃早饭~",
+      noon: "中午好！记得午休~",
+      after: "下午好！记得吃下午茶啊~",
+      night: "晚上好！记得放松一下~",
+      midnight: "赶紧休息啦！少熬夜~"
+    }
+  }
+  </script>
+
+</body>
+</html>
