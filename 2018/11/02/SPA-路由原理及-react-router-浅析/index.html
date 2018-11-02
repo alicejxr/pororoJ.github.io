@@ -240,6 +240,7 @@
 <p>对于单页应用来说，如果没有路由系统，就会出现进行多次跳转后由于 url 未发生变化，页面刷新后又回到最初始的状态，用户体验很不友好；并且由于缺少路由，对网站的 SEO 也很不友好。</p>
 </blockquote>
 <h1 id="SPA-路由原理"><a href="#SPA-路由原理" class="headerlink" title="SPA 路由原理"></a>SPA 路由原理</h1><h2 id="Hash-路由原理及简单实现"><a href="#Hash-路由原理及简单实现" class="headerlink" title="Hash 路由原理及简单实现"></a>Hash 路由原理及简单实现</h2><p>url 上的 hash 以 # 开头，主要作为锚点来使用，方便页面定位到相应位置。每次 # 后内容改变不会引起页面刷新，而且每次变化都会触发 hashChange 函数，可以利用这个特性来实现一个简单的 SPA hash 路由。</p>
+<a id="more"></a>
 <pre><code class="js">class Router {
   constructor() {
     this.routes = {} // 保存每个路由对应的回调函数
