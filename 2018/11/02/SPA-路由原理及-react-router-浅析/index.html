@@ -56,10 +56,9 @@
 
 
 
-  <title>
-  Pororo's blog
-  
-</title>
+  <meta name="keywords" content="react-router, Nlvi" />
+
+  <title> SPA 路由原理及 react-router 浅析 · Pororo's blog </title>
 </head>
 <body>
   <div class="progress">
@@ -204,14 +203,10 @@
       <main class="main" id="main">
         <div class="main-wrapper">
           
-  
-
-<section class="posts">
-  
     
   <article class="
   post
-  
+   is_post 
   ">
     <header class="post-header">
       <div class="post-time syuanpi riseIn-light back-1">
@@ -223,18 +218,25 @@
             
           
           
+            
+              <aside class="post-tags syuanpi riseIn-light back-3">
+              
+                <a href="/tags/react-router/">react-router</a>
+              
+              </aside>
+            
+          
         </div>
       </div>
       <h1 class="post-title syuanpi riseIn-light back-2">
         
-          <a href="/2018/11/02/SPA-路由原理及-react-router-浅析/">SPA 路由原理及 react-router 浅析</a>
+          SPA 路由原理及 react-router 浅析
         
       </h1>
     </header>
     <div class="post-content syuanpi riseIn-light back-3">
       
-        
-          <blockquote>
+        <blockquote>
 <p>对于单页应用来说，如果没有路由系统，就会出现进行多次跳转后由于 url 未发生变化，页面刷新后又回到最初始的状态，用户体验很不友好；并且由于缺少路由，对网站的 SEO 也很不友好。</p>
 </blockquote>
 <h1 id="SPA-路由原理"><a href="#SPA-路由原理" class="headerlink" title="SPA 路由原理"></a>SPA 路由原理</h1><h2 id="Hash-路由原理及简单实现"><a href="#Hash-路由原理及简单实现" class="headerlink" title="Hash 路由原理及简单实现"></a>Hash 路由原理及简单实现</h2><p>url 上的 hash 以 # 开头，主要作为锚点来使用，方便页面定位到相应位置。每次 # 后内容改变不会引起页面刷新，而且每次变化都会触发 hashChange 函数，可以利用这个特性来实现一个简单的 SPA hash 路由。</p>
@@ -1132,497 +1134,63 @@ export default StaticRouter;
 <p>初始化 Router 的时候，Router 在 componentWillMount 中 listen 了一个回调函数，该函数来自 history 实例，每次路由改变都会触发该回调函数，进而触发 setState。<br>ps：每次路由变化 -&gt; 触发顶层 Router 的监听事件 -&gt; Router 触发 setState -&gt; 向下传递新的 nextContext（nextContext 中含有最新的 location）。</p>
 <p>下层的 Route 拿到新的 nextContext 通过 matchPath 函数来判断 path 是否与 location 匹配，如果匹配则渲染，不匹配则不渲染。</p>
 
-        
       
     
     </div>
     
-  </article>
-  
-   
-    
-  
-
-  
-    
-  <article class="
-  post
-  
-  ">
-    <header class="post-header">
-      <div class="post-time syuanpi riseIn-light back-1">
-        <div class="post-time-wrapper">
-          <span>2018-04-05</span>
-          
-            
-              <span class="post-category"><a href="/categories/Promise/">Promise</a></span>
-            
-          
-          
-        </div>
-      </div>
-      <h1 class="post-title syuanpi riseIn-light back-2">
-        
-          <a href="/2018/04/05/Promise的串行执行/">Promise之串行执行的实现</a>
-        
-      </h1>
-    </header>
-    <div class="post-content syuanpi riseIn-light back-3">
       
-        
-          <blockquote>
-<p><a href="http://www.ituring.com.cn/article/66566" target="_blank" rel="noopener">Promises/A+规范</a>了解一下？</p>
-</blockquote>
-        
       
-    
-      <p class="content-link">
-        <a href="/2018/04/05/Promise的串行执行/#more">
-          <span>继续阅读</span>
-        </a>
-      </p>
-    
+  <hr class="copy-line">
+  <div class="post-copyright">
+    <div class="copy-author">
+      <span>作者 :</span>
+      <span>Pororo</span>
     </div>
-    
-  </article>
-  
-   
-    
-  
-
-  
-    
-  <article class="
-  post
-  
-  ">
-    <header class="post-header">
-      <div class="post-time syuanpi riseIn-light back-1">
-        <div class="post-time-wrapper">
-          <span>2018-04-05</span>
-          
-            
-              <span class="post-category"><a href="/categories/CSS/">CSS</a></span>
-            
-          
-          
-        </div>
-      </div>
-      <h1 class="post-title syuanpi riseIn-light back-2">
-        
-          <a href="/2018/04/05/CSS中的层叠规则/">CSS中的层叠规则</a>
-        
-      </h1>
-    </header>
-    <div class="post-content syuanpi riseIn-light back-3">
-      
-        
-          <blockquote>
-<p>默认情况下，网页的内容是没有偏移角的垂直视觉呈现，当内容发生层叠时，就会产生一个有先后顺序的层叠。</p>
-</blockquote>
-<h1 id="z-index"><a href="#z-index" class="headerlink" title="z-index"></a>z-index</h1><p>一般说到层叠首先就很容易想到 z-index 属性。</p>
-<p>z-index 属性只和 position 不为 static 的元素在一起时才生效，可为负值也可为正值。</p>
-<p>但是，在新出现的 CSS3 中，flex 盒子的子元素也可以设置 z-index 属性。</p>
-<h1 id="层叠上下文和层叠水平"><a href="#层叠上下文和层叠水平" class="headerlink" title="层叠上下文和层叠水平"></a>层叠上下文和层叠水平</h1><h2 id="层叠上下文"><a href="#层叠上下文" class="headerlink" title="层叠上下文"></a>层叠上下文</h2><p>层叠上下文(stacking context)是 HTML 中的一个三维的概念。可以理解为，某个元素含有层叠上下文那它就在 z 轴(当你看电脑屏幕时，视线和显示器之前的这条垂直线)上就会高于其他非层叠上下文元素。</p>
-<p>层叠上下文和块级格式化上下文类似，每个层叠上下文中可能有其他的层叠上下文，而自身也有可能处于一个层叠上下文中。</p>
-<h2 id="层叠水平"><a href="#层叠水平" class="headerlink" title="层叠水平"></a>层叠水平</h2><p>层叠水平(stacking level)决定了同一个层叠上下文中元素在 z 轴上的显示顺序。</p>
-<p>包括层叠上下文元素和普通元素，网页上的每个元素都有层叠水平。只不过普通元素的层叠水平是无法和层叠上下文元素的层叠水平相较量的。</p>
-<p>需要注意，不要把层叠水平和 CSS 的 z-index 属性混为一谈。z-index 对层叠水平的影响仅限于定位元素和 flex 盒子元素，而层叠水平适用于所有元素。</p>
-<h1 id="元素的层叠顺序"><a href="#元素的层叠顺序" class="headerlink" title="元素的层叠顺序"></a>元素的层叠顺序</h1><p>层叠顺序(stacking order)表示发生层叠时垂直显示顺序。</p>
-        
-      
-    
-      <p class="content-link">
-        <a href="/2018/04/05/CSS中的层叠规则/#more">
-          <span>继续阅读</span>
-        </a>
-      </p>
-    
+    <div class="copy-url">
+      <span>地址 :</span>
+      <a href="http://120.78.174.232/2018/11/02/SPA-路由原理及-react-router-浅析/">http://120.78.174.232/2018/11/02/SPA-路由原理及-react-router-浅析/</a>
     </div>
-    
-  </article>
-  
-   
-    
-  
-
-  
-    
-  <article class="
-  post
-  
-  ">
-    <header class="post-header">
-      <div class="post-time syuanpi riseIn-light back-1">
-        <div class="post-time-wrapper">
-          <span>2017-11-21</span>
-          
-            
-              <span class="post-category"><a href="/categories/HOC/">HOC</a></span>
-            
-          
-          
-        </div>
-      </div>
-      <h1 class="post-title syuanpi riseIn-light back-2">
-        
-          <a href="/2017/11/21/countdownHOC实现/">countdownHOC实现</a>
-        
-      </h1>
-    </header>
-    <div class="post-content syuanpi riseIn-light back-3">
-      
-        
-          <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>最近写了一个countdown的倒计时的高阶组件。现在大概有了个样子，实现了最基本的倒计时，但是后续会继续更新使更加完备、好用。</p>
-        
-      
-    
-      <p class="content-link">
-        <a href="/2017/11/21/countdownHOC实现/#more">
-          <span>继续阅读</span>
-        </a>
-      </p>
-    
+    <div class="copy-origin">
+      <span>来源 :</span>
+      <a href="http://120.78.174.232">http://120.78.174.232</a>
     </div>
-    
-  </article>
-  
-   
-    
-  
-
-  
-    
-  <article class="
-  post
-  
-  ">
-    <header class="post-header">
-      <div class="post-time syuanpi riseIn-light back-1">
-        <div class="post-time-wrapper">
-          <span>2017-11-21</span>
-          
-            
-              <span class="post-category"><a href="/categories/算法/">算法</a></span>
-            
-          
-          
-        </div>
-      </div>
-      <h1 class="post-title syuanpi riseIn-light back-2">
-        
-          <a href="/2017/11/21/剑指offer之数组中的逆序对思路分析/">数组中的逆序对思路分析</a>
-        
-      </h1>
-    </header>
-    <div class="post-content syuanpi riseIn-light back-3">
+    <div class="copy-license">
       
-        
-          <h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><blockquote>
-<p>在数组中的两个数字，如果前面一个数字大于后面的数字，则这两个数字组成一个逆序对。输入一个数组，求出这个数组中的逆序对的总数。</p>
-</blockquote>
-        
-      
-    
-      <p class="content-link">
-        <a href="/2017/11/21/剑指offer之数组中的逆序对思路分析/#more">
-          <span>继续阅读</span>
-        </a>
-      </p>
-    
+      著作权归作者所有，转载请联系作者获得授权。
     </div>
+  </div>
+
     
   </article>
   
-   
     
-  
-
-  
+  <nav class="article-page">
     
-  <article class="
-  post
-  
-  ">
-    <header class="post-header">
-      <div class="post-time syuanpi riseIn-light back-1">
-        <div class="post-time-wrapper">
-          <span>2017-11-18</span>
-          
-            
-              <span class="post-category"><a href="/categories/算法/">算法</a></span>
-            
-          
-          
-        </div>
-      </div>
-      <h1 class="post-title syuanpi riseIn-light back-2">
-        
-          <a href="/2017/11/18/整数中一的个数-剑指offer-笔记/">整数中一的个数笔记</a>
-        
-      </h1>
-    </header>
-    <div class="post-content syuanpi riseIn-light back-3">
-      
-        
-          <h1 id="C-代码"><a href="#C-代码" class="headerlink" title="C++代码"></a>C++代码</h1><pre><code class="JavaScript">int countDigitOne(int n) {
-  int ones = 0;
-  for (long long m = 1; m &lt;= n; m *=10)
-    ones += (n/m +8) /10 * m + (n/m % 10 == 1) * (n%m + 1);
-  return ones;
-} 
-</code></pre>
-        
-      
     
-      <p class="content-link">
-        <a href="/2017/11/18/整数中一的个数-剑指offer-笔记/#more">
-          <span>继续阅读</span>
-        </a>
-      </p>
+      <a href="/2018/04/05/Promise的串行执行/" id="art-right" class="art-right">
+        <span class="prev-title"> 
+          Promise之串行执行的实现<i class="iconfont icon-right"></i>  
+        </span>
+      </a>
     
-    </div>
-    
-  </article>
-  
-   
-    
-  
-
-  
-    
-  <article class="
-  post
-  
-  ">
-    <header class="post-header">
-      <div class="post-time syuanpi riseIn-light back-1">
-        <div class="post-time-wrapper">
-          <span>2017-11-15</span>
-          
-            
-              <span class="post-category"><a href="/categories/Ajax/">Ajax</a></span>
-            
-          
-          
-        </div>
-      </div>
-      <h1 class="post-title syuanpi riseIn-light back-2">
-        
-          <a href="/2017/11/15/Ajax与Comet/">Ajax与Comet</a>
-        
-      </h1>
-    </header>
-    <div class="post-content syuanpi riseIn-light back-3">
-      
-        
-          <h1 id="Ajax"><a href="#Ajax" class="headerlink" title="Ajax"></a>Ajax</h1><p>Ajax技术的核心是XMLHttpRequest对象(XHR)。</p>
-<h2 id="XMLHttpRequest对象-XHR"><a href="#XMLHttpRequest对象-XHR" class="headerlink" title="XMLHttpRequest对象(XHR)"></a>XMLHttpRequest对象(XHR)</h2><p>IE5是第一款引入XHR对象的浏览器，在IE中可能会遇到三种不同版本的XHR。因此，要在IE中使用XHR对象，可以向如下代码一样：</p>
-<pre><code>function createXHR(){
-    if(typeof XMLHttpRequest != &quot;undefined&quot;){
-        return new XMLHttpRequest();
-    }else if (typeof ActiveXObeject != &quot;undefined&quot;){
-        if(typeof arguments.callee.activeXString != &quot;string&quot;){
-            var versions = { &quot;MSXML2.XMLHttp.6.0&quot;, &quot;MSXML2.XMLHttp.3.0&quot;, &quot;MSXML2.XMLHttp&quot; }, len, i;
-            for(i=0, len=arguments.length; i &lt; len; i++){
-                try{
-                    new ActiveXObkect(versions[i]);
-                    arguments.callee.activeXString = versions[i];
-                    break;
-                } catch (ex){
-                    // 跳过
-                }
-            }
-        }
-        return new ActiveXObject(arguments.callee.activeXstring);
-    } else{
-        return new Error(&quot;No XHR object available.&quot;)
-    }
-}
-</code></pre><p>这个函数先检测原生XHR对象是否存在，如果存在就返回它的一个实例。如果原生对象不存在，则检测ActiveX对象。如果都不存在，就抛出一个错误。最后所有浏览器中就可以创建XHR对象了。</p>
-<pre><code>var xhr = createXHR();
-</code></pre>
-        
-      
-    
-      <p class="content-link">
-        <a href="/2017/11/15/Ajax与Comet/#more">
-          <span>继续阅读</span>
-        </a>
-      </p>
-    
-    </div>
-    
-  </article>
-  
-   
-    
-  
-
-  
-    
-  <article class="
-  post
-  
-  ">
-    <header class="post-header">
-      <div class="post-time syuanpi riseIn-light back-1">
-        <div class="post-time-wrapper">
-          <span>2017-11-13</span>
-          
-            
-              <span class="post-category"><a href="/categories/form/">form</a></span>
-            
-          
-          
-        </div>
-      </div>
-      <h1 class="post-title syuanpi riseIn-light back-2">
-        
-          <a href="/2017/11/13/form脚本特性及其中的HTML5新特性/">form脚本特性及其中的HTML5新特性</a>
-        
-      </h1>
-    </header>
-    <div class="post-content syuanpi riseIn-light back-3">
-      
-        
-          <h1 id="表单"><a href="#表单" class="headerlink" title="表单"></a>表单</h1><h2 id="表单基础知识"><a href="#表单基础知识" class="headerlink" title="表单基础知识"></a>表单基础知识</h2><p>在HTML中表单是由<code>&lt;form&gt;</code>元素来表示，而在JavaScript中，表单则对应的是HTMLFormElement类型，因而与其他HTML元素具有相同的默认属性。但HTMLFormElement也有自己的独有的属性和方法。详见：<a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLFormElement" target="_blank" rel="noopener">HTMLFormElement</a></p>
-<p>取得<code>&lt;form&gt;</code>元素引用常见的方式有：</p>
-<ol>
-<li>为其添加id特性，然后通过<code>var form = document.getElementById(&quot;form1&quot;)</code>来找到它。</li>
-<li><p>通过<code>document.forms</code>来取得页面中的所有表单。</p>
-<ul>
-<li><code>var firstForm = document.form[0]</code>取的页面中第一个表单</li>
-<li><code>var myForm = document.form[&quot;form2&quot;]</code>取得页面中名为“form2”的表单。</li>
-</ul>
-</li>
-</ol>
-        
-      
-    
-      <p class="content-link">
-        <a href="/2017/11/13/form脚本特性及其中的HTML5新特性/#more">
-          <span>继续阅读</span>
-        </a>
-      </p>
-    
-    </div>
-    
-  </article>
-  
-   
-    
-  
-
-  
-    
-  <article class="
-  post
-  
-  ">
-    <header class="post-header">
-      <div class="post-time syuanpi riseIn-light back-1">
-        <div class="post-time-wrapper">
-          <span>2017-10-23</span>
-          
-            
-              <span class="post-category"><a href="/categories/HTML5DOM/">HTML5DOM</a></span>
-            
-          
-          
-        </div>
-      </div>
-      <h1 class="post-title syuanpi riseIn-light back-2">
-        
-          <a href="/2017/10/23/JavaScript高级程序设计DOM拓展之HTML5/">JavaScript高级程序设计DOM拓展之HTML5</a>
-        
-      </h1>
-    </header>
-    <div class="post-content syuanpi riseIn-light back-3">
-      
-        
-          <p>本文章讨论HTML5中DOM节点相关的内容</p>
-<p>对于传统THML而言HTML5是一个叛逆。所有之前的版本对JavaScript接口的描述都不过三言两语，主要篇幅都用于定义标记，与JavaScript相关的内容一概交由DOM规范去定义。</p>
-<p>而HTML5规范则围绕如何使用新增标记定义了大量JavaScript API。其中一些API与DOM重叠，定义了浏览器应该支持的DOM拓展。</p>
-        
-      
-    
-      <p class="content-link">
-        <a href="/2017/10/23/JavaScript高级程序设计DOM拓展之HTML5/#more">
-          <span>继续阅读</span>
-        </a>
-      </p>
-    
-    </div>
-    
-  </article>
-  
-   
-    
-  
-
-  
-    
-  <article class="
-  post
-  
-  ">
-    <header class="post-header">
-      <div class="post-time syuanpi riseIn-light back-1">
-        <div class="post-time-wrapper">
-          <span>2017-10-22</span>
-          
-            
-              <span class="post-category"><a href="/categories/JavaScript高级程序设计/">JavaScript高级程序设计</a></span>
-            
-          
-          
-        </div>
-      </div>
-      <h1 class="post-title syuanpi riseIn-light back-2">
-        
-          <a href="/2017/10/22/JavaScript高级程序设计节点层次之Node类型/">JavaScript高级程序设计节点层次之Node类型</a>
-        
-      </h1>
-    </header>
-    <div class="post-content syuanpi riseIn-light back-3">
-      
-        
-          <h1 id="节点层次"><a href="#节点层次" class="headerlink" title="节点层次"></a>节点层次</h1><pre><code>&lt;html&gt;
-    &lt;head&gt;
-        &lt;title&gt;Simple Page&lt;/title&gt;
-    &lt;/head&gt;
-    &lt;body&gt;
-        &lt;p&gt;HEllo World!&lt;/p&gt;
-    &lt;/body&gt;
-&lt;/html&gt;
-</code></pre><p>可以将这个HTML文档表示为一个层次结构。如下图：</p>
-<p><img src="/images/HTMLnode.png" alt=""></p>
-<p>文档节点是每个文档的根节点。节点对应的元素就称之为文档元素。一般的HTML文档的文档元素是<html>元素。</html></p>
-<p>每一段标记都可以通过树中的一个节点来表示：HTML元素通过元素节点表示，特性通过特性节点表示，文档类型通过文档类型节点表示，注释则通过注释节点来表示。一共有12中节点类型，这些基类都继承自一个基类型。</p>
-        
-      
-    
-      <p class="content-link">
-        <a href="/2017/10/22/JavaScript高级程序设计节点层次之Node类型/#more">
-          <span>继续阅读</span>
-        </a>
-      </p>
-    
-    </div>
-    
-  </article>
-  
-   
-    
-  
-
-  
-</section>
-  
-  <nav class="pagination">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">下一页 ></a>
   </nav>
+
+    
+
+  
+   
+    
+  
+  <aside class="post-toc">
+    <span class="title" id="toc-switch"><span>文章导航</span></span>
+    <div class="toc-inner syuanpi back-1 fallIn-light">
+      <li class="title-link"><a href="javascript:;" class="toTop">SPA 路由原理及 react-router 浅析</a></li>
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#SPA-路由原理"><span class="toc-text">SPA 路由原理</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Hash-路由原理及简单实现"><span class="toc-text">Hash 路由原理及简单实现</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#history-路由原理及简单实现"><span class="toc-text">history 路由原理及简单实现</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#优缺点"><span class="toc-text">优缺点</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#hash-路由"><span class="toc-text">hash 路由</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#优点："><span class="toc-text">优点：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#缺点："><span class="toc-text">缺点：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#history-路由"><span class="toc-text">history 路由</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#优点：-1"><span class="toc-text">优点：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#缺点：-1"><span class="toc-text">缺点：</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#react-router-V4-原理"><span class="toc-text">react-router V4 原理</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Router"><span class="toc-text">Router</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#类型"><span class="toc-text">类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#特性"><span class="toc-text">特性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#通信方式"><span class="toc-text">通信方式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Route"><span class="toc-text">Route</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#matchPath-函数"><span class="toc-text">matchPath 函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Switch"><span class="toc-text">Switch</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Link"><span class="toc-text">Link</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Redirect"><span class="toc-text">Redirect</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#withRouter"><span class="toc-text">withRouter</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#StaticRouter"><span class="toc-text">StaticRouter</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#总结"><span class="toc-text">总结</span></a></li></ol>
+    </div>
+  </aside>
+
+
+  
 
 
         </div>
